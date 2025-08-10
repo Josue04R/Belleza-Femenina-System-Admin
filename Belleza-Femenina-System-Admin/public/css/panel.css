@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    }
+
+:root {
+    --colorPrimary: #FF2D72;       /* ROSA NEÓN - Botones principales (impacto visual) */
+    --colorSecondary: #FF6B9E;     /* ROSA CHICLE BRILLANTE - Secundarios */
+    --colorAccent: #FF1493;        /* ROSA ELECTRICO - Acentos (Deep Pink) */
+    --colorLight: #FFC0E5;         /* ROSA ALGODÓN - Fondos suaves */
+    --colorBackground: #FFF0F7;    /* ROSA BLANCO HIELO - Fondo general */
+    --colorText: #8E0E4E;          /* BORGOÑA ROSADO - Texto (contraste elegante) */
+    --colorTextLight: #D43D7A;     /* ROSA FRAMBUESA - Texto secundario */
+    --colorBorder: #FF8FBF;        /* ROSA CONFETI - Bordes */
+    --colorHover: #FF0090;         /* ROSA FUCIA - Efecto hover vibrante */
+    --colorActive: #D1006B;        /* ROSA VINO - Estado activo (profundidad) */
+    --scrollbarWidth: 8px;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--colorBackground);
+    color: var(--colorText);
+    overflow-x: hidden;
+}
+
+.siteNav {
+    display: none;
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    background-color: var(--colorLight);
+    border-bottom: 1px solid var(--colorBorder);
+    z-index: 100;
+}
+
+.sidebarToggle {
+    height: 40px;
+    width: 40px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: var(--colorText);
+    background: var(--colorAccent);
+    transition: all 0.3s ease;
+}
+
+.sidebarToggle:hover {
+    background: var(--colorHover);
+    color: white;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, var(--colorPrimary), var(--colorSecondary));
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    z-index: 90;
+}
+
+.sidebar.collapsed {
+    width: 90px;
+}
+
+.sidebarHeader {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 80px;
+}
+
+.headerLogo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    background-color: white;
+    padding: 5px;
+}
+
+.sidebar.collapsed .headerLogo {
+    display: none;
+}
+
+.sidebarContent {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Estilo personalizado para la barra de scroll */
+    scrollbar-width: thin;
+    scrollbar-color: var(--colorAccent) transparent;
+}
+
+/* Personalización de la barra de scroll para Chrome/Safari */
+.sidebarContent::-webkit-scrollbar {
+    width: var(--scrollbarWidth);
+}
+
+.sidebarContent::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 5px 0;
+}
+
+.sidebarContent::-webkit-scrollbar-thumb {
+    background-color: var(--colorAccent);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.sidebarContent::-webkit-scrollbar-thumb:hover {
+    background-color: var(--colorHover);
+}
+
+.menuList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menuItem {
+    position: relative;
+}
+
+.menuLink {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.sidebar.collapsed .menuLink {
+    justify-content: center;
+    padding: 16px 12px;
+}
+
+.menuLink:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.menuLink.active {
+    background-color: white;
+    color: var(--colorPrimary);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menuIcon {
+    font-size: 1.6rem;
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.sidebar.collapsed .menuIcon {
+    font-size: 1.8rem;
+    min-width: 30px;
+}
+
+.menuLabel {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .menuLabel {
+    display: none;
+}
+
+.dropdownMenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding-left: 12px;
+    list-style: none;
+}
+
+.dropdownMenu.show {
+    max-height: 500px;
+}
+
+.dropdownLink {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.dropdownLink:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdownLink.active {
+    color: white;
+    font-weight: 500;
+}
+
+.dropdownLink .menuIcon {
+    font-size: 1.4rem;
+}
+
+.sidebar.collapsed .dropdownMenu {
+    position: fixed; /* Cambia de absolute a fixed */
+    top: auto; /* Se ajusta dinámicamente en JS */
+    left: 90px;
+    background: linear-gradient(to bottom, var(--colorPrimary), var(--colorSecondary));
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+    z-index: 9999; /* Asegura que esté por encima */
+    padding-left: 0;
+    display: none; /* Oculto por defecto */
+}
+
+.sidebar.collapsed .dropdownMenu.show {
+    display: block; /* Solo se muestra cuando está activo */
+    max-height: 500px;
+}
+
+.sidebar.collapsed .dropdownIcon {
+    display: none;
+}
+
+.sidebarFooter {
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logoutBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 12px;
+    border-radius: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sidebar.collapsed .logoutBtn {
+    justify-content: center;
+}
+
+.logoutBtn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.mainContent {
+    flex: 1;
+    padding: 30px;
+    background-color: var(--colorBackground);
+    overflow-x: hidden;
+}
+
+.pageTitle {
+    color: var(--colorPrimary);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .siteNav {
+    display: block;
+}
+
+.sidebar {
+    position: fixed;
+    left: -280px;
+}
+
+.sidebar.show {
+    left: 0;
+}
+
+.sidebar.collapsed {
+    left: -280px;
+}
+
+.mainContent {
+    padding: 20px;
+}
+}
+
+/* Mostrar los nombres en el flyout aunque el sidebar esté colapsado */
+.sidebar.collapsed .dropdownMenu.show .menuLabel {
+    display: inline;
+}
