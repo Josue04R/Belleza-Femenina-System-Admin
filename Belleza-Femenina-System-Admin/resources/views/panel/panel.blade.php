@@ -38,9 +38,26 @@
             </a>
             <ul class="dropdownMenu" id="productosMenu">
               <li>
-                <a href="#" class="dropdownLink">
+                <a href="{{ url('/categorias') }}" class="dropdownLink">
                   <span class="material-symbols-rounded menuIcon">category</span>
                   <span class="menuLabel">Categoría Productos</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ url('/productos') }}" class="dropdownLink">
+                  <span class="material-symbols-rounded menuIcon">category</span>
+                  <span class="menuLabel">Productos</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ url('/tallas') }}" class="dropdownLink">
+                  <span class="material-symbols-rounded menuIcon">category</span>
+                  <span class="menuLabel">tallas</span>
+                </a>
+              </li><li>
+                <a href="{{ url('/variantes-productos') }}" class="dropdownLink">
+                  <span class="material-symbols-rounded menuIcon">category</span>
+                  <span class="menuLabel">Variantes productos</span>
                 </a>
               </li>
             </ul>
@@ -123,12 +140,9 @@
       </div>
     </aside>
     
-    <!-- Main Content -->
+     <!-- Main Content -->
     <div class="mainContent">
-      <h1 class="pageTitle">Panel de control</h1>
-      <div class="card">
-        <p>Selecciona una opción del menú para comenzar.</p>
-      </div>
+      @yield('content')
     </div>
   </div>
   
