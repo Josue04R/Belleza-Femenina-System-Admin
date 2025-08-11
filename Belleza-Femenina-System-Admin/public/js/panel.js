@@ -1,31 +1,26 @@
-// Toggle sidebar
-const sidebarToggleBtns = document.querySelectorAll(".sidebarToggle");
-const sidebar = document.querySelector(".sidebar");
+const toggleSiderbarBtns = document.querySelectorAll(".toggleSiderbar");
+const mainSidebar = document.querySelector(".mainSidebar");
 
-sidebarToggleBtns.forEach(btn => {
+toggleSiderbarBtns.forEach(btn => {
     btn.addEventListener("click", () => {
     if (window.innerWidth <= 768) {
-        // Solo mostrar/ocultar en móviles
-        sidebar.classList.toggle("show");
-        sidebar.classList.remove("collapsed");
+        mainSidebar.classList.toggle("show");
+        mainSidebar.classList.remove("collapsed");
     } else {
-        // Solo colapsar en escritorio
-        sidebar.classList.toggle("collapsed");
-        sidebar.classList.remove("show");
+        mainSidebar.classList.toggle("collapsed");
+        mainSidebar.classList.remove("show");
     }
     });
 });
 
-// Cerrar sidebar al hacer clic fuera en móviles
 document.addEventListener("click", (e) => {
     if (window.innerWidth <= 768) {
-    if (!e.target.closest('.sidebar') && !e.target.closest('.sidebarToggle')) {
-        sidebar.classList.remove("show");
+    if (!e.target.closest('.mainSidebar') && !e.target.closest('.toggleSiderbar')) {
+        mainSidebar.classList.remove("show");
     }
     }
 });
 
-// Dropdown functionality
 const dropdowns = [
     { trigger: "productosDropdown", menu: "productosMenu" },
     { trigger: "empleadosDropdown", menu: "empleadosMenu" }
@@ -38,9 +33,7 @@ dropdowns.forEach(dropdown => {
 
     trigger.addEventListener("click", (e) => {
     e.preventDefault();
-    if (sidebar.classList.contains("collapsed")) {
-        // Mostrar el menú como flyout en colapsado
-        // Calcula la posición del trigger para mostrar el menú al lado
+    if (mainSidebar.classList.contains("collapsed")) {
         const rect = trigger.getBoundingClientRect();
         menu.style.top = rect.top + "px";
         menu.style.left = rect.right + "px";
@@ -54,9 +47,8 @@ dropdowns.forEach(dropdown => {
     });
 });
 
-// Cerrar dropdowns al hacer clic fuera
 document.addEventListener('click', (e) => {
-    if (!e.target.closest('.menuItem')) {
+    if (!e.target.closest('.itemMenu')) {
     dropdowns.forEach(dropdown => {
         const menu = document.getElementById(dropdown.menu);
         const trigger = document.getElementById(dropdown.trigger);
@@ -67,10 +59,9 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Responsive behavior
 function handleResize() {
     if (window.innerWidth > 768) {
-    sidebar.classList.remove("show");
+    mainSidebar.classList.remove("show");
     }
 }
 
