@@ -34,11 +34,9 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
-									<th >Id Variantes</th>
-									<th >Id Producto</th>
-									<th >Id Talla</th>
+                                    
+									<th >Nombre Producto</th>
+									<th >Talla</th>
 									<th >Color</th>
 									<th >Stock</th>
 									<th >Precio</th>
@@ -49,11 +47,9 @@
                                 <tbody>
                                     @foreach ($variantesProductos as $variantesProducto)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-										<td >{{ $variantesProducto->id_variantes }}</td>
-										<td >{{ $variantesProducto->id_producto }}</td>
-										<td >{{ $variantesProducto->id_talla }}</td>
+                                           
+										<td>{{ $variantesProducto->producto?->nombre_p }}</td>
+                                        <td>{{ $variantesProducto->talla?->talla }}</td>
 										<td >{{ $variantesProducto->color }}</td>
 										<td >{{ $variantesProducto->stock }}</td>
 										<td >{{ $variantesProducto->precio }}</td>

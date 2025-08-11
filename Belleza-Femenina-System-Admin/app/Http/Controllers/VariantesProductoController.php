@@ -6,6 +6,8 @@ use App\Models\VariantesProducto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\VariantesProductoRequest;
+use App\Models\Producto;
+use App\Models\Talla;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -16,7 +18,7 @@ class VariantesProductoController extends Controller
      */
     public function index(Request $request): View
     {
-        $variantesProductos = VariantesProducto::paginate();
+        $variantesProductos = VariantesProducto::with(['producto', 'talla'])->paginate();
 
         return view('variantes-producto.index', compact('variantesProductos'))
             ->with('i', ($request->input('page', 1) - 1) * $variantesProductos->perPage());
@@ -28,8 +30,10 @@ class VariantesProductoController extends Controller
     public function create(): View
     {
         $variantesProducto = new VariantesProducto();
+        $productos = Producto::all();
+        $tallas = Talla::all();  
 
-        return view('variantes-producto.create', compact('variantesProducto'));
+        return view('variantes-producto.create', compact('variantesProducto', 'productos', 'tallas'));
     }
 
     /**
