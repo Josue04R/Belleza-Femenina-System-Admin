@@ -50,3 +50,36 @@
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#id_producto').change(function() {
+        let productoId = $(this).val();
+
+        if(productoId) {
+            $.ajax({
+                url: '/producto-datos/' + productoId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#color').val(data.color);
+                    $('#precio').val(data.precio);
+                    $('#stock').val(data.stock);
+                },
+                error: function() {
+                    alert('Error al obtener datos del producto');
+                    $('#color').val('');
+                    $('#precio').val('');
+                    $('#stock').val('');
+                }
+            });
+        } else {
+            $('#color').val('');
+            $('#precio').val('');
+            $('#stock').val('');
+        }
+    });
+});
+</script>

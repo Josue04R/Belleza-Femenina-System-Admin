@@ -18,3 +18,4 @@ Route::resource('categorias', CategoriaController::class);
 Route::resource('productos', ProductoController::class);
 Route::resource('tallas', TallaController::class);
 Route::resource('variantes-productos', VariantesProductoController::class);
+Route::get('/producto-datos/{id_producto}', [VariantesProductoController::class, 'getDatosProducto']);
