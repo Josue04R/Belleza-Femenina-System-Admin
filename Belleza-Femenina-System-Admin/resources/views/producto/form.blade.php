@@ -1,11 +1,7 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
         
-        <div class="form-group mb-2 mb20">
-            <label for="id_producto" class="form-label">{{ __('Id Producto') }}</label>
-            <input type="text" name="id_producto" class="form-control @error('id_producto') is-invalid @enderror" value="{{ old('id_producto', $producto?->id_producto) }}" id="id_producto" placeholder="Id Producto">
-            {!! $errors->first('id_producto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
+        
         <div class="form-group mb-2 mb20">
             <label for="nombre_p" class="form-label">{{ __('Nombre P') }}</label>
             <input type="text" name="nombre_p" class="form-control @error('nombre_p') is-invalid @enderror" value="{{ old('nombre_p', $producto?->nombre_p) }}" id="nombre_p" placeholder="Nombre P">
@@ -17,10 +13,19 @@
             {!! $errors->first('marca_p', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="id_cate" class="form-label">{{ __('Id Cate') }}</label>
-            <input type="text" name="id_cate" class="form-control @error('id_cate') is-invalid @enderror" value="{{ old('id_cate', $producto?->id_cate) }}" id="id_cate" placeholder="Id Cate">
+            <label for="id_cate" class="form-label">{{ __('Categoría') }}</label>
+            <select name="id_cate" id="id_cate" class="form-control @error('id_cate') is-invalid @enderror">
+                <option value="">-- Selecciona una categoría --</option>
+                @foreach($categorias as $categoria)
+                    <option value="{{ $categoria->id_cate }}" 
+                        {{ old('id_cate', $producto?->id_cate) == $categoria->id_cate ? 'selected' : '' }}>
+                        {{ $categoria->categoria }}
+                    </option>
+                @endforeach
+            </select>
             {!! $errors->first('id_cate', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
         <div class="form-group mb-2 mb20">
             <label for="material" class="form-label">{{ __('Material') }}</label>
             <input type="text" name="material" class="form-control @error('material') is-invalid @enderror" value="{{ old('material', $producto?->material) }}" id="material" placeholder="Material">

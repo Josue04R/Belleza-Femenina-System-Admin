@@ -6,6 +6,7 @@ use App\Models\Producto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductoRequest;
+use App\Models\Categoria;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -28,8 +29,9 @@ class ProductoController extends Controller
     public function create(): View
     {
         $producto = new Producto();
+        $categorias = Categoria::all();
 
-        return view('producto.create', compact('producto'));
+        return view('producto.create', compact('producto', 'categorias'));
     }
 
     /**
@@ -60,7 +62,9 @@ class ProductoController extends Controller
     {
         $producto = Producto::find($id);
 
-        return view('producto.edit', compact('producto'));
+        $categorias = Categoria::all(); 
+
+        return view('producto.edit', compact('producto', 'categorias'));
     }
 
     /**

@@ -33,10 +33,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-                                        
-									<th >Id Cate</th>
+                                    
 									<th >Categoria</th>
 									<th >Descripcion</th>
 
@@ -46,9 +43,7 @@
                                 <tbody>
                                     @foreach ($categorias as $categoria)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
                                             
-										<td >{{ $categoria->id_cate }}</td>
 										<td >{{ $categoria->categoria }}</td>
 										<td >{{ $categoria->descripcion }}</td>
 
