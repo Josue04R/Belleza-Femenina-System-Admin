@@ -22,7 +22,6 @@ class TallaRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'id_talla' => 'required',
 			'talla' => 'required|string',
         ];
     }
