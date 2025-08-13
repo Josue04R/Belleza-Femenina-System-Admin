@@ -1,0 +1,186 @@
+:root, html {
+    --colorPrimary: #FF2D72;       /* ROSA NEÓN - Botones principales*/
+    --colorSecondary: #FF6B9E;     /* ROSA CHICLE BRILLANTE - Secundarios */
+    --colorAccent: #FF1493;        /* ROSA ELECTRICO - Acentos*/
+    --colorLight: #FFC0E5;         /* ROSA ALGODÓN - Fondos suaves */
+    --colorBackground: #FFF0F7;    /* ROSA BLANCO HIELO - Fondo general */
+    --colorText: #8E0E4E;          /* BORGOÑA ROSADO - Texto*/
+    --colorTextLight: #D43D7A;     /* ROSA FRAMBUESA - Texto secundario */
+    --colorBorder: #FF8FBF;        /* ROSA CONFETI - Bordes */
+    --colorHover: #FF0090;         /* ROSA FUCIA - Efecto hover vibrante */
+    --colorActive: #D1006B;        /* ROSA VINO - Estado activo*/
+    --scrollbarWidth: 8px;
+}
+
+/* Estilos generales */
+.custom-card {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--colorBackground);
+    border: none !important;
+}
+
+/* Encabezado */
+.custom-card-header {
+    background-color: var(--colorPrimary) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Alertas */
+.custom-alert {
+    border-left: 4px solid var(--colorActive) !important;
+    background-color: var(--colorLight) !important;
+    border: none !important;
+}
+
+/* Tabla - Eliminando bordes azules */
+.custom-table {
+    border: none !important;
+    border-collapse: collapse;
+}
+
+.custom-table thead th {
+    background-color: var(--colorLight) !important;
+    color: var(--colorText) !important;
+    font-weight: 600;
+    border-bottom: 2px solid var(--colorBorder) !important;
+    border: none !important;
+}
+
+.custom-table td {
+    border: none !important;
+}
+
+.custom-table-row:hover {
+    background-color: rgba(255, 107, 158, 0.05) !important;
+}
+
+/* Botones - Eliminando bordes azules */
+.custom-btn-group .btn {
+    border-radius: 4px;
+    min-width: 80px;
+    border: none !important;
+    outline: none !important;
+}
+
+.btn-primary {
+    background-color: var(--colorPrimary) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-success {
+    background-color: var(--colorAccent) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-danger {
+    background-color: var(--colorHover) !important;
+    border: none !important;
+    color: white !important;
+}
+
+/* Eliminar outline en focus */
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Paginación */
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--colorPrimary) !important;
+    border-color: var(--colorPrimary) !important;
+}
+
+.pagination .page-link {
+    color: var(--colorPrimary) !important;
+    border: none !important;
+}
+
+:root, html {
+    --colorPrimary: #FF2D72;       /* ROSA NEÓN - Botones principales */
+    --colorSecondary: #FF6B9E;     /* ROSA CHICLE BRILLANTE */
+    --colorAccent: #FF1493;        /* ROSA ELECTRICO */
+    --colorLight: #FFC0E5;         /* ROSA ALGODÓN */
+    --colorWhite: #FFFFFF;         /* BLANCO */
+}
+
+/* Estilos para botones - Efectos hover/active */
+.btn {
+    border: none !important;
+    border-radius: 6px !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+}
+
+.btn-primary {
+    background-color: var(--colorPrimary) !important;
+    color: var(--colorWhite) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--colorWhite) !important;
+    color: var(--colorPrimary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 45, 114, 0.2) !important;
+}
+
+.btn-primary:active {
+    background-color: var(--colorWhite) !important;
+    color: var(--colorPrimary) !important;
+    transform: translateY(0);
+}
+
+.btn-success {
+    background-color: var(--colorAccent) !important;
+    color: var(--colorWhite) !important;
+}
+
+.btn-success:hover {
+    background-color: var(--colorWhite) !important;
+    color: var(--colorAccent) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 20, 147, 0.2) !important;
+}
+
+.btn-success:active {
+    background-color: var(--colorWhite) !important;
+    color: var(--colorAccent) !important;
+    transform: translateY(0);
+}
+
+.btn-danger {
+    background-color: var(--colorHover) !important;
+    color: var(--colorWhite) !important;
+}
+
+.btn-danger:hover {
+    background-color: var(--colorWhite) !important;
+    color: var(--colorHover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 0, 144, 0.2) !important;
+}
+
+.btn-danger:active {
+    background-color: var(--colorWhite) !important;
+    color: var(--colorHover) !important;
+    transform: translateY(0);
+}
+
+/* Efecto para todos los botones al pasar el mouse */
+.custom-btn-group .btn:hover {
+    transform: scale(1.05);
+}
+
+/* Eliminar outline feo del focus */
+.btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
