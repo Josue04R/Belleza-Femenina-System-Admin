@@ -4,6 +4,10 @@
     {{ $categoria->name ?? __('Show') . " " . __('Categoria') }}
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/crearCategoria.css') }}">
+@endpush
+
 @section('content')
     <section class="content container-fluid">
         <div class="row">
@@ -14,7 +18,7 @@
                             <span class="card-title">{{ __('Show') }} Categoria</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('categorias.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-submit btn-sm" href="{{ route('categorias.index') }}"> {{ __('Back') }}</a>
                         </div>
                     </div>
 
