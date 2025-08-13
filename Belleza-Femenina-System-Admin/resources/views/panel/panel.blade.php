@@ -78,7 +78,7 @@
 
             <ul class="menuDropdown" id="empleadosMenu">
               <li>
-                <a href="{{url('permisos')}}" class="dropdownLink">
+                <a href="{{url('permisos')}}" class="linkDropdown">
                   <span class="material-symbols-rounded menuIcon">lock</span>
                   <span class="labelMenu">Permisos</span>
                 </a>
