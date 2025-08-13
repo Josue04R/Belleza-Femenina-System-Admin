@@ -4,6 +4,10 @@
     {{ __('Create') }} Categoria
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/crearCategoria.css') }}">
+@endpush
+
 @section('content')
     <section class="content container-fluid">
         <div class="row">
