@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('panel.panel')
 
 @section('template_title')
     Permisos
@@ -34,25 +34,21 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
-									<th >Idpermiso</th>
-									<th >Nombrepermiso</th>
-									<th >Categoriaproductos</th>
-									<th >Productos</th>
-									<th >Tallas</th>
-									<th >Variantesproducto</th>
-									<th >Empleados</th>
-									<th >Permisos</th>
-									<th >Registroventas</th>
-									<th >Ventas</th>
-									<th >Compras</th>
-									<th >Pedidos</th>
-									<th >Gastosoperativos</th>
-									<th >Inventario</th>
-									<th >Clientes</th>
-
-                                        <th></th>
+                                        <th >Idpermiso</th>
+                                        <th >Nombrepermiso</th>
+                                        <th >Categoria Productos</th>
+                                        <th >Productos</th>
+                                        <th >Tallas</th>
+                                        <th >Variantes Producto</th>
+                                        <th >Empleados</th>
+                                        <th >Permisos</th>
+                                        <th >Registro Ventas</th>
+                                        <th >Ventas</th>
+                                        <th >Compras</th>
+                                        <th >Pedidos</th>
+                                        <th >Gastos Operativos</th>
+                                        <th >Inventario</th>
+                                        <th >Clientes</th>        
                                     </tr>
                                 </thead>
                                 <tbody>
