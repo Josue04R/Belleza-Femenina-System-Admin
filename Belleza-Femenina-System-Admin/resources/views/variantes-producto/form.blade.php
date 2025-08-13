@@ -2,20 +2,33 @@
     <div class="col-md-12">
         
         <div class="form-group mb-2 mb20">
-            <label for="id_variantes" class="form-label">{{ __('Id Variantes') }}</label>
-            <input type="text" name="id_variantes" class="form-control @error('id_variantes') is-invalid @enderror" value="{{ old('id_variantes', $variantesProducto?->id_variantes) }}" id="id_variantes" placeholder="Id Variantes">
-            {!! $errors->first('id_variantes', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="id_producto" class="form-label">{{ __('Id Producto') }}</label>
-            <input type="text" name="id_producto" class="form-control @error('id_producto') is-invalid @enderror" value="{{ old('id_producto', $variantesProducto?->id_producto) }}" id="id_producto" placeholder="Id Producto">
+            <label for="id_producto" class="form-label">{{ __('Nombre Producto') }}</label>
+            <select name="id_producto" id="id_producto" class="form-control @error('id_producto') is-invalid @enderror">
+                <option value="">-- Selecciona un producto --</option>
+                @foreach($productos as $producto)
+                    <option value="{{ $producto->id_producto }}"
+                        {{ old('id_producto', $variantesProducto?->id_producto) == $producto->id_producto ? 'selected' : '' }}>
+                        {{ $producto->nombre_p }} 
+                    </option>
+                @endforeach
+            </select>
             {!! $errors->first('id_producto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
         <div class="form-group mb-2 mb20">
-            <label for="id_talla" class="form-label">{{ __('Id Talla') }}</label>
-            <input type="text" name="id_talla" class="form-control @error('id_talla') is-invalid @enderror" value="{{ old('id_talla', $variantesProducto?->id_talla) }}" id="id_talla" placeholder="Id Talla">
+            <label for="id_talla" class="form-label">{{ __('Talla') }}</label>
+            <select name="id_talla" id="id_talla" class="form-control @error('id_talla') is-invalid @enderror">
+                <option value="">-- Selecciona una talla --</option>
+                @foreach($tallas as $talla)
+                    <option value="{{ $talla->id_talla }}"
+                        {{ old('id_talla', $variantesProducto?->id_talla) == $talla->id_talla ? 'selected' : '' }}>
+                        {{ $talla->talla }} 
+                    </option>
+                @endforeach
+            </select>
             {!! $errors->first('id_talla', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
         <div class="form-group mb-2 mb20">
             <label for="color" class="form-label">{{ __('Color') }}</label>
             <input type="text" name="color" class="form-control @error('color') is-invalid @enderror" value="{{ old('color', $variantesProducto?->color) }}" id="color" placeholder="Color">
@@ -37,3 +50,36 @@
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#id_producto').change(function() {
+        let productoId = $(this).val();
+
+        if(productoId) {
+            $.ajax({
+                url: '/producto-datos/' + productoId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#color').val(data.color);
+                    $('#precio').val(data.precio);
+                    $('#stock').val(data.stock);
+                },
+                error: function() {
+                    alert('Error al obtener datos del producto');
+                    $('#color').val('');
+                    $('#precio').val('');
+                    $('#stock').val('');
+                }
+            });
+        } else {
+            $('#color').val('');
+            $('#precio').val('');
+            $('#stock').val('');
+        }
+    });
+});
+</script>

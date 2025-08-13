@@ -17,6 +17,10 @@ Route::resource('categorias', CategoriaController::class);
 Route::resource('productos', ProductoController::class);
 Route::resource('tallas', TallaController::class);
 Route::resource('variantes-productos', VariantesProductoController::class);
+<<<<<<< HEAD
 Route::resource('permisos', PermisoController::class);
 Route::resource('empleados', EmpleadoController::class);
 Route::resource('logs', LogController::class);
+=======
+Route::get('/producto-datos/{id_producto}', [VariantesProductoController::class, 'getDatosProducto']);
+>>>>>>> d45873664b80336e93400f57f4644d9fde171f0c

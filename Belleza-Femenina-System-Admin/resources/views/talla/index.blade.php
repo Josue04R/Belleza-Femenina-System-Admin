@@ -34,9 +34,7 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
                                         
-									<th >Id Talla</th>
 									<th >Talla</th>
 
                                         <th></th>
@@ -45,9 +43,7 @@
                                 <tbody>
                                     @foreach ($tallas as $talla)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-										<td >{{ $talla->id_talla }}</td>
+                                           
 										<td >{{ $talla->talla }}</td>
 
                                             <td>

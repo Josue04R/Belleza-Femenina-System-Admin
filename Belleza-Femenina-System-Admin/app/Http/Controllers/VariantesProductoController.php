@@ -6,6 +6,8 @@ use App\Models\VariantesProducto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\VariantesProductoRequest;
+use App\Models\Producto;
+use App\Models\Talla;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -16,7 +18,7 @@ class VariantesProductoController extends Controller
      */
     public function index(Request $request): View
     {
-        $variantesProductos = VariantesProducto::paginate();
+        $variantesProductos = VariantesProducto::with(['producto', 'talla'])->paginate();
 
         return view('variantes-producto.index', compact('variantesProductos'))
             ->with('i', ($request->input('page', 1) - 1) * $variantesProductos->perPage());
@@ -28,8 +30,10 @@ class VariantesProductoController extends Controller
     public function create(): View
     {
         $variantesProducto = new VariantesProducto();
+        $productos = Producto::all();
+        $tallas = Talla::all();  
 
-        return view('variantes-producto.create', compact('variantesProducto'));
+        return view('variantes-producto.create', compact('variantesProducto', 'productos', 'tallas'));
     }
 
     /**
@@ -58,9 +62,11 @@ class VariantesProductoController extends Controller
      */
     public function edit($id): View
     {
-        $variantesProducto = VariantesProducto::find($id);
+        $variantesProducto = VariantesProducto::findOrFail($id); 
+        $productos = Producto::all();
+        $tallas = Talla::all();
 
-        return view('variantes-producto.edit', compact('variantesProducto'));
+        return view('variantes-producto.edit', compact('variantesProducto', 'productos', 'tallas'));
     }
 
     /**
@@ -81,4 +87,20 @@ class VariantesProductoController extends Controller
         return Redirect::route('variantes-productos.index')
             ->with('success', 'VariantesProducto deleted successfully');
     }
+
+    public function getDatosProducto($id_producto)
+    {
+        $variante = VariantesProducto::where('id_producto', $id_producto)->first();
+
+        if (!$variante) {
+            return response()->json(['error' => 'Variante no encontrada'], 404);
+        }
+
+        return response()->json([
+            'color' => $variante->color,
+            'precio' => $variante->precio,
+            'stock' => $variante->stock,
+        ]);
+    }
+
 }

@@ -5,19 +5,19 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-    }
+}
 
 :root {
-    --colorPrimary: #FF2D72;       /* ROSA NEÓN - Botones principales (impacto visual) */
+    --colorPrimary: #FF2D72;       /* ROSA NEÓN - Botones principales*/
     --colorSecondary: #FF6B9E;     /* ROSA CHICLE BRILLANTE - Secundarios */
-    --colorAccent: #FF1493;        /* ROSA ELECTRICO - Acentos (Deep Pink) */
+    --colorAccent: #FF1493;        /* ROSA ELECTRICO - Acentos*/
     --colorLight: #FFC0E5;         /* ROSA ALGODÓN - Fondos suaves */
     --colorBackground: #FFF0F7;    /* ROSA BLANCO HIELO - Fondo general */
-    --colorText: #8E0E4E;          /* BORGOÑA ROSADO - Texto (contraste elegante) */
+    --colorText: #8E0E4E;          /* BORGOÑA ROSADO - Texto*/
     --colorTextLight: #D43D7A;     /* ROSA FRAMBUESA - Texto secundario */
     --colorBorder: #FF8FBF;        /* ROSA CONFETI - Bordes */
     --colorHover: #FF0090;         /* ROSA FUCIA - Efecto hover vibrante */
-    --colorActive: #D1006B;        /* ROSA VINO - Estado activo (profundidad) */
+    --colorActive: #D1006B;        /* ROSA VINO - Estado activo*/
     --scrollbarWidth: 8px;
 }
 
@@ -28,7 +28,7 @@ body {
     overflow-x: hidden;
 }
 
-.siteNav {
+.siteNavbar {
     display: none;
     padding: 15px 20px;
     position: sticky;
@@ -38,7 +38,7 @@ body {
     z-index: 100;
 }
 
-.sidebarToggle {
+.toggleSiderbar {
     height: 40px;
     width: 40px;
     border: none;
@@ -52,17 +52,17 @@ body {
     transition: all 0.3s ease;
 }
 
-.sidebarToggle:hover {
+.toggleSiderbar:hover {
     background: var(--colorHover);
     color: white;
 }
 
-.container {
+.containerMain {
     display: flex;
     min-height: 100vh;
 }
 
-.sidebar {
+.mainSidebar {
     position: sticky;
     top: 0;
     width: 280px;
@@ -75,11 +75,11 @@ body {
     z-index: 90;
 }
 
-.sidebar.collapsed {
+.mainSidebar.collapsed {
     width: 90px;
 }
 
-.sidebarHeader {
+.mainSidebarHeader {
     padding: 20px;
     display: flex;
     align-items: center;
@@ -88,7 +88,7 @@ body {
     min-height: 80px;
 }
 
-.headerLogo {
+.logoHeader {
     width: 40px;
     height: 40px;
     object-fit: contain;
@@ -98,53 +98,51 @@ body {
     padding: 5px;
 }
 
-.sidebar.collapsed .headerLogo {
+.mainSidebar.collapsed .logoHeader {
     display: none;
 }
 
-.sidebarContent {
+.sidebarcontentMain {
     flex: 1;
     padding: 15px;
     overflow-y: auto;
     overflow-x: hidden;
-    /* Estilo personalizado para la barra de scroll */
     scrollbar-width: thin;
     scrollbar-color: var(--colorAccent) transparent;
 }
 
-/* Personalización de la barra de scroll para Chrome/Safari */
-.sidebarContent::-webkit-scrollbar {
+.sidebarcontentMain::-webkit-scrollbar {
     width: var(--scrollbarWidth);
 }
 
-.sidebarContent::-webkit-scrollbar-track {
+.sidebarcontentMain::-webkit-scrollbar-track {
     background: transparent;
     margin: 5px 0;
 }
 
-.sidebarContent::-webkit-scrollbar-thumb {
+.sidebarcontentMain::-webkit-scrollbar-thumb {
     background-color: var(--colorAccent);
     border-radius: 10px;
     border: 2px solid transparent;
     background-clip: content-box;
 }
 
-.sidebarContent::-webkit-scrollbar-thumb:hover {
+.sidebarcontentMain::-webkit-scrollbar-thumb:hover {
     background-color: var(--colorHover);
 }
 
-.menuList {
+.listMenu {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.menuItem {
+.itemMenu {
     position: relative;
 }
 
-.menuLink {
+.linkMenu {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -157,16 +155,16 @@ body {
     white-space: nowrap;
 }
 
-.sidebar.collapsed .menuLink {
+.mainSidebar.collapsed .linkMenu {
     justify-content: center;
     padding: 16px 12px;
 }
 
-.menuLink:hover {
+.linkMenu:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.menuLink.active {
+.linkMenu.active {
     background-color: white;
     color: var(--colorPrimary);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -181,21 +179,21 @@ body {
     transition: all 0.3s ease;
 }
 
-.sidebar.collapsed .menuIcon {
+.mainSidebar.collapsed .menuIcon {
     font-size: 1.8rem;
     min-width: 30px;
 }
 
-.menuLabel {
+.labelMenu {
     transition: all 0.3s ease;
     overflow: hidden;
 }
 
-.sidebar.collapsed .menuLabel {
+.mainSidebar.collapsed .labelMenu {
     display: none;
 }
 
-.dropdownMenu {
+.menuDropdown {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease;
@@ -203,11 +201,11 @@ body {
     list-style: none;
 }
 
-.dropdownMenu.show {
+.menuDropdown.show {
     max-height: 500px;
 }
 
-.dropdownLink {
+.linkDropdown {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -220,48 +218,48 @@ body {
     white-space: nowrap;
 }
 
-.dropdownLink:hover {
+.linkDropdown:hover {
     color: white;
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.dropdownLink.active {
+.linkDropdown.active {
     color: white;
     font-weight: 500;
 }
 
-.dropdownLink .menuIcon {
+.linkDropdown .menuIcon {
     font-size: 1.4rem;
 }
 
-.sidebar.collapsed .dropdownMenu {
-    position: fixed; /* Cambia de absolute a fixed */
-    top: auto; /* Se ajusta dinámicamente en JS */
+.mainSidebar.collapsed .menuDropdown {
+    position: fixed;
+    top: auto;
     left: 90px;
     background: linear-gradient(to bottom, var(--colorPrimary), var(--colorSecondary));
     border-radius: 0 8px 8px 0;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
     min-width: 220px;
-    z-index: 9999; /* Asegura que esté por encima */
+    z-index: 9999;
     padding-left: 0;
-    display: none; /* Oculto por defecto */
-}
-
-.sidebar.collapsed .dropdownMenu.show {
-    display: block; /* Solo se muestra cuando está activo */
-    max-height: 500px;
-}
-
-.sidebar.collapsed .dropdownIcon {
     display: none;
 }
 
-.sidebarFooter {
+.mainSidebar.collapsed .menuDropdown.show {
+    display: block;
+    max-height: 500px;
+}
+
+.mainSidebar.collapsed .dropdownIcon {
+    display: none;
+}
+
+.mainSidebarFooter {
     padding: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.logoutBtn {
+.btnLogout {
     width: 100%;
     display: flex;
     align-items: center;
@@ -276,28 +274,28 @@ body {
     transition: all 0.3s ease;
 }
 
-.sidebar.collapsed .logoutBtn {
+.mainSidebar.collapsed .btnLogout {
     justify-content: center;
 }
 
-.logoutBtn:hover {
+.btnLogout:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.mainContent {
+.contentMain {
     flex: 1;
     padding: 30px;
     background-color: var(--colorBackground);
     overflow-x: hidden;
 }
 
-.pageTitle {
+.titlePage {
     color: var(--colorPrimary);
     margin-bottom: 20px;
     font-size: 1.8rem;
 }
 
-.card {
+.listCart {
     background-color: white;
     border-radius: 12px;
     padding: 20px;
@@ -306,29 +304,28 @@ body {
 }
 
 @media (max-width: 768px) {
-    .siteNav {
+    .siteNavbar {
     display: block;
-}
-
-.sidebar {
+    }
+    
+    .mainSidebar {
     position: fixed;
     left: -280px;
-}
-
-.sidebar.show {
+    }
+    
+    .mainSidebar.show {
     left: 0;
-}
-
-.sidebar.collapsed {
+    }
+    
+    .mainSidebar.collapsed {
     left: -280px;
-}
-
-.mainContent {
+    }
+    
+    .contentMain {
     padding: 20px;
-}
+    }
 }
 
-/* Mostrar los nombres en el flyout aunque el sidebar esté colapsado */
-.sidebar.collapsed .dropdownMenu.show .menuLabel {
+.mainSidebar.collapsed .menuDropdown.show .labelMenu {
     display: inline;
 }

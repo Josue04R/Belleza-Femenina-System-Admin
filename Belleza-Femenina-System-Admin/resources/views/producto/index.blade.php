@@ -34,12 +34,11 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
                                         
 									<th >Id Producto</th>
 									<th >Nombre P</th>
 									<th >Marca P</th>
-									<th >Id Cate</th>
+									<th >Nombre Categoria</th>
 									<th >Material</th>
 									<th >Descripcion</th>
 									<th >Precio</th>
@@ -52,12 +51,12 @@
                                 <tbody>
                                     @foreach ($productos as $producto)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                           
                                             
 										<td >{{ $producto->id_producto }}</td>
 										<td >{{ $producto->nombre_p }}</td>
 										<td >{{ $producto->marca_p }}</td>
-										<td >{{ $producto->id_cate }}</td>
+										<td >{{ $producto->categoria->categoria ?? 'N/A' }}</td>
 										<td >{{ $producto->material }}</td>
 										<td >{{ $producto->descripcion }}</td>
 										<td >{{ $producto->precio }}</td>

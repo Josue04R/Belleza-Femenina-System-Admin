@@ -33,8 +33,8 @@
                                     {{ $producto->marca_p }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Id Cate:</strong>
-                                    {{ $producto->id_cate }}
+                                    <strong>Nombre Categoria:</strong>
+                                    {{ $producto->categoria->categoria ?? 'N/A' }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Material:</strong>
