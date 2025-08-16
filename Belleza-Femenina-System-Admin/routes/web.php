@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\GastosOperativoController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ProductoController;
@@ -21,3 +22,4 @@ Route::resource('permisos', PermisoController::class);
 Route::resource('empleados', EmpleadoController::class);
 Route::resource('logs', LogController::class);
 Route::get('/producto-datos/{id_producto}', [VariantesProductoController::class, 'getDatosProducto']);
+Route::resource('gastos-operativos', GastosOperativoController::class);

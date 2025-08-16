@@ -102,7 +102,7 @@
           </li>
           
           <li class="itemMenu">
-            <a href="#" class="linkMenu">
+            <a href="{{ url ('/gastos-operativos') }}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">receipt</span>
               <span class="labelMenu">Gastos operativos</span>
             </a>

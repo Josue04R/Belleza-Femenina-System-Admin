@@ -1,7 +1,6 @@
 @extends('panel.panel')
-
 @section('template_title')
-    {{ __('Create') }} Empleado
+    {{ __('Create') }} Gastos Operativo
 @endsection
 
 @section('content')
@@ -11,13 +10,13 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Empleado</span>
+                        <span class="card-title">{{ __('Create') }} Gastos Operativo</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('empleados.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('gastos-operativos.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
-                            @include('empleado.form')
+                            @include('gastos-operativo.form')
 
                         </form>
                     </div>
