@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('panel.panel')
 
 @section('template_title')
     {{ __('Create') }} Permiso
