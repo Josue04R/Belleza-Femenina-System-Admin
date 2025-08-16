@@ -40,7 +40,7 @@ class TallaController extends Controller
         Talla::create($request->validated());
 
         return Redirect::route('tallas.index')
-            ->with('success', 'Talla created successfully.');
+            ->with('success', 'Talla creada correctamente.');
     }
 
     /**
@@ -71,7 +71,7 @@ class TallaController extends Controller
         $talla->update($request->validated());
 
         return Redirect::route('tallas.index')
-            ->with('success', 'Talla updated successfully');
+            ->with('success', 'Talla actualizada correctamente.');
     }
 
     public function destroy($id): RedirectResponse
@@ -79,6 +79,6 @@ class TallaController extends Controller
         Talla::find($id)->delete();
 
         return Redirect::route('tallas.index')
-            ->with('success', 'Talla deleted successfully');
+            ->with('success', 'Talla eliminada correctamente.');
     }
 }

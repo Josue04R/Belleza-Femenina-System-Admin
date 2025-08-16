@@ -44,7 +44,7 @@ class VariantesProductoController extends Controller
         VariantesProducto::create($request->validated());
 
         return Redirect::route('variantes-productos.index')
-            ->with('success', 'VariantesProducto created successfully.');
+            ->with('success', 'Variantes-Producto creada correctamente.');
     }
 
     /**
@@ -77,7 +77,7 @@ class VariantesProductoController extends Controller
         $variantesProducto->update($request->validated());
 
         return Redirect::route('variantes-productos.index')
-            ->with('success', 'VariantesProducto updated successfully');
+            ->with('success', 'Variantes-Producto actualizada correctamente.');
     }
 
     public function destroy($id): RedirectResponse
@@ -85,7 +85,7 @@ class VariantesProductoController extends Controller
         VariantesProducto::find($id)->delete();
 
         return Redirect::route('variantes-productos.index')
-            ->with('success', 'VariantesProducto deleted successfully');
+            ->with('success', 'Variantes-Producto elimnada correctamente.');
     }
 
     public function getDatosProducto($id_producto)
