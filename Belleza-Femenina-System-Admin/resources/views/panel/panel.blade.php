@@ -115,12 +115,13 @@
             </a>
           </li>
           
-          <li class="itemMenu">
-            <a href="#" class="linkMenu">
+         <li class="itemMenu">
+            <a href="{{ route('ventas.index') }}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">point_of_sale</span>
               <span class="labelMenu">Ventas</span>
             </a>
           </li>
+
           
           <li class="itemMenu">
             <a href="#" class="linkMenu">

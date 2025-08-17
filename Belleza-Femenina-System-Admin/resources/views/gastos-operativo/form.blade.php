@@ -1,7 +1,7 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
 
-        {{-- Fecha con calendario --}}
+        
         <div class="form-group mb-2 mb20">
             <label for="fecha" class="form-label">{{ __('Fecha') }}</label>
             <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror" 
@@ -9,7 +9,7 @@
             {!! $errors->first('fecha', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        {{-- Categoria --}}
+        
         <div class="form-group mb-2 mb20">
             <label for="categoria" class="form-label">{{ __('Categoria') }}</label>
             <input type="text" name="categoria" class="form-control @error('categoria') is-invalid @enderror" 
@@ -17,7 +17,7 @@
             {!! $errors->first('categoria', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        {{-- Descripcion --}}
+        
         <div class="form-group mb-2 mb20">
             <label for="descripcion" class="form-label">{{ __('Descripcion') }}</label>
             <input type="text" name="descripcion" class="form-control @error('descripcion') is-invalid @enderror" 
@@ -25,7 +25,7 @@
             {!! $errors->first('descripcion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        {{-- Monto: solo números y decimales --}}
+        
         <div class="form-group mb-2 mb20">
             <label for="monto" class="form-label">{{ __('Monto') }}</label>
             <input type="number" step="0.01" name="monto" class="form-control @error('monto') is-invalid @enderror" 
@@ -33,7 +33,7 @@
             {!! $errors->first('monto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        {{-- Método de pago: solo letras --}}
+        
         <div class="form-group mb-2 mb20">
             <label for="metodo_pago" class="form-label">{{ __('Metodo Pago') }}</label>
             <input type="text" name="metodo_pago" 
@@ -44,7 +44,7 @@
             {!! $errors->first('metodo_pago', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        {{-- Select empleados --}}
+        
         <div class="form-group mb-2 mb20">
             <label for="idEmpleado" class="form-label">{{ __('Empleado Responsable') }}</label>
             <select name="idEmpleado" id="idEmpleado" 
@@ -60,7 +60,7 @@
             {!! $errors->first('idEmpleado', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
-        {{-- Observaciones --}}
+      
         <div class="form-group mb-2 mb20">
             <label for="observaciones" class="form-label">{{ __('Observaciones') }}</label>
             <input type="text" name="observaciones" class="form-control @error('observaciones') is-invalid @enderror" 
