@@ -1,0 +1,23 @@
+/* Contenedor principal */
+.form-container {
+    padding-top: 2rem; /* Espacio superior */
+    padding-bottom: 2rem; /* Espacio inferior */
+}
+
+/* Card */
+.form-card {
+    border-radius: 8px; /* Bordes redondeados */
+    border: none; /* Elimina borde por defecto */
+}
+
+/* Header de la card */
+.form-header {
+    border-radius: 8px 8px 0 0 !important; /* Bordes redondeados solo arriba */
+    padding: 1rem 1.5rem; /* Más espacio interno */
+    font-size: 1.25rem; /* Tamaño de fuente más grande */
+}
+
+/* Cuerpo del formulario */
+.form-body {
+    padding: 0; /* Elimina padding por defecto para control interno */
+}

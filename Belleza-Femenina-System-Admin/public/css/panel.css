@@ -329,11 +329,3 @@ body {
 .mainSidebar.collapsed .menuDropdown.show .labelMenu {
     display: inline;
 }
-
-.mainContent {
-    flex: 1;
-    padding: 20px;
-    overflow-x: auto;
-    width: 100%;
-    max-width: 100vw;
-}

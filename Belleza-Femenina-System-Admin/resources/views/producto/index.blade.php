@@ -6,6 +6,7 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
+<link rel="stylesheet" href="{{ url('/css/tablas/tablas.css') }}">
 @endpush
 
 @section('content')
