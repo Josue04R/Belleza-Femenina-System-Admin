@@ -4,7 +4,13 @@
     {{ __('Update') }} Producto
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/crearCategoria.css') }}">
+@endpush
+
 @section('content')
+    <br>
+    <br>
     <section class="content container-fluid">
         <div class="">
             <div class="col-md-12">
@@ -14,12 +20,10 @@
                         <span class="card-title">{{ __('Update') }} Producto</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('productos.update', $producto->id_producto) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('productos.update', $producto->id_producto) }}" role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
-
                             @include('producto.form')
-
                         </form>
                     </div>
                 </div>
