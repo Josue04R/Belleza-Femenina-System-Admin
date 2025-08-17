@@ -15,13 +15,28 @@ class ProductoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $productos = Producto::paginate();
+        $search = $request->input('search');
+
+        $productos = Producto::query()
+            ->when($search, function($query, $search) {
+                $search = strtolower($search);
+                $query->whereRaw('LOWER(nombre_p) LIKE ?', ["%{$search}%"]);
+            })
+            ->paginate(10);
+
+       
+        if ($request->ajax()) {
+            return view('producto._tabla', compact('productos'))->render();
+        }
 
         return view('producto.index', compact('productos'))
             ->with('i', ($request->input('page', 1) - 1) * $productos->perPage());
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
