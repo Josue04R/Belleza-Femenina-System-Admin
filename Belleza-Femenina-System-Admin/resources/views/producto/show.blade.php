@@ -4,6 +4,10 @@
     {{ $producto->name ?? __('Show') . " " . __('Producto') }}
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/crearCategoria.css') }}">
+@endpush
+
 @section('content')
     <section class="content container-fluid">
         <div class="row">
@@ -14,49 +18,47 @@
                             <span class="card-title">{{ __('Show') }} Producto</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('productos.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-submit btn-sm" href="{{ route('productos.index') }}"> {{ __('Back') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
-                        
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Id Producto:</strong>
-                                    {{ $producto->id_producto }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Nombre P:</strong>
-                                    {{ $producto->nombre_p }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Marca P:</strong>
-                                    {{ $producto->marca_p }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Nombre Categoria:</strong>
-                                    {{ $producto->categoria->categoria ?? 'N/A' }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Material:</strong>
-                                    {{ $producto->material }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Descripcion:</strong>
-                                    {{ $producto->descripcion }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Precio:</strong>
-                                    {{ $producto->precio }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Imagen:</strong>
-                                    {{ $producto->imagen }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Estado:</strong>
-                                    {{ $producto->estado }}
-                                </div>
-
+                        <div class="form-group mb-2 mb20">
+                            <strong>Id Producto:</strong>
+                            <span>{{ $producto->id_producto }}</span>
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Nombre P:</strong>
+                            <span>{{ $producto->nombre_p }}</span>
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Marca P:</strong>
+                            <span>{{ $producto->marca_p }}</span>
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Nombre Categoria:</strong>
+                            <span>{{ $producto->categoria->categoria ?? 'N/A' }}</span>
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Material:</strong>
+                            <span>{{ $producto->material }}</span>
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Descripcion:</strong>
+                            <span>{{ $producto->descripcion }}</span>
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Precio:</strong>
+                            <span>{{ $producto->precio }}</span>
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Imagen:</strong>
+                            <span>{{ $producto->imagen }}</span>
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Estado:</strong>
+                            <span>{{ $producto->estado }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
