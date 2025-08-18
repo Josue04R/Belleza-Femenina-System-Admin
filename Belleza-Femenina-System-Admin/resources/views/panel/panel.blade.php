@@ -109,7 +109,7 @@
           </li>
           
           <li class="itemMenu">
-            <a href="#" class="linkMenu">
+            <a href="{{url ('compras')}}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">shopping_cart</span>
               <span class="labelMenu">Compras</span>
             </a>

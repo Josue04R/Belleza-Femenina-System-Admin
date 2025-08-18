@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::create('detalleCompras', function (Blueprint $table) {
             $table->id('idDetalleCompra');
+            $table->integer('idCompra');
             $table->integer('idProducto');
             $table->integer('idVarianteProducto');
             $table->integer('cantidad');
             $table->double('subtotal');
+            
+            $table->foreign('idCompra')
+                ->references('idCompra')
+                ->on('compras')
+                ->onDelete('restrict');
 
+            
             $table->foreign('idProducto')
                 ->references('id_producto')
                 ->on('productos')

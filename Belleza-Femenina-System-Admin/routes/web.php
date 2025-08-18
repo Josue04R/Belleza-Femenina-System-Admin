@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\DetalleCompraController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\GastosOperativoController;
 use App\Http\Controllers\LogController;
@@ -26,4 +28,6 @@ Route::get('/producto-datos/{id_producto}', [VariantesProductoController::class,
 Route::resource('gastos-operativos', GastosOperativoController::class);
 
 Route::resource('ventas', VentaController::class);
+Route::resource('compras',CompraController::class);
+Route::get('/detalleCompra',[DetalleCompraController::class, 'show']);
 

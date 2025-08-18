@@ -6,41 +6,8 @@ use Illuminate\Http\Request;
 
 class DetalleCompraController extends Controller
 {
-    
-    public function index()
-    {
-        //
+     
+    public function show(){
+        return view('detalleCompras.show');
     }
-
-    
-    public function create()
-    {
-        //
-    }
-
-   
-    public function store(Request $request)
-    {
-        //
-    }
-
-    
-    public function show(string $id)
-    {
-        //
-    }
-
-    
-    public function edit(string $id)
-    {
-        //
-    }
-
-    
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-   
 }
