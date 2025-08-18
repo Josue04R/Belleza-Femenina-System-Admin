@@ -41,10 +41,7 @@
             @endforeach
         </tbody>
     </table>
-
-    <div class="custom-pagination py-3">
-        {!! $productos->withQueryString()->links() !!}
-    </div>
+    
 @else
     <div class="alert alert-warning text-center mt-3">
         No existe el producto.

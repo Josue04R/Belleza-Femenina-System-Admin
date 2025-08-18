@@ -7,6 +7,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
 <link rel="stylesheet" href="{{ url('/css/tablas/tablas.css') }}">
+<link rel="stylesheet" href="{{ url('/css/pagination/pagination.css') }}">
 @endpush
 
 @section('content')
@@ -63,8 +64,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="custom-pagination py-3">
-                    {!! $tallas->withQueryString()->links() !!}
+                
+                <div class="cusmtonPagination py-3">
+                    <div class="paginationInfo">
+                        Showing {{ $tallas->firstItem() }} to {{ $tallas->lastItem() }} of {{ $tallas->total() }} results
+                    </div>
+                    <div class="paginationLinks">
+                        @if ($tallas->onFirstPage())
+                            <span class="paginationDisabled">« Previous</span>
+                        @else
+                            <a href="{{ $tallas->previousPageUrl() }}" class="paginationLink">« Previous</a>
+                        @endif
+
+                        @foreach ($tallas->getUrlRange(1, $tallas->lastPage()) as $page => $url)
+                            @if ($page == $tallas->currentPage())
+                                <span class="pagination-active">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}" class="paginationLink">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        @if ($tallas->hasMorePages())
+                            <a href="{{ $tallas->nextPageUrl() }}" class="paginationLink">Next »</a>
+                        @else
+                            <span class="paginationDisabled">Next »</span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

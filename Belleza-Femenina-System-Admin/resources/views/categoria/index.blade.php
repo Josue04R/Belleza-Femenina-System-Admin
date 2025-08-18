@@ -7,8 +7,8 @@
 @push('styles')
 <link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
 <link rel="stylesheet" href="{{ url('/css/tablas/tablas.css') }}">
+<link rel="stylesheet" href="{{ url('/css/pagination/pagination.css') }}">
 @endpush
-
 
 @section('content')
     <div class="container-fluid py-4 px-5">
@@ -51,7 +51,7 @@
                                             <td class="text-center px-4 py-3">
                                                 <form action="{{ route('categorias.destroy', $categoria->id_cate) }}" method="POST" class="d-inline">
                                                     <div class="btn-group custom-btn-group">
-                                                        <a class="btn btn-sm btn-success mx-1"" href="{{ route('categorias.show', $categoria->id_cate) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Show') }}</a>
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('categorias.show', $categoria->id_cate) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
                                                         <a class="btn btn-sm btn-success mx-1" href="{{ route('categorias.edit', $categoria->id_cate) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                         @csrf
                                                         @method('DELETE')
@@ -66,8 +66,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="custom-pagination py-3">
-                    {!! $categorias->withQueryString()->links() !!}
+                <div class="cusmtonPagination py-3">
+                    <div class="paginationInfo">
+                        Showing {{ $categorias->firstItem() }} to {{ $categorias->lastItem() }} of {{ $categorias->total() }} results
+                    </div>
+                    <div class="paginationLinks">
+                        @if ($categorias->onFirstPage())
+                            <span class="paginationDisabled">« Previous</span>
+                        @else
+                            <a href="{{ $categorias->previousPageUrl() }}" class="paginationLink">« Previous</a>
+                        @endif
+
+                        @foreach ($categorias->getUrlRange(1, $categorias->lastPage()) as $page => $url)
+                            @if ($page == $categorias->currentPage())
+                                <span class="pagination-active">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}" class="paginationLink">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        @if ($categorias->hasMorePages())
+                            <a href="{{ $categorias->nextPageUrl() }}" class="paginationLink">Next »</a>
+                        @else
+                            <span class="paginationDisabled">Next »</span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
