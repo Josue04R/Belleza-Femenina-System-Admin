@@ -18,7 +18,7 @@
 
                              <div class="float-right">
                                 <a href="{{ route('empleados.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create Nuevo') }}
+                                  {{ __('Crear Nuevo') }}
                                 </a>
                               </div>
                         </div>
@@ -34,31 +34,21 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
-									<th >Idempleado</th>
-									<th >Nombre</th>
-									<th >Apellido</th>
-									<th >Telefono</th>
-									<th >Usuario</th>
-									<th >Contrasenia</th>
-									<th >Idpermiso</th>
-
-                                        <th></th>
+                                        <th >Nombre</th>
+                                        <th >Apellido</th>
+                                        <th >Telefono</th>
+                                        <th >Usuario</th>
+                                        <th >Nivel Acceso</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($empleados as $empleado)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-										<td >{{ $empleado->idEmpleado }}</td>
-										<td >{{ $empleado->nombre }}</td>
-										<td >{{ $empleado->apellido }}</td>
-										<td >{{ $empleado->telefono }}</td>
-										<td >{{ $empleado->usuario }}</td>
-										<td >{{ $empleado->contrasenia }}</td>
-										<td >{{ $empleado->idPermiso }}</td>
+                                            <td >{{ $empleado->nombre }}</td>
+                                            <td >{{ $empleado->apellido }}</td>
+                                            <td >{{ $empleado->telefono }}</td>
+                                            <td >{{ $empleado->usuario }}</td>
+                                            <td >{{ $empleado->permiso()->nombrePermiso }}</td>
 
                                             <td>
                                                 <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST">
