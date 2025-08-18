@@ -4,69 +4,71 @@
     Gastos Operativos
 @endsection
 
-@section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
+<link rel="stylesheet" href="{{ url('/css/tablas/tablas.css') }}">
+<link rel="stylesheet" href="{{ url('/css/pagination/pagination.css') }}">
+@endpush
 
+@section('content')
+    <div class="container-fluid py-4 px-5">
+        <div class="row mx-1">
+            <div class="col-12 px-2">
+                <div class="card shadow-sm border-0 custom-card mb-4">
+                    <div class="card-header custom-card-header py-3 px-4">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span id="card_title">
                                 {{ __('Gastos Operativos') }}
                             </span>
-
-                             <div class="float-right">
-                                <a href="{{ route('gastos-operativos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                            <div class="float-right">
+                                <a href="{{ route('gastos-operativos.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
+                                    {{ __('Create New') }}
                                 </a>
-                              </div>
+                            </div>
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success m-4">
-                            <p>{{ $message }}</p>
+                        <div class="alert alert-success mx-4 mt-3 mb-3 custom-alert">
+                            <p class="mb-0">{{ $message }}</p>
                         </div>
                     @endif
 
-                    <div class="card-body bg-white">
+                    <div class="card-body bg-white px-4 py-3">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-hover custom-table mb-0">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
-									<th >Fecha</th>
-									<th >Categoria</th>
-									<th >Descripcion</th>
-									<th >Monto</th>
-									<th >Metodo Pago</th>
-									<th >Idempleado</th>
-									<th >Observaciones</th>
-
-                                        <th></th>
+                                        <th class="text-center px-4">No</th>
+                                        <th class="text-center px-4">Fecha</th>
+                                        <th class="text-center px-4">Categoria</th>
+                                        <th class="text-center px-4">Descripcion</th>
+                                        <th class="text-center px-4">Monto</th>
+                                        <th class="text-center px-4">Metodo Pago</th>
+                                        <th class="text-center px-4">Idempleado</th>
+                                        <th class="text-center px-4">Observaciones</th>
+                                        <th class="text-center px-4">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($gastosOperativos as $gastosOperativo)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-										<td >{{ $gastosOperativo->fecha }}</td>
-										<td >{{ $gastosOperativo->categoria }}</td>
-										<td >{{ $gastosOperativo->descripcion }}</td>
-										<td >{{ $gastosOperativo->monto }}</td>
-										<td >{{ $gastosOperativo->metodo_pago }}</td>
-										<td >{{ $gastosOperativo->idEmpleado }}</td>
-										<td >{{ $gastosOperativo->observaciones }}</td>
-
-                                            <td>
-                                                <form action="{{ route('gastos-operativos.destroy', $gastosOperativo->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('gastos-operativos.show', $gastosOperativo->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('gastos-operativos.edit', $gastosOperativo->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                        <tr class="custom-table-row">
+                                            <td class="text-center px-4 py-3">{{ ++$i }}</td>
+                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->fecha }}</td>
+                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->categoria }}</td>
+                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->descripcion }}</td>
+                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->monto }}</td>
+                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->metodo_pago }}</td>
+                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->idEmpleado }}</td>
+                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->observaciones }}</td>
+                                            <td class="text-center px-4 py-3">
+                                                <form action="{{ route('gastos-operativos.destroy', $gastosOperativo->id) }}" method="POST" class="d-inline">
+                                                    <div class="btn-group custom-btn-group">
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('gastos-operativos.show', $gastosOperativo->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('gastos-operativos.edit', $gastosOperativo->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger mx-1" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    </div>
                                                 </form>
                                             </td>
                                         </tr>
@@ -76,7 +78,32 @@
                         </div>
                     </div>
                 </div>
-                {!! $gastosOperativos->withQueryString()->links() !!}
+                <div class="cusmtonPagination py-3">
+                    <div class="paginationInfo">
+                        Showing {{ $gastosOperativos->firstItem() }} to {{ $gastosOperativos->lastItem() }} of {{ $gastosOperativos->total() }} results
+                    </div>
+                    <div class="paginationLinks">
+                        @if ($gastosOperativos->onFirstPage())
+                            <span class="paginationDisabled">« Previous</span>
+                        @else
+                            <a href="{{ $gastosOperativos->previousPageUrl() }}" class="paginationLink">« Previous</a>
+                        @endif
+
+                        @foreach ($gastosOperativos->getUrlRange(1, $gastosOperativos->lastPage()) as $page => $url)
+                            @if ($page == $gastosOperativos->currentPage())
+                                <span class="pagination-active">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}" class="paginationLink">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        @if ($gastosOperativos->hasMorePages())
+                            <a href="{{ $gastosOperativos->nextPageUrl() }}" class="paginationLink">Next »</a>
+                        @else
+                            <span class="paginationDisabled">Next »</span>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
