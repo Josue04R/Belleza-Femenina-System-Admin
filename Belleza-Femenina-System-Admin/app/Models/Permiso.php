@@ -41,7 +41,7 @@ class Permiso extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nombrePermiso', 'categoriaProductos', 'productos', 'tallas', 'variantesProducto', 'empleados', 'permisos', 'registroVentas', 'ventas', 'compras', 'pedidos', 'gastosOperativos', 'inventario', 'clientes'];
+    protected $fillable = ['nombrePermiso', 'gestionProductos' , 'empleados', 'permisos', 'registroVentas', 'ventas', 'compras', 'pedidos', 'gastosOperativos', 'inventario', 'clientes'];
 
 
     /**

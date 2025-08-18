@@ -58,31 +58,27 @@
                             @foreach ($permisos as $permiso)
                                 <tr>
                                     <td>{{ $permiso->nombrePermiso }}</td>
-                                    <td>{{ $permiso->gestionProductos }}</td>
-                                    <td>{{ $permiso->empleados }}</td>
-                                    <td>{{ $permiso->permisos }}</td>
-                                    <td>{{ $permiso->registroVentas }}</td>
-                                    <td>{{ $permiso->ventas }}</td>
-                                    <td>{{ $permiso->compras }}</td>
-                                    <td>{{ $permiso->pedidos }}</td>
-                                    <td>{{ $permiso->gastosOperativos }}</td>
-                                    <td>{{ $permiso->inventario }}</td>
-                                    <td>{{ $permiso->clientes }}</td>
+                                    <td>{{ $permiso->gestionProductos  == 1 ? 'Permitido' : 'Denegado'  }}</td>
+                                    <td>{{ $permiso->empleados == 1 ? 'Permitido' : 'Denegado' }}</td>
+                                    <td>{{ $permiso->permisos == 1 ? 'Permitido' : 'Denegado'  }}</td>
+                                    <td>{{ $permiso->registroVentas  == 1 ? 'Permitido' : 'Denegado' }}</td>
+                                    <td>{{ $permiso->ventas  == 1 ? 'Permitido' : 'Denegado'  }}</td>
+                                    <td>{{ $permiso->compras  == 1 ? 'Permitido' : 'Denegado' }}</td>
+                                    <td>{{ $permiso->pedidos == 1 ? 'Permitido' : 'Denegado'  }}</td>
+                                    <td>{{ $permiso->gastosOperativos  == 1 ? 'Permitido' : 'Denegado' }}</td>
+                                    <td>{{ $permiso->inventario == 1 ? 'Permitido' : 'Denegado'  }}</td>
+                                    <td>{{ $permiso->clientes  == 1 ? 'Permitido' : 'Denegado'  }}</td>
                                     <td class="columna-acciones-fija">
                                         <div class="btn-group btnGrupoCompacto">
-                                            <a href="{{ route('permisos.show', $permiso->id) }}" class="btn btn-success btn-sm">
+                                            <a href="{{ route('permisos.show', $permiso->idPermiso) }}" class="btn btn-success btn-sm">
+                                                Mostrar
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ route('permisos.edit', $permiso->id) }}" class="btn btn-primary btn-sm">
+                                            <a href="{{ route('permisos.edit', $permiso->idPermiso) }}" class="btn btn-primary btn-sm">
+                                                Editar
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('permisos.destroy', $permiso->id) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Confirmar eliminación?')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
+        
                                         </div>
                                     </td>
                                 </tr>

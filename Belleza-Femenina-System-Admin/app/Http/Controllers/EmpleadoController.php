@@ -42,7 +42,7 @@ class EmpleadoController extends Controller
         Empleado::create($request->validated());
 
         return Redirect::route('empleados.index')
-            ->with('success', 'Empleado created successfully.');
+            ->with('success', 'Empleado Creado');
     }
 
     /**
@@ -59,10 +59,11 @@ class EmpleadoController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id): View
-    {
+    {   
+        $permisos = Permiso::all();
         $empleado = Empleado::find($id);
 
-        return view('empleado.edit', compact('empleado'));
+        return view('empleado.edit', compact('empleado','permisos'));
     }
 
     /**
@@ -73,7 +74,7 @@ class EmpleadoController extends Controller
         $empleado->update($request->validated());
 
         return Redirect::route('empleados.index')
-            ->with('success', 'Empleado updated successfully');
+            ->with('success', 'Empleado Modificado');
     }
 
     public function destroy($id): RedirectResponse
@@ -81,6 +82,6 @@ class EmpleadoController extends Controller
         Empleado::find($id)->delete();
 
         return Redirect::route('empleados.index')
-            ->with('success', 'Empleado deleted successfully');
+            ->with('success', 'Empleado Eliminado');
     }
 }
