@@ -1,0 +1,78 @@
+/* Estilos para la paginación */
+.cusmtonPagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.paginationInfo {
+    color: var(--colorText);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.paginationLinks {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.paginationLink,
+.paginationDisabled,
+.paginationActive{
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    min-width: 36px;
+    text-align: center;
+    display: inline-block;
+}
+
+.paginationLink {
+    color: var(--colorText);
+    border: 1px solid var(--colorBorder);
+    background-color: white;
+    font-weight: 500;
+}
+
+.paginationLink:hover {
+    background-color: var(--colorHover);
+    color: white;
+    border-color: var(--colorHover);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(255, 45, 114, 0.2);
+}
+
+.paginationActive{
+    background-color: var(--colorPrimary);
+    color: white;
+    border: 1px solid var(--colorPrimary);
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(255, 45, 114, 0.3);
+}
+
+.paginationDisabled {
+    color: var(--colorTextLight);
+    border: 1px solid var(--colorBorder);
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--colorBackground);
+}
+
+@media (max-width: 768px) {
+    .paginationLinks {
+        gap: 0.3rem;
+    }
+    .paginationLink,
+    .paginationDisabled,
+    .paginationActive{
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
