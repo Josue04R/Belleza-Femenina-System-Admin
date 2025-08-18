@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Model;
 class Empleado extends Model
 {
     
+    protected $primaryKey = 'idEmpleado';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    public $timestamps = false; 
     protected $perPage = 20;
 
     /**
@@ -30,7 +34,7 @@ class Empleado extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['idEmpleado', 'nombre', 'apellido', 'telefono', 'usuario', 'contrasenia', 'idPermiso'];
+    protected $fillable = ['nombre', 'apellido', 'telefono', 'usuario', 'contrasenia', 'idPermiso'];
 
 
     /**

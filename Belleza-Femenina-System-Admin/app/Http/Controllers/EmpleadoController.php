@@ -6,6 +6,7 @@ use App\Models\Empleado;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmpleadoRequest;
+use App\Models\Permiso;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -27,9 +28,10 @@ class EmpleadoController extends Controller
      */
     public function create(): View
     {
+        $permisos = Permiso::all();
         $empleado = new Empleado();
 
-        return view('empleado.create', compact('empleado'));
+        return view('empleado.create', compact('empleado','permisos'));
     }
 
     /**

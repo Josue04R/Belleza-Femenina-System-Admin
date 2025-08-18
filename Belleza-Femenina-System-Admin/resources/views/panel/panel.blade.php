@@ -85,7 +85,7 @@
               </li>
 
               <li>
-                <a href="#" class="linkDropdown">
+                <a href="{{url('empleados')}}" class="linkDropdown">
                   <span class="material-symbols-rounded menuIcon">groups</span>
                   <span class="labelMenu">Empleados</span>
                 </a>

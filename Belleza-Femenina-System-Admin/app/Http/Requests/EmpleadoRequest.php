@@ -22,7 +22,6 @@ class EmpleadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'idEmpleado' => 'required',
 			'nombre' => 'required|string',
 			'apellido' => 'required|string',
 			'telefono' => 'required|string',
