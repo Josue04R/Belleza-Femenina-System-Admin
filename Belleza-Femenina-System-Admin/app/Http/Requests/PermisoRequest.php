@@ -22,12 +22,8 @@ class PermisoRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'idPermiso' => 'required',
 			'nombrePermiso' => 'required|string',
-			'categoriaProductos' => 'required|boolean',
-			'productos' => 'required|boolean',
-			'tallas' => 'required|boolean',
-			'variantesProducto' => 'required|boolean',
+			'gestionProductos' => 'required|boolean',
 			'empleados' => 'required|boolean',
 			'permisos' => 'required|boolean',
 			'registroVentas' => 'required|boolean',

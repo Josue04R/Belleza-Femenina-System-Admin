@@ -41,10 +41,7 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Categoría</th>
                                 <th>Productos</th>
-                                <th>Taller</th>
-                                <th>Variantes</th>
                                 <th>Empleados</th>
                                 <th>Permisos</th>
                                 <th>Reg. Ventas</th>
@@ -61,10 +58,7 @@
                             @foreach ($permisos as $permiso)
                                 <tr>
                                     <td>{{ $permiso->nombrePermiso }}</td>
-                                    <td>{{ $permiso->categoriaProductos }}</td>
-                                    <td>{{ $permiso->productos }}</td>
-                                    <td>{{ $permiso->taller }}</td>
-                                    <td>{{ $permiso->variantesProducto }}</td>
+                                    <td>{{ $permiso->gestionProductos }}</td>
                                     <td>{{ $permiso->empleados }}</td>
                                     <td>{{ $permiso->permisos }}</td>
                                     <td>{{ $permiso->registroVentas }}</td>

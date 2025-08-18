@@ -30,14 +30,18 @@ use Illuminate\Database\Eloquent\Model;
 class Permiso extends Model
 {
     
+    
+    protected $primaryKey = 'idPermiso';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    public $timestamps = false; 
     protected $perPage = 20;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = ['idPermiso', 'nombrePermiso', 'categoriaProductos', 'productos', 'tallas', 'variantesProducto', 'empleados', 'permisos', 'registroVentas', 'ventas', 'compras', 'pedidos', 'gastosOperativos', 'inventario', 'clientes'];
+    protected $fillable = ['nombrePermiso', 'categoriaProductos', 'productos', 'tallas', 'variantesProducto', 'empleados', 'permisos', 'registroVentas', 'ventas', 'compras', 'pedidos', 'gastosOperativos', 'inventario', 'clientes'];
 
 
     /**
