@@ -29,5 +29,5 @@ Route::resource('gastos-operativos', GastosOperativoController::class);
 
 Route::resource('ventas', VentaController::class);
 Route::resource('compras',CompraController::class);
-Route::get('/detalleCompra',[DetalleCompraController::class, 'show']);
+Route::get('/detalleCompra/{idCompra}',[DetalleCompraController::class, 'show']);
 

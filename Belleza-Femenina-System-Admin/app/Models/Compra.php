@@ -15,4 +15,9 @@ class Compra extends Model{
     {
         return $this->hasMany(DetalleCompra::class, 'idCompra','idCompra');
     }
+
+    public function empleado()
+    {
+        return $this->hasOne(Empleado::class,'idEmpleado','idEmpleado');
+    }
 }

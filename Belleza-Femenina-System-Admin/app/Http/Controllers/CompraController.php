@@ -14,7 +14,8 @@ class CompraController extends Controller
    
     public function index()
     {
-        return view('compra.index');
+        $compras = Compra::all();
+        return view('compra.index',compact('compras'));
     }
 
     
@@ -27,7 +28,6 @@ class CompraController extends Controller
     
    public function store(Request $request)
     {
-        DB::beginTransaction();
         try {
             // Guardar compra
             $compra = Compra::create([
@@ -38,6 +38,7 @@ class CompraController extends Controller
 
             // Decodificar detalles JSON
             $detalles = json_decode($request->detalles, true);
+            
 
             // Guardar detalles y actualizar stock
             foreach ($detalles as $detalle) {
@@ -48,24 +49,21 @@ class CompraController extends Controller
                     'cantidad' => $detalle['cantidad'],
                     'subtotal' => $detalle['subtotal'],
                 ]);
+            }
 
-                $variante = VariantesProducto::find($detalle['idVarianteProducto']);
+            foreach ($detalles as $detalle){
+                $variante = VariantesProducto::where('id_variantes', $detalle['idVarianteProducto'])->first();
                 if ($variante) {
                     $variante->stock += $detalle['cantidad'];
                     $variante->save();
                 }
             }
-
-            DB::commit();
             return redirect()->route('compras.index')->with('success', 'Compra registrada exitosamente.');
         } catch (\Exception $e) {
-            DB::rollBack();
             return back()->with('error', 'Error: ' . $e->getMessage());
         }
     }
 
-
-    
     public function show(string $id)
     {
         //

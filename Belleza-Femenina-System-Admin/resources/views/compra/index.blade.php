@@ -36,21 +36,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="columna-acciones-fija">
-                                            <div class="btn-group btnGrupoCompacto">
-                                                <a href="{{url('/detalleCompra')}}" class="btn btn-success btn-sm">
-                                                    Detalle
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach($compras as $compra)
+                                        <tr>
+                                            <td>{{$compra->idCompra}}</td>
+                                            <td>{{$compra->empleado->nombre}}</td>
+                                            <td>{{$compra->total}}</td>
+                                            <td>{{$compra->fecha}}</td>
+                                            <td class="columna-acciones-fija">
+                                                <div class="btn-group btnGrupoCompacto">
+                                                    <a href="{{url('/detalleCompra',$compra->idCompra)}}" class="btn btn-success btn-sm">
+                                                        Detalle
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                
                             </tbody>
                         </table>

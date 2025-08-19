@@ -8,6 +8,7 @@
 @section('template_title')
     Detalle Compra
 @endsection
+
 @section('content')
     <div class="container-fluid py-3 px-4">
         <div class="row mx-0">
@@ -36,12 +37,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                @foreach($compra->detalles as $detalle)
+                                    <tr>
+                                        <td>{{ $detalle->producto->nombre_p ?? 'N/A' }}</td>
+                                        <td>
+                                            {{ $detalle->variante->color ?? '' }} - 
+                                            {{ $detalle->variante->talla->talla ?? '' }}
+                                        </td>
+                                        <td>{{ $detalle->cantidad }}</td>
+                                        <td>${{ number_format($detalle->subtotal, 2) }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -49,4 +55,5 @@
             </div>
         </div>
     </div>
+
 @endsection
