@@ -23,16 +23,16 @@ class PermisoRequest extends FormRequest
     {
         return [
 			'nombrePermiso' => 'required|string',
-			'gestionProductos' => 'required|boolean',
-			'empleados' => 'required|boolean',
-			'permisos' => 'required|boolean',
-			'registroVentas' => 'required|boolean',
-			'ventas' => 'required|boolean',
-			'compras' => 'required|boolean',
-			'pedidos' => 'required|boolean',
-			'gastosOperativos' => 'required|boolean',
-			'inventario' => 'required|boolean',
-			'clientes' => 'required|boolean',
+			'gestionProductos' => 'boolean',
+			'empleados' => 'boolean',
+			'permisos' => 'boolean',
+			'registroVentas' => 'boolean',
+			'ventas' => 'boolean',
+			'compras' => 'boolean',
+			'pedidos' => 'boolean',
+			'gastosOperativos' => 'boolean',
+			'inventario' => 'boolean',
+			'clientes' => 'boolean',
         ];
     }
 }

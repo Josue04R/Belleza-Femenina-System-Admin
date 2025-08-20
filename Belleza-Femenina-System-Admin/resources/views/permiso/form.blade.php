@@ -12,7 +12,9 @@
             {!! $errors->first('nombrePermiso', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
+        {{-- Gestión de Productos --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="gestionProductos" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="gestionProductos" 
@@ -22,8 +24,9 @@
             <label class="form-check-label" for="gestionProductos">Gestión de Productos</label>
         </div>
 
-        
+        {{-- Empleados --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="empleados" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="empleados" 
@@ -33,8 +36,9 @@
             <label class="form-check-label" for="empleados">Empleados</label>
         </div>
 
-        
+        {{-- Permisos --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="permisos" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="permisos" 
@@ -44,8 +48,9 @@
             <label class="form-check-label" for="permisos">Permisos</label>
         </div>
 
-       
+        {{-- Registro Ventas --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="registroVentas" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="registroVentas" 
@@ -55,8 +60,9 @@
             <label class="form-check-label" for="registroVentas">Ingreso de Ventas</label>
         </div>
 
-        
+        {{-- Ventas --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="ventas" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="ventas" 
@@ -66,8 +72,9 @@
             <label class="form-check-label" for="ventas">Ventas</label>
         </div>
 
-        
+        {{-- Compras --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="compras" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="compras" 
@@ -77,8 +84,9 @@
             <label class="form-check-label" for="compras">Compras</label>
         </div>
 
-        
+        {{-- Pedidos --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="pedidos" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="pedidos" 
@@ -88,8 +96,9 @@
             <label class="form-check-label" for="pedidos">Pedidos</label>
         </div>
 
-        
+        {{-- Gastos Operativos --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="gastosOperativos" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="gastosOperativos" 
@@ -99,8 +108,9 @@
             <label class="form-check-label" for="gastosOperativos">Gastos Operativos</label>
         </div>
 
-       
+        {{-- Inventario --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="inventario" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="inventario" 
@@ -110,15 +120,16 @@
             <label class="form-check-label" for="inventario">Inventario</label>
         </div>
 
-        
+        {{-- Clientes --}}
         <div class="form-check form-switch mb-2">
+            <input type="hidden" name="clientes" value="0">
             <input class="form-check-input" 
                    type="checkbox" 
                    id="clientes" 
                    name="clientes" 
                    value="1"
                    {{ old('clientes', $permiso?->clientes) ? 'checked' : '' }}>
-            <label class="form-check-label" for="clientes">Gestion Clientes</label>
+            <label class="form-check-label" for="clientes">Gestión Clientes</label>
         </div>
 
     </div>

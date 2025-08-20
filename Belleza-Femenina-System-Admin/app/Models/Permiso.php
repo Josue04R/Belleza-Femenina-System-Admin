@@ -42,7 +42,18 @@ class Permiso extends Model
      * @var array<int, string>
      */
     protected $fillable = ['nombrePermiso', 'gestionProductos' , 'empleados', 'permisos', 'registroVentas', 'ventas', 'compras', 'pedidos', 'gastosOperativos', 'inventario', 'clientes'];
-
+    protected $casts = [
+    'gestionProductos' => 'boolean',
+    'empleados' => 'boolean',
+    'permisos' => 'boolean',
+    'registroVentas' => 'boolean',
+    'ventas' => 'boolean',
+    'compras' => 'boolean',
+    'pedidos' => 'boolean',
+    'gastosOperativos' => 'boolean',
+    'inventario' => 'boolean',
+    'clientes' => 'boolean',
+];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
