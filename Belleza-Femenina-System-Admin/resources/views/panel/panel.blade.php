@@ -140,7 +140,7 @@
           </li>
           
           <li class="itemMenu">
-            <a href="#" class="linkMenu">
+            <a href="{{url ('clientes')}}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">people</span>
               <span class="labelMenu">Clientes</span>
             </a>

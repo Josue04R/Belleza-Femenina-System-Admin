@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\DetalleCompraController;
 use App\Http\Controllers\EmpleadoController;
@@ -38,4 +39,6 @@ Route::get('/detalleCompra/{idCompra}',[DetalleCompraController::class, 'show'])
 
 Route::post('/empleado/login', [EmpleadoController::class, 'login'])->name('empleado.login');
 
+
+Route::resource('clientes', ClienteController::class);
 
