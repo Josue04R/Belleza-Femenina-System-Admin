@@ -14,6 +14,10 @@ use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return view('login.login');
+})->name('panel');
+
+Route::get('/inicio', function () {
     return view('panel.panel');
 })->name('panel');
 
@@ -30,4 +34,8 @@ Route::resource('gastos-operativos', GastosOperativoController::class);
 Route::resource('ventas', VentaController::class);
 Route::resource('compras',CompraController::class);
 Route::get('/detalleCompra/{idCompra}',[DetalleCompraController::class, 'show']);
+
+
+Route::post('/empleado/login', [EmpleadoController::class, 'login'])->name('empleado.login');
+
 

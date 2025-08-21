@@ -16,9 +16,12 @@
     <button class="toggleSiderbar">
       <span class="material-symbols-rounded">Menu</span>
     </button>
+    
   </nav>
   
   <div class="containerMain">
+
+  
 
     <aside class="mainSidebar">
       <div class="mainSidebarHeader">
@@ -28,6 +31,12 @@
         </button>
       </div>
       
+
+      <div style="margin-left:auto; padding-right:20px; color:#fff;">
+        Bienvenido, {{ session('empleado_nombre') ?? 'Invitado' }}
+    </div>
+
+    
       <div class="sidebarcontentMain">
         <ul class="listMenu">
           <li class="itemMenu">

@@ -15,6 +15,31 @@ class EmpleadoController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function login(Request $request)
+    {
+        $request->validate([
+            'usuario' => 'required|string',
+            'contrasenia' => 'required|string',
+        ]);
+
+        $empleado = Empleado::where('usuario', $request->usuario)
+                            ->where('contrasenia', $request->contrasenia)
+                            ->first();
+
+        if ($empleado) {
+           
+            session([
+                'empleado_id' => $empleado->idEmpleado,
+                'empleado_nombre' => $empleado->nombre,
+                'empleado_apellido' => $empleado->apellido,
+            ]);
+            return redirect()->route('panel')->with('success', 'Bienvenido '.$empleado->nombre);
+        }
+
+        return back()->withErrors(['usuario' => 'Credenciales incorrectas']);
+    }
+
+
     public function index(Request $request): View
     {
         $empleados = Empleado::paginate();
