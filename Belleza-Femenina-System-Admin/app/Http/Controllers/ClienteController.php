@@ -39,7 +39,7 @@ class ClienteController extends Controller
     {
         $data = $request->validated();
 
-        // Cifrar la contraseña antes de guardar
+        
         $data['password'] = bcrypt($data['password']);
 
         Cliente::create($data);
