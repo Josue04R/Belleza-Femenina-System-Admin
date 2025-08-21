@@ -4,7 +4,13 @@
     {{ __('Update') }} Permiso
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/crearCategoria.css') }}">
+@endpush
+
 @section('content')
+    <br>
+    <br>
     <section class="content container-fluid">
         <div class="">
             <div class="col-md-12">
