@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void {
         Schema::create('ventas', function (Blueprint $table) {
-            $table->id('idVenta');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->id('idVenta')->autoIncrement();
+            //$table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+
             $table->foreignId('empleado_id')->constrained('empleados', 'idEmpleado')->onDelete('cascade');
             $table->dateTime('fecha');
             $table->decimal('total', 12, 2);

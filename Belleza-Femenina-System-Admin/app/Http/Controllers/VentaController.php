@@ -5,68 +5,82 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Venta;
 use App\Models\DetalleVenta;
-use App\Models\Producto;
 use App\Models\VariantesProducto;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class VentaController extends Controller
 {
-    // Mostrar todas las ventas
     public function index()
     {
-        $ventas = Venta::with('detalles.producto', 'usuario', 'empleado')->get();
+        $ventas = Venta::with('detalles.producto', 'empleado')->latest()->get();
         return view('ventas.index', compact('ventas'));
     }
 
-    // Formulario nueva venta
     public function create()
     {
-        $productos = Producto::with('variantesProductos.talla')->get();
+        $productos = \App\Models\Producto::with('variantesProductos.talla')->get();
         return view('ventas.create', compact('productos'));
     }
 
-    // Guardar venta
     public function store(Request $request)
     {
-        $request->validate([
-            'productos' => 'required|array',
-            'productos.*.producto_id' => 'required|exists:productos,id_producto',
-            'productos.*.id_variante' => 'required|exists:variantes_productos,id_variantes',
-            'productos.*.cantidad' => 'required|integer|min:1',
-            'productos.*.precio' => 'required|numeric',
-        ]);
+        DB::beginTransaction();
+        try {
+            // Decodificar JSON de productos
+            $productos = json_decode($request->productos, true);
 
-        $venta = Venta::create([
-            'user_id' => Auth::id() ?? 1,
-            'empleado_id' => 1,
-            'fecha' => Carbon::now(),
-            'total' => 0
-        ]);
+            if (!$productos || count($productos) === 0) {
+                return back()->with('error', 'No hay productos para guardar.');
+            }
 
-        $total = 0;
+            $totalVenta = 0;
+            $detalleIds = [];
 
-        foreach ($request->productos as $item) {
-            $variante = VariantesProducto::find($item['id_variante']);
-            if (!$variante) return back()->withErrors('Variante no encontrada');
+            // Primero guardamos todos los detalles de venta
+            foreach ($productos as $producto) {
+                $sub_total = $producto['subtotal'];
+                DetalleVenta::create([
+                    'venta_id'       => 0, // temporal, se actualizará luego
+                    'producto_id'    => $producto['producto_id'],
+                    'variante_id'    => $producto['id_variante'] ?? null,
+                    'cantidad'       => $producto['cantidad'],
+                    'precio_unitario'=> $producto['precio'],
+                    'sub_total'      => $sub_total,
+                ]);
 
-            $subtotal = $item['cantidad'] * $item['precio'];
+                // Restar stock de la variante
+                if (!empty($producto['id_variante'])) {
+                    $variante = VariantesProducto::find($producto['id_variante']);
+                    if ($variante) {
+                        $variante->stock -= $producto['cantidad'];
+                        $variante->save();
+                    }
+                }
 
-            DetalleVenta::create([
-                'venta_id' => $venta->idVenta,
-                'producto_id' => $item['producto_id'],
-                'cantidad' => $item['cantidad'],
-                'precio_unitario' => $item['precio'],
+                $totalVenta += $sub_total;
+                $detalleIds[] = $detalle->id;
+            }
+
+            // Ahora creamos la venta principal
+            $venta = Venta::create([
+                'fecha'       => Carbon::now(),
+                'total'       => $totalVenta,
+                'empleado_id' => $request->empleado_id ?? 1,
+                'user_id'     => $request->user_id ?? 1,
             ]);
 
-            $variante->stock -= $item['cantidad'];
-            $variante->save();
+            // Actualizamos los detalles con el id de la venta creada
+            DetalleVenta::whereIn('id', $detalleIds)->update(['venta_id' => $venta->idVenta]);
 
-            $total += $subtotal;
+            DB::commit();
+
+            return redirect()->route('ventas.index')->with('success', 'Venta registrada correctamente.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Error al guardar la venta: ' . $e->getMessage());
         }
-
-        $venta->update(['total' => $total]);
-
-        return redirect()->route('ventas.index')->with('success', 'Venta registrada correctamente.');
     }
+
 }
