@@ -1,47 +1,105 @@
-@extends('panel.panel') 
+@extends('panel.panel')
+
+@section('template_title')
+    Ventas
+@endsection
+
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
+<link rel="stylesheet" href="{{ url('/css/tablas/tablas.css') }}">
+<link rel="stylesheet" href="{{ url('/css/pagination/pagination.css') }}">
+@endpush
 
 @section('content')
-<div class="container mt-4">
-    <h2>Lista de Ventas</h2>
+    <div class="container-fluid py-4 px-5">
+        <div class="row mx-1">
+            <div class="col-12 px-2">
+                <div class="card shadow-sm border-0 custom-card mb-4">
+                    <div class="card-header custom-card-header py-3 px-4">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span id="card_title">
+                                {{ __('Lista de Ventas') }}
+                            </span>
+                             <div class="float-right">
+                                <a href="{{ route('ventas.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Nueva Venta') }}
+                                </a>
+                              </div>
+                        </div>
+                    </div>
+                    @if (session('success'))
+                        <div class="alert alert-success mx-4 mt-3 mb-3 custom-alert">
+                            <p class="mb-0">{{ session('success') }}</p>
+                        </div>
+                    @endif
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+                    <div class="card-body bg-white px-4 py-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover custom-table mb-0">
+                                <thead class="thead">
+                                    <tr>
+                                        <th class="text-center px-4">ID Venta</th>
+                                        <th class="text-center px-4">Usuario</th>
+                                        <th class="text-center px-4">Empleado</th>
+                                        <th class="text-center px-4">Fecha</th>
+                                        <th class="text-center px-4">Total</th>
+                                        <th class="text-center px-4">Detalles</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($ventas as $venta)
+                                        <tr class="custom-table-row">
+                                            <td class="text-center px-4 py-3">{{ $venta->idVenta }}</td>
+                                            <td class="text-center px-4 py-3">{{ $venta->usuario->nombre ?? '---' }}</td>
+                                            <td class="text-center px-4 py-3">{{ $venta->empleado->nameU ?? '---' }}</td>
+                                            <td class="text-center px-4 py-3">{{ $venta->fecha }}</td>
+                                            <td class="text-center px-4 py-3">${{ number_format($venta->total,2) }}</td>
+                                            <td class="text-center px-4 py-3">
+                                                <ul>
+                                                @foreach($venta->detalles as $detalle)
+                                                    <li>{{ $detalle->producto->nombreP }} 
+                                                        - Cant: {{ $detalle->cantidad }} 
+                                                        - ${{ $detalle->subTotal }}
+                                                    </li>
+                                                @endforeach
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                @if(isset($ventas) && method_exists($ventas, 'links'))
+                <div class="cusmtonPagination py-3">
+                    <div class="paginationInfo">
+                        Showing {{ $ventas->firstItem() }} to {{ $ventas->lastItem() }} of {{ $ventas->total() }} results
+                    </div>
+                    <div class="paginationLinks">
+                        @if ($ventas->onFirstPage())
+                            <span class="paginationDisabled">« Previous</span>
+                        @else
+                            <a href="{{ $ventas->previousPageUrl() }}" class="paginationLink">« Previous</a>
+                        @endif
 
-    <a href="{{ route('ventas.create') }}" class="btn btn-primary mb-3">Nueva Venta</a>
-
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID Venta</th>
-                <th>Usuario</th>
-                <th>Empleado</th>
-                <th>Fecha</th>
-                <th>Total</th>
-                <th>Detalles</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($ventas as $venta)
-                <tr>
-                    <td>{{ $venta->idVenta }}</td>
-                    <td>{{ $venta->usuario->nombre ?? '---' }}</td>
-                    <td>{{ $venta->empleado->nameU ?? '---' }}</td>
-                    <td>{{ $venta->fecha }}</td>
-                    <td>${{ number_format($venta->total,2) }}</td>
-                    <td>
-                        <ul>
-                        @foreach($venta->detalles as $detalle)
-                            <li>{{ $detalle->producto->nombreP }} 
-                                - Cant: {{ $detalle->cantidad }} 
-                                - ${{ $detalle->subTotal }}
-                            </li>
+                        @foreach ($ventas->getUrlRange(1, $ventas->lastPage()) as $page => $url)
+                            @if ($page == $ventas->currentPage())
+                                <span class="pagination-active">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}" class="paginationLink">{{ $page }}</a>
+                            @endif
                         @endforeach
-                        </ul>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+
+                        @if ($ventas->hasMorePages())
+                            <a href="{{ $ventas->nextPageUrl() }}" class="paginationLink">Next »</a>
+                        @else
+                            <span class="paginationDisabled">Next »</span>
+                        @endif
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
 @endsection
