@@ -133,12 +133,11 @@
 
           
           <li class="itemMenu">
-            <a href="#" class="linkMenu">
-              <span class="material-symbols-rounded menuIcon">list_alt</span>
-              <span class="labelMenu">Pedidos</span>
+            <a href="{{ route('pedidos.index') }}" class="linkMenu">
+                <span class="material-symbols-rounded menuIcon">list_alt</span>
+                <span class="labelMenu">Pedidos</span>
             </a>
           </li>
-          
           <li class="itemMenu">
             <a href="{{url ('clientes')}}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">people</span>
