@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pedidos', function (Blueprint $table) {
-            $table->id('idPedido');
+            $table->id('idPedido')->autoIncrement();
             $table->unsignedBigInteger('idCliente'); // Cliente que hizo el pedido
             $table->unsignedBigInteger('idEmpleado')->nullable(); // Empleado que atendió el pedido
             $table->timestamp('fecha')->useCurrent();

@@ -7,6 +7,7 @@ use App\Http\Controllers\DetalleCompraController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\GastosOperativoController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\TallaController;
@@ -41,4 +42,9 @@ Route::post('/empleado/login', [EmpleadoController::class, 'login'])->name('empl
 
 
 Route::resource('clientes', ClienteController::class);
+
+
+Route::resource('pedidos', PedidoController::class);
+Route::put('pedidos/{pedido}/anular', [PedidoController::class, 'anular'])->name('pedidos.anular');
+
 
