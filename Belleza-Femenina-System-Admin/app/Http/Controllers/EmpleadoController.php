@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmpleadoRequest;
 use App\Models\Permiso;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -22,12 +23,9 @@ class EmpleadoController extends Controller
             'contrasenia' => 'required|string',
         ]);
 
-        $empleado = Empleado::where('usuario', $request->usuario)
-                            ->where('contrasenia', $request->contrasenia)
-                            ->first();
+        $empleado = Empleado::where('usuario', $request->usuario)->first();
 
-        if ($empleado) {
-           
+        if ($empleado && Hash::check($request->contrasenia, $empleado->contrasenia)) {
             session([
                 'empleado_id' => $empleado->idEmpleado,
                 'empleado_nombre' => $empleado->nombre,
@@ -37,6 +35,7 @@ class EmpleadoController extends Controller
         }
 
         return back()->withErrors(['usuario' => 'Credenciales incorrectas']);
+
     }
 
 
