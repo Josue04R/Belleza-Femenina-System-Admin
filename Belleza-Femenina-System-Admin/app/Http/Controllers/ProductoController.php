@@ -7,14 +7,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductoRequest;
 use App\Models\Categoria;
+use App\Services\SupabaseService;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ProductoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -26,7 +24,6 @@ class ProductoController extends Controller
             })
             ->paginate(10);
 
-       
         if ($request->ajax()) {
             return view('producto._tabla', compact('productos'))->render();
         }
@@ -35,12 +32,6 @@ class ProductoController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * $productos->perPage());
     }
 
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         $producto = new Producto();
@@ -49,45 +40,55 @@ class ProductoController extends Controller
         return view('producto.create', compact('producto', 'categorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(ProductoRequest $request): RedirectResponse
+    public function store(ProductoRequest $request, SupabaseService $supabase)
     {
-        Producto::create($request->validated());
+        $data = $request->validated();
 
-        return Redirect::route('productos.index')
-            ->with('success', 'Producto creado correctamente.');
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $path = 'productos/' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+            // Subir a Supabase
+            $supabase->uploadFile($path, file_get_contents($file), $file->getMimeType());
+
+            // Guardar URL pública en DB
+            $data['imagen'] = $supabase->getPublicUrl($path);
+        }
+
+        Producto::create($data);
+
+        return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id): View
     {
-        $producto = Producto::find($id);
-
+        $producto = Producto::findOrFail($id);
         return view('producto.show', compact('producto'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id): View
     {
-        $producto = Producto::find($id);
-
+        $producto = Producto::findOrFail($id);
         $categorias = Categoria::all(); 
-
         return view('producto.edit', compact('producto', 'categorias'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ProductoRequest $request, Producto $producto): RedirectResponse
     {
-        $producto->update($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $path = 'productos/' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+            $supabase = app(SupabaseService::class);
+            $supabase->uploadFile($path, file_get_contents($file), $file->getMimeType());
+
+            // Guardar URL pública
+            $data['imagen'] = $supabase->getPublicUrl($path);
+        }
+
+        $producto->update($data);
 
         return Redirect::route('productos.index')
             ->with('success', 'Producto actualizado correctamente.');
@@ -95,8 +96,7 @@ class ProductoController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        Producto::find($id)->delete();
-
+        Producto::findOrFail($id)->delete();
         return Redirect::route('productos.index')
             ->with('success', 'Producto eliminado correctamente.');
     }

@@ -6,29 +6,22 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ProductoRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return true;
+        return true; // Cambia según tu lógica de autorización
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-			'nombre_p' => 'required|string',
-			'marca_p' => 'required|string',
-			'id_cate' => 'required',
-			'material' => 'required|string',
-			'descripcion' => 'required|string',
-			'precio' => 'required',
-			'estado' => 'required|string',
+            'nombre_p' => 'required|string|max:255',
+            'marca_p' => 'required|string|max:255',
+            'id_cate' => 'required|exists:categorias,id_cate',
+            'material' => 'nullable|string|max:255',
+            'descripcion' => 'nullable|string',
+            'precio' => 'required|numeric',
+            'imagen' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', // Validación de archivo
+            'estado' => 'required|string|max:255',
         ];
     }
 }

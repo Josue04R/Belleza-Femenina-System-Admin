@@ -2,16 +2,16 @@
     <div class="col-md-12">
         
         <div class="form-group mb-2 mb20">
-            <label for="nombre_p" class="form-label">{{ __('Nombre P') }}</label>
+            <label for="nombre_p" class="form-label">{{ __('Nombre del producto') }}</label>
             <input type="text" name="nombre_p" class="form-control @error('nombre_p') is-invalid @enderror" 
-                   value="{{ old('nombre_p', $producto?->nombre_p) }}" id="nombre_p" placeholder="Nombre P">
+                   value="{{ old('nombre_p', $producto?->nombre_p) }}" id="nombre_p" placeholder="producto">
             {!! $errors->first('nombre_p', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="marca_p" class="form-label">{{ __('Marca P') }}</label>
+            <label for="marca_p" class="form-label">{{ __('Marca ') }}</label>
             <input type="text" name="marca_p" class="form-control @error('marca_p') is-invalid @enderror" 
-                   value="{{ old('marca_p', $producto?->marca_p) }}" id="marca_p" placeholder="Marca P">
+                   value="{{ old('marca_p', $producto?->marca_p) }}" id="marca_p" placeholder="Marca ">
             {!! $errors->first('marca_p', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
@@ -52,8 +52,7 @@
 
         <div class="form-group mb-2 mb20">
             <label for="imagen" class="form-label">{{ __('Imagen') }}</label>
-            <input type="text" name="imagen" class="form-control @error('imagen') is-invalid @enderror" 
-                   value="{{ old('imagen', $producto?->imagen) }}" id="imagen" placeholder="Imagen">
+            <input type="file" name="imagen" class="form-control @error('imagen') is-invalid @enderror" id="imagen">
             {!! $errors->first('imagen', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
@@ -66,6 +65,6 @@
 
     </div>
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-submit">{{ __('Submit') }}</button>  <!-- Cambiado a btn-submit -->
+        <button type="submit" class="btn btn-submit">{{ __('Submit') }}</button>
     </div>
 </div>
