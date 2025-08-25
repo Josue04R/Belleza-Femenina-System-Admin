@@ -4,7 +4,13 @@
     {{ __('Create') }} Cliente
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/crearCategoria.css') }}">
+@endpush
+
 @section('content')
+    <br>
+    <br>
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -14,7 +20,7 @@
                         <span class="card-title">{{ __('Create') }} Cliente</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('clientes.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('clientes.store') }}" role="form" enctype="multipart/form-data">
                             @csrf
 
                             @include('cliente.form')
