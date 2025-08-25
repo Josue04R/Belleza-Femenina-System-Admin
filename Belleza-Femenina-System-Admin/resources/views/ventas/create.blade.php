@@ -1,200 +1,227 @@
 @extends('panel.panel')
 
+@push('styles')
+<link rel="stylesheet" href="{{ url('/css/ventas/venta.css') }}">
+<style>
+/* Autocomplete dropdown */
+#clientesList {
+    max-height: 200px;
+    overflow-y: auto;
+}
+</style>
+@endpush
+
+@section('template_title')
+    Registrar Venta
+@endsection
+
 @section('content')
-<div class="container mt-4">
-    <h2>Nueva Venta</h2>
+<div class="container-fluid py-3 px-4">
+    <div class="row mx-0">
+        <div class="col-12 px-0">
+            <div class="card shadow-sm border-0 custom-card mb-3">
+                <div class="card-header custom-card-header py-2 px-3">
+                    <h6 class="mb-0"><i class="fas fa-shopping-cart mr-2"></i> Registro Venta</h6>
+                </div>
 
-    <form action="{{ route('ventas.store') }}" method="POST" id="venta-form">
-    @csrf
-    <input type="hidden" name="user_id" value="1">
-    <input type="hidden" name="empleado_id" value="1">
-    <input type="hidden" name="productos" id="productos-json">
+                <div class="mt-2">
+                    <form action="{{ route('ventas.store') }}" method="POST" id="formVenta">
+                        @csrf
 
-    <!-- Aquí tu selección de producto, color, talla, cantidad -->
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <label>Producto</label>
-            <select id="producto-select" class="form-control">
-                <option value="">-- Seleccione un producto --</option>
-                @foreach($productos as $producto)
-                    <option value="{{ $producto->id_producto }}"
-                        data-variantes='@json($producto->variantesProductos->load("talla"))'>
-                        {{ $producto->nombre_p }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-2">
-            <label>Color</label>
-            <select id="color-select" class="form-control" disabled></select>
-        </div>
-        <div class="col-md-2">
-            <label>Talla</label>
-            <select id="talla-select" class="form-control" disabled></select>
-        </div>
-        <div class="col-md-2">
-            <label>Cantidad</label>
-            <input type="number" id="cantidad-input" class="form-control" value="1" min="1" disabled>
-        </div>
-        <div class="col-md-2">
-            <label>&nbsp;</label><br>
-            <button type="button" id="agregar-btn" class="btn btn-success" disabled>Agregar</button>
+                        <!-- Fecha -->
+                        <div class="mb-3">
+                            <label>Fecha</label>
+                            <input type="date" name="fecha" class="form-control" value="{{ now()->toDateString() }}" readonly>
+                        </div>
+
+                        <!-- Cliente -->
+                        <div class="mb-3 position-relative">
+                            <label>Cliente</label>
+                            <input type="text" id="clienteInput" class="form-control" placeholder="Escriba el nombre del cliente" autocomplete="off" required>
+                            <input type="hidden" name="idCliente" id="idCliente">
+                            <div id="clientesList" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
+                        </div>
+
+                        <!-- Producto / Variante / Cantidad -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label>Producto</label>
+                                <select id="producto" class="form-control">
+                                    <option value="">Seleccione</option>
+                                    @foreach($productos as $producto)
+                                        <option value="{{ $producto->id_producto }}"
+                                            data-variantesproductos='@json($producto->variantesProductos)'
+                                            data-precio="{{ $producto->precio }}">
+                                            {{ $producto->nombre_p }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label>Variante</label>
+                                <select id="variante" class="form-control"></select>
+                            </div>
+
+                            <div class="col">
+                                <label>Cantidad</label>
+                                <input type="number" id="cantidad" class="form-control" min="1">
+                            </div>
+
+                            <div class="col d-flex align-items-end">
+                                <button type="button" id="agregar" class="btn btn-primary w-100">Agregar</button>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de detalles -->
+                        <table class="table" id="tablaDetalles">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Variante</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                        <!-- Total -->
+                        <div class="mb-3">
+                            <label>Total de la venta</label>
+                            <input type="text" id="total" name="total" class="form-control" readonly value="0.00">
+                        </div>
+
+                        <input type="hidden" name="detalles" id="detallesInput">
+
+                        <button type="submit" class="btn btn-success">Guardar Venta</button>
+                    </form>
+                </div>
+
+            </div>
         </div>
     </div>
-
-    <table class="table table-bordered" id="tabla-detalles">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Color</th>
-                <th>Talla</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <h4 class="text-end">Total: $<span id="total">0.00</span></h4>
-    <button type="submit" class="btn btn-primary">Guardar Venta</button>
-</form>
-
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-$(function() {
-    let totalVenta = 0;
-    let stockRestante = {};
-    let productos = [];
+    let detalles = [];
 
-    function resetSelects() {
-        $('#color-select').html('').prop('disabled', true);
-        $('#talla-select').html('').prop('disabled', true);
-        $('#cantidad-input').val(1).prop('disabled', true);
-        $('#agregar-btn').prop('disabled', true);
-    }
+    // Autocompletado de clientes
+    const clientes = @json($clientes);
+    const clienteInput = document.getElementById('clienteInput');
+    const idClienteInput = document.getElementById('idCliente');
+    const clientesList = document.getElementById('clientesList');
 
-    $('#producto-select').on('change', function() {
-        resetSelects();
-        let productoId = $(this).val();
-        let variantes = $(this).find(':selected').data('variantes') || [];
+    clienteInput.addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        clientesList.innerHTML = '';
 
-        if (!stockRestante[productoId]) {
-            stockRestante[productoId] = {};
-            variantes.forEach(v => { stockRestante[productoId][v.id_variantes] = v.stock; });
-        }
+        if (!query) return;
 
-        let colores = [...new Set(variantes.map(v => v.color))];
-        let opcionesColor = '<option value="">--Seleccione--</option>';
-        colores.forEach(c => opcionesColor += `<option value="${c}">${c}</option>`);
-        $('#color-select').html(opcionesColor).prop('disabled', false);
+        const filtered = clientes.filter(c => (c.nombre + ' ' + c.apellido).toLowerCase().includes(query));
+
+        filtered.forEach(c => {
+            const item = document.createElement('a');
+            item.classList.add('list-group-item', 'list-group-item-action');
+            item.textContent = `${c.nombre} ${c.apellido}`;
+            item.href = "#";
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                clienteInput.value = `${c.nombre} ${c.apellido}`;
+                idClienteInput.value = c.idCliente;
+                clientesList.innerHTML = '';
+            });
+            clientesList.appendChild(item);
+        });
     });
 
-    $('#color-select').on('change', function() {
-        let color = $(this).val();
-        let productoSelect = $('#producto-select');
-        let productoId = productoSelect.val();
-        let variantes = productoSelect.find(':selected').data('variantes') || [];
-        let opcionesTalla = '<option value="">--Seleccione--</option>';
+    // Cargar variantes al cambiar producto
+    document.getElementById('producto').addEventListener('change', function () {
+        const varianteSelect = document.getElementById('variante');
+        varianteSelect.innerHTML = '<option value="">Seleccione una variante</option>';
 
-        variantes.filter(v => v.color === color).forEach(v => {
-            opcionesTalla += `<option value="${v.id_variantes}" data-precio="${v.precio}">${v.talla.talla}</option>`;
+        const raw = this.selectedOptions[0]?.dataset?.variantesproductos || '[]';
+        let variantes = [];
+        try { variantes = JSON.parse(raw); } catch (e) { variantes = []; }
+
+        variantes.forEach(v => {
+            const color = v.color ?? '';
+            const tallaNombre = (v.talla && v.talla.talla) ? v.talla.talla : '';
+            const texto = `Color: ${color} | Talla: ${tallaNombre}`;
+            // Aquí guardamos el precio de la variante (puedes usar producto si todas las variantes tienen mismo precio)
+            const precio = parseFloat(this.selectedOptions[0]?.dataset?.precio || 0);
+            varianteSelect.innerHTML += `<option value="${v.id_variantes}" data-stock="${v.stock}" data-precio="${precio}">${texto}</option>`;
+        });
+    });
+
+    // Agregar detalle
+    document.getElementById('agregar').addEventListener('click', function () {
+        const productoSelect = document.getElementById('producto');
+        const varianteSelect = document.getElementById('variante');
+        const cantidad = parseInt(document.getElementById('cantidad').value);
+        const stock = parseInt(varianteSelect.selectedOptions[0]?.dataset?.stock || 0);
+        const precio = parseFloat(varianteSelect.selectedOptions[0]?.dataset?.precio || 0);
+
+        if (!productoSelect.value) return alert('Seleccione un producto.');
+        if (!varianteSelect.value) return alert('Seleccione una variante.');
+        if (isNaN(cantidad) || cantidad <= 0) return alert('Ingrese una cantidad válida.');
+        if (cantidad > stock) return alert(`No hay suficiente stock. Disponible: ${stock}`);
+
+        const subtotal = cantidad * precio;
+        const productoNombre = productoSelect.selectedOptions[0].text;
+        const varianteNombre = varianteSelect.selectedOptions[0].text;
+
+        detalles.push({
+            idProducto: parseInt(productoSelect.value),
+            idVarianteProducto: parseInt(varianteSelect.value),
+            cantidad: cantidad,
+            precio_unitario: precio, 
+            subtotal: subtotal,
+            _productoNombre: productoNombre,
+            _varianteNombre: varianteNombre
         });
 
-        $('#talla-select').html(opcionesTalla).prop('disabled', false);
-        $('#cantidad-input').prop('disabled', true);
-        $('#agregar-btn').prop('disabled', true);
+        renderTabla();
+        limpiarCamposLinea();
     });
 
-    $('#talla-select').on('change', function() {
-        let opcion = $(this).find(':selected');
-        if (!opcion.val()) { resetSelects(); return; }
-        let idVariante = opcion.val();
-        let productoId = $('#producto-select').val();
-        let stock = stockRestante[productoId][idVariante];
-        let precio = parseFloat(opcion.data('precio'));
-        $('#cantidad-input').attr('max', stock).val(1).prop('disabled', false);
-        $('#agregar-btn').prop('disabled', false);
-    });
+    // Renderizar tabla
+    function renderTabla() {
+        const tbody = document.querySelector('#tablaDetalles tbody');
+        tbody.innerHTML = '';
+        let total = 0;
 
-    $('#agregar-btn').on('click', function() {
-        let productoSelect = $('#producto-select');
-        let productoText = productoSelect.find('option:selected').text();
-        let productoId = productoSelect.val();
-        let color = $('#color-select').val();
-        let tallaOption = $('#talla-select option:selected');
-        let idVariante = tallaOption.val();
-        let talla = tallaOption.text();
-        let cantidad = parseInt($('#cantidad-input').val());
-        let precio = parseFloat(tallaOption.data('precio'));
+        detalles.forEach((d, i) => {
+            total += d.subtotal;
+            tbody.innerHTML += `
+                <tr>
+                    <td>${d._productoNombre}</td>
+                    <td>${d._varianteNombre}</td>
+                    <td>${d.cantidad}</td>
+                    <td>$${Number(d.subtotal).toFixed(2)}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminar(${i})">X</button>
+                    </td>
+                </tr>
+            `;
+        });
 
-        let stock = stockRestante[productoId][idVariante];
-        if (cantidad > stock) { alert('Cantidad supera stock'); return; }
-        stockRestante[productoId][idVariante] -= cantidad;
+        document.getElementById('total').value = Number(total).toFixed(2);
+        document.getElementById('detallesInput').value = JSON.stringify(detalles);
+    }
 
-        let subtotal = cantidad * precio;
-        totalVenta += subtotal;
+    // Eliminar detalle
+    function eliminar(index) {
+        detalles.splice(index, 1);
+        renderTabla();
+    }
 
-        // Guardar producto en array
-        let producto = {
-            producto_id: productoId,
-            id_variante: idVariante,
-            nombre: productoText,
-            color: color,
-            talla: talla,
-            precio: precio,
-            cantidad: cantidad,
-            subtotal: subtotal
-        };
-        productos.push(producto);
-
-        // Actualizar tabla
-        let row = `<tr data-id-variante="${idVariante}" data-producto="${productoId}">
-            <td>${productoText}</td>
-            <td>${color}</td>
-            <td>${talla}</td>
-            <td>${precio}</td>
-            <td>${cantidad}</td>
-            <td>${subtotal.toFixed(2)}</td>
-            <td><button type="button" class="btn btn-danger btn-sm eliminar-btn">Eliminar</button></td>
-        </tr>`;
-        $('#tabla-detalles tbody').append(row);
-        $('#total').text(totalVenta.toFixed(2));
-
-        // Actualizar input hidden con JSON
-        $('#productos-json').val(JSON.stringify(productos));
-
-        productoSelect.val('');
-        resetSelects();
-    });
-
-    $('#tabla-detalles').on('click', '.eliminar-btn', function() {
-        let row = $(this).closest('tr');
-        let productoId = row.data('producto');
-        let idVariante = row.data('id-variante');
-
-        // Encontrar el producto en el array y eliminarlo
-        productos = productos.filter(p => !(p.producto_id == productoId && p.id_variante == idVariante));
-
-        // Actualizar total
-        let subtotal = parseFloat(row.find('td').eq(5).text());
-        totalVenta -= subtotal;
-        $('#total').text(totalVenta.toFixed(2));
-
-        // Actualizar JSON
-        $('#productos-json').val(JSON.stringify(productos));
-
-        // Restaurar stock
-        let cantidad = parseInt(row.find('td').eq(4).text());
-        stockRestante[productoId][idVariante] += cantidad;
-
-        row.remove();
-    });
-});
+    // Limpiar campos para nueva línea
+    function limpiarCamposLinea() {
+        document.getElementById('cantidad').value = '';
+        document.getElementById('variante').selectedIndex = 0;
+    }
 </script>
 
 @endsection

@@ -28,40 +28,37 @@ class CompraController extends Controller
     
    public function store(Request $request)
     {
-        try {
-            // Guardar compra
-            $compra = Compra::create([
-                'idEmpleado' => 1,
-                'total' => $request->total,
-                'fecha' => Carbon::now(),
+        $empleadoId = session('empleado_id');
+
+        $compra = Compra::create([
+            'idEmpleado' => $empleadoId,
+            'total' => $request->total,
+            'fecha' => Carbon::now(),
+        ]);
+        
+        // Decodificar detalles JSON
+        $detalles = json_decode($request->detalles, true);
+        
+        // Guardar detalles y actualizar stock
+        foreach ($detalles as $detalle) {
+            DetalleCompra::create([
+                'idCompra' => $compra->idCompra,
+                'idProducto' => $detalle['idProducto'],
+                'idVarianteProducto' => $detalle['idVarianteProducto'],
+                'cantidad' => $detalle['cantidad'],
+                'subtotal' => $detalle['subtotal'],
             ]);
-
-            // Decodificar detalles JSON
-            $detalles = json_decode($request->detalles, true);
-            
-
-            // Guardar detalles y actualizar stock
-            foreach ($detalles as $detalle) {
-                DetalleCompra::create([
-                    'idCompra' => $compra->idCompra,
-                    'idProducto' => $detalle['idProducto'],
-                    'idVarianteProducto' => $detalle['idVarianteProducto'],
-                    'cantidad' => $detalle['cantidad'],
-                    'subtotal' => $detalle['subtotal'],
-                ]);
-            }
-
-            foreach ($detalles as $detalle){
-                $variante = VariantesProducto::where('id_variantes', $detalle['idVarianteProducto'])->first();
-                if ($variante) {
-                    $variante->stock += $detalle['cantidad'];
-                    $variante->save();
-                }
-            }
-            return redirect()->route('compras.index')->with('success', 'Compra registrada exitosamente.');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Error: ' . $e->getMessage());
         }
+
+        foreach ($detalles as $detalle){
+            $variante = VariantesProducto::where('id_variantes', $detalle['idVarianteProducto'])->first();
+            if ($variante) {
+                $variante->stock += $detalle['cantidad'];
+                $variante->save();
+            }
+        }
+        return redirect()->route('compras.index')->with('success', 'Compra registrada exitosamente.');
+    
     }
 
     public function show(string $id)

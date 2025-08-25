@@ -6,25 +6,35 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetalleVenta extends Model
 {
-    protected $table = 'detalle_ventas';
-    protected $primaryKey = 'id';
-    public $timestamps = true;
+    protected $table = 'detalleVenta'; 
+    protected $primaryKey = 'id';    
+    public $incrementing = true;  
+    public $timestamps = false;        
 
     protected $fillable = [
-        'venta_id',
-        'producto_id',
+        'idVenta',
+        'idProducto',
+        'idVariante',
         'cantidad',
         'precio_unitario',
-        'sub_total'
+        'subTotal',
     ];
 
+    // Relación con Venta
     public function venta()
     {
-        return $this->belongsTo(Venta::class, 'venta_id', 'idVenta');
+        return $this->belongsTo(Venta::class, 'idVenta', 'idVenta');
     }
 
+    // Relación con Producto
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'producto_id', 'id_producto');
+        return $this->belongsTo(Producto::class, 'idProducto', 'id_producto');
+    }
+
+    // Relación con Variante
+    public function variante()
+    {
+        return $this->belongsTo(VariantesProducto::class, 'idVariante', 'idVariante');
     }
 }

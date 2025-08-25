@@ -3,32 +3,36 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
 class Venta extends Model
 {
     protected $table = 'ventas';
     protected $primaryKey = 'idVenta';
-    public $timestamps = true; // porque tienes created_at y updated_at
+    public $incrementing = true;
+    public $timestamps = false; // no tienes timestamps en esta tabla
 
     protected $fillable = [
-        'user_id',
+        'idCliente',
         'empleado_id',
         'fecha',
-        'total'
+        'total',
     ];
 
-    public function detalles()
+    // Relación con Cliente
+    public function cliente()
     {
-        // FK = venta_id, PK = idVenta
-        return $this->hasMany(DetalleVenta::class, 'venta_id', 'idVenta');
+        return $this->belongsTo(Cliente::class, 'idCliente', 'idCliente');
     }
 
-    public function usuario()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
+    // Relación con Empleado
     public function empleado()
     {
-        return $this->belongsTo(Empleado::class, 'empleado_id');
+        return $this->belongsTo(Empleado::class, 'empleado_id', 'idEmpleado');
+    }
+
+    // Relación con Detalles de la venta
+    public function detalles()
+    {
+        return $this->hasMany(DetalleVenta::class, 'idVenta', 'idVenta');
     }
 }

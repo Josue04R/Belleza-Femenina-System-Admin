@@ -13,74 +13,76 @@ class VentaController extends Controller
 {
     public function index()
     {
-        $ventas = Venta::with('detalles.producto', 'empleado')->latest()->get();
+        $ventas = Venta::orderBy('fecha', 'desc')->get();
+
         return view('ventas.index', compact('ventas'));
+       
     }
 
     public function create()
     {
+
         $productos = \App\Models\Producto::with('variantesProductos.talla')->get();
-        return view('ventas.create', compact('productos'));
+
+        $clientes = \App\Models\Cliente::all();
+        // Retornar la vista con productos y clientes
+        return view('ventas.create', compact('productos', 'clientes'));
     }
 
     public function store(Request $request)
     {
-        DB::beginTransaction();
-        try {
-            // Decodificar JSON de productos
-            $productos = json_decode($request->productos, true);
+        $empleadoId = session('empleado_id');
 
-            if (!$productos || count($productos) === 0) {
-                return back()->with('error', 'No hay productos para guardar.');
+        $idCliente = $request->idCliente;
+
+        $detalles = json_decode($request->detalles, true);
+
+        if (!$detalles || count($detalles) === 0) {
+            return redirect()->back()->with('error', 'Debe agregar al menos un producto a la venta.');
+        }
+
+       
+        // Crear la venta
+        $venta = Venta::create([
+            'empleado_id' => $empleadoId,
+            'idCliente' => $idCliente,
+            'total' => $request->total,
+            'fecha' => Carbon::now(),
+        ]);
+
+        // Guardar detalles y disminuir stock
+        foreach ($detalles as $detalle) {
+            $variante = VariantesProducto::find($detalle['idVarianteProducto']);
+
+            if (!$variante) {
+                
+                return redirect()->back()->with('error', 'Variante no encontrada.');
             }
 
-            $totalVenta = 0;
-            $detalleIds = [];
-
-            // Primero guardamos todos los detalles de venta
-            foreach ($productos as $producto) {
-                $sub_total = $producto['subtotal'];
-                DetalleVenta::create([
-                    'venta_id'       => 0, // temporal, se actualizará luego
-                    'producto_id'    => $producto['producto_id'],
-                    'variante_id'    => $producto['id_variante'] ?? null,
-                    'cantidad'       => $producto['cantidad'],
-                    'precio_unitario'=> $producto['precio'],
-                    'sub_total'      => $sub_total,
-                ]);
-
-                // Restar stock de la variante
-                if (!empty($producto['id_variante'])) {
-                    $variante = VariantesProducto::find($producto['id_variante']);
-                    if ($variante) {
-                        $variante->stock -= $producto['cantidad'];
-                        $variante->save();
-                    }
-                }
-
-                $totalVenta += $sub_total;
-                $detalleIds[] = $detalle->id;
+            if ($variante->stock < $detalle['cantidad']) {
+                
+                return redirect()->back()->with('error', "No hay suficiente stock para {$variante->producto->nombre_p} ({$variante->color} / {$variante->talla->talla}). Disponible: {$variante->stock}");
             }
 
-            // Ahora creamos la venta principal
-            $venta = Venta::create([
-                'fecha'       => Carbon::now(),
-                'total'       => $totalVenta,
-                'empleado_id' => $request->empleado_id ?? 1,
-                'user_id'     => $request->user_id ?? 1,
+            // Crear detalle
+            DetalleVenta::create([
+                'idVenta' => $venta->idVenta,
+                'idProducto' => $detalle['idProducto'],
+                'idVariante' => $detalle['idVarianteProducto'],
+                'cantidad' => $detalle['cantidad'],
+                'precio_unitario' => $detalle['precio_unitario'],
+                'subTotal' => $detalle['subtotal'],
             ]);
 
-            // Actualizamos los detalles con el id de la venta creada
-            DetalleVenta::whereIn('id', $detalleIds)->update(['venta_id' => $venta->idVenta]);
-
-            DB::commit();
-
-            return redirect()->route('ventas.index')->with('success', 'Venta registrada correctamente.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->with('error', 'Error al guardar la venta: ' . $e->getMessage());
+            // Disminuir stock
+            $variante->stock -= $detalle['cantidad'];
+            $variante->save();
         }
+
+        
+        return redirect()->route('ventas.index')->with('success', 'Venta registrada exitosamente.');
+
+       
     }
 
 }
