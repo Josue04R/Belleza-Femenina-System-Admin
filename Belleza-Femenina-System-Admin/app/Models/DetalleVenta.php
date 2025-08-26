@@ -33,8 +33,9 @@ class DetalleVenta extends Model
     }
 
     // Relación con Variante
-    public function variante()
+   public function variante()
     {
-        return $this->belongsTo(VariantesProducto::class, 'idVariante', 'idVariante');
+        // Tu tabla se llama variantes_productos y su PK es id_variantes
+        return $this->belongsTo(VariantesProducto::class, 'idVariante', 'id_variantes');
     }
 }

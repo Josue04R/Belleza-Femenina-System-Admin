@@ -50,19 +50,19 @@
                                     @foreach ($ventas as $venta)
                                         <tr class="custom-table-row">
                                             <td class="text-center px-4 py-3">{{ $venta->idVenta }}</td>
-                                            <td class="text-center px-4 py-3">{{ $venta->usuario->nombre ?? '---' }}</td>
-                                            <td class="text-center px-4 py-3">{{ $venta->empleado->nameU ?? '---' }}</td>
+                                            <td class="text-center px-4 py-3">{{ $venta->cliente->nombre}} {{$venta->cliente->apellido }}</td>
+                                            <td class="text-center px-4 py-3">{{ $venta->empleado->nombre  }}</td>
                                             <td class="text-center px-4 py-3">{{ $venta->fecha }}</td>
                                             <td class="text-center px-4 py-3">${{ number_format($venta->total,2) }}</td>
                                             <td class="text-center px-4 py-3">
-                                                <ul>
-                                                @foreach($venta->detalles as $detalle)
-                                                    <li>{{ $detalle->producto->nombreP }} 
-                                                        - Cant: {{ $detalle->cantidad }} 
-                                                        - ${{ $detalle->subTotal }}
-                                                    </li>
-                                                @endforeach
-                                                </ul>
+                                               
+                                                    <div class="btn-group btnGrupoCompacto">
+                                                        <a href="{{url('/detalleVenta',$venta->idVenta)}}" class="btn btn-success btn-sm">
+                                                            Detalle
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach
