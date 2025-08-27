@@ -1,14 +1,8 @@
 @extends('panel.panel')
 
 @push('styles')
+<link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
 <link rel="stylesheet" href="{{ url('/css/ventas/venta.css') }}">
-<style>
-/* Autocomplete dropdown */
-#clientesList {
-    max-height: 200px;
-    overflow-y: auto;
-}
-</style>
 @endpush
 
 @section('template_title')
@@ -21,7 +15,11 @@
         <div class="col-12 px-0">
             <div class="card shadow-sm border-0 custom-card mb-3">
                 <div class="card-header custom-card-header py-2 px-3">
-                    <h6 class="mb-0"><i class="fas fa-shopping-cart mr-2"></i> Registro Venta</h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">
+                            <i class="fas fa-shopping-cart mr-2"></i> {{ __('Registro Venta') }}
+                        </h6>
+                    </div>
                 </div>
 
                 <div class="mt-2">
@@ -73,7 +71,7 @@
                             </div>
                         </div>
 
-                        <!-- Tabla de detalles -->
+                        <!-- Tabla -->
                         <table class="table" id="tablaDetalles">
                             <thead>
                                 <tr>
@@ -149,7 +147,6 @@
             const color = v.color ?? '';
             const tallaNombre = (v.talla && v.talla.talla) ? v.talla.talla : '';
             const texto = `Color: ${color} | Talla: ${tallaNombre}`;
-            // Aquí guardamos el precio de la variante (puedes usar producto si todas las variantes tienen mismo precio)
             const precio = parseFloat(this.selectedOptions[0]?.dataset?.precio || 0);
             varianteSelect.innerHTML += `<option value="${v.id_variantes}" data-stock="${v.stock}" data-precio="${precio}">${texto}</option>`;
         });
@@ -217,11 +214,10 @@
         renderTabla();
     }
 
-    // Limpiar campos para nueva línea
+    // Limpiar campos
     function limpiarCamposLinea() {
         document.getElementById('cantidad').value = '';
         document.getElementById('variante').selectedIndex = 0;
     }
 </script>
-
 @endsection
