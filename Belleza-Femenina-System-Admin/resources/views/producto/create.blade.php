@@ -10,6 +10,8 @@
 @endpush
 
 @section('content')
+<br>
+<br>
 <section class="content container-fluid">
     <div class="col-md-12">
         <div class="card card-default">
