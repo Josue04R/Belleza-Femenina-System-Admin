@@ -14,7 +14,10 @@ use Illuminate\View\View;
 class VariantesProductoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista paginada de variantes de productos con sus relaciones.
+     *
+     * @param Request $request Petición HTTP con parámetros de paginación.
+     * @return View Vista con la lista de variantes.
      */
     public function index(Request $request): View
     {
@@ -25,19 +28,24 @@ class VariantesProductoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear una nueva variante de producto.
+     *
+     * @return View Vista con el formulario y listas de productos y tallas.
      */
     public function create(): View
     {
         $variantesProducto = new VariantesProducto();
         $productos = Producto::all();
-        $tallas = Talla::all();  
+        $tallas = Talla::all();
 
         return view('variantes-producto.create', compact('variantesProducto', 'productos', 'tallas'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena una nueva variante de producto en la base de datos.
+     *
+     * @param VariantesProductoRequest $request Petición validada con los datos de la variante.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function store(VariantesProductoRequest $request): RedirectResponse
     {
@@ -48,7 +56,10 @@ class VariantesProductoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra los detalles de una variante de producto específica.
+     *
+     * @param int $id Identificador de la variante.
+     * @return View Vista con los datos de la variante.
      */
     public function show($id): View
     {
@@ -58,11 +69,14 @@ class VariantesProductoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar una variante de producto existente.
+     *
+     * @param int $id Identificador de la variante.
+     * @return View Vista con el formulario y listas de productos y tallas.
      */
     public function edit($id): View
     {
-        $variantesProducto = VariantesProducto::findOrFail($id); 
+        $variantesProducto = VariantesProducto::findOrFail($id);
         $productos = Producto::all();
         $tallas = Talla::all();
 
@@ -70,7 +84,11 @@ class VariantesProductoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de una variante de producto en la base de datos.
+     *
+     * @param VariantesProductoRequest $request Petición validada con los datos actualizados.
+     * @param VariantesProducto $variantesProducto Instancia de la variante a modificar.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function update(VariantesProductoRequest $request, VariantesProducto $variantesProducto): RedirectResponse
     {
@@ -80,14 +98,26 @@ class VariantesProductoController extends Controller
             ->with('success', 'Variantes-Producto actualizada correctamente.');
     }
 
+    /**
+     * Elimina una variante de producto de la base de datos.
+     *
+     * @param int $id Identificador de la variante.
+     * @return RedirectResponse Redirección con mensaje de éxito.
+     */
     public function destroy($id): RedirectResponse
     {
         VariantesProducto::find($id)->delete();
 
         return Redirect::route('variantes-productos.index')
-            ->with('success', 'Variantes-Producto elimnada correctamente.');
+            ->with('success', 'Variantes-Producto eliminada correctamente.');
     }
 
+    /**
+     * Obtiene los datos de una variante de producto por ID de producto.
+     *
+     * @param int $id_producto Identificador del producto.
+     * @return \Illuminate\Http\JsonResponse JSON con color, precio y stock o error.
+     */
     public function getDatosProducto($id_producto)
     {
         $variante = VariantesProducto::where('id_producto', $id_producto)->first();
@@ -102,5 +132,4 @@ class VariantesProductoController extends Controller
             'stock' => $variante->stock,
         ]);
     }
-
 }

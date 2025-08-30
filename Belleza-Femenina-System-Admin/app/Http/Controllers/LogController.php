@@ -12,7 +12,10 @@ use Illuminate\View\View;
 class LogController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista paginada de registros (logs).
+     *
+     * @param Request $request Petición HTTP con parámetros de paginación.
+     * @return View Vista con la lista de logs.
      */
     public function index(Request $request): View
     {
@@ -23,7 +26,9 @@ class LogController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo log.
+     *
+     * @return View Vista con el formulario de creación.
      */
     public function create(): View
     {
@@ -33,7 +38,10 @@ class LogController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo log en la base de datos.
+     *
+     * @param LogRequest $request Petición validada con los datos del log.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function store(LogRequest $request): RedirectResponse
     {
@@ -44,7 +52,10 @@ class LogController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra los detalles de un log específico.
+     *
+     * @param int $id Identificador del log.
+     * @return View Vista con los datos del log.
      */
     public function show($id): View
     {
@@ -54,7 +65,10 @@ class LogController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un log existente.
+     *
+     * @param int $id Identificador del log.
+     * @return View Vista con el formulario de edición.
      */
     public function edit($id): View
     {
@@ -64,7 +78,11 @@ class LogController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de un log en la base de datos.
+     *
+     * @param LogRequest $request Petición validada con los datos actualizados.
+     * @param Log $log Instancia del log a modificar.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function update(LogRequest $request, Log $log): RedirectResponse
     {
@@ -74,6 +92,12 @@ class LogController extends Controller
             ->with('success', 'Log updated successfully');
     }
 
+    /**
+     * Elimina un log de la base de datos.
+     *
+     * @param int $id Identificador del log.
+     * @return RedirectResponse Redirección con mensaje de éxito.
+     */
     public function destroy($id): RedirectResponse
     {
         Log::find($id)->delete();

@@ -14,9 +14,12 @@ use Illuminate\View\View;
 class EmpleadoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Autentica al empleado usando usuario y contraseña.
+     *
+     * @param Request $request Datos de la petición HTTP.
+     * @return RedirectResponse Redirección al panel si es exitoso, o de vuelta con error.
      */
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $request->validate([
             'usuario' => 'required|string',
@@ -35,10 +38,14 @@ class EmpleadoController extends Controller
         }
 
         return back()->withErrors(['usuario' => 'Credenciales incorrectas']);
-
     }
 
-
+    /**
+     * Muestra una lista paginada de empleados.
+     *
+     * @param Request $request Petición HTTP con parámetros de paginación.
+     * @return View Vista con la lista de empleados.
+     */
     public function index(Request $request): View
     {
         $empleados = Empleado::paginate();
@@ -48,18 +55,23 @@ class EmpleadoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo empleado.
+     *
+     * @return View Vista con el formulario y lista de permisos.
      */
     public function create(): View
     {
         $permisos = Permiso::all();
         $empleado = new Empleado();
 
-        return view('empleado.create', compact('empleado','permisos'));
+        return view('empleado.create', compact('empleado', 'permisos'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo empleado en la base de datos.
+     *
+     * @param EmpleadoRequest $request Petición validada con los datos del empleado.
+     * @return RedirectResponse Redirección a la lista con mensaje de éxito.
      */
     public function store(EmpleadoRequest $request): RedirectResponse
     {
@@ -70,7 +82,10 @@ class EmpleadoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra los detalles de un empleado específico.
+     *
+     * @param int $id Identificador del empleado.
+     * @return View Vista con los datos del empleado.
      */
     public function show($id): View
     {
@@ -80,18 +95,25 @@ class EmpleadoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un empleado existente.
+     *
+     * @param int $id Identificador del empleado.
+     * @return View Vista con el formulario y lista de permisos.
      */
     public function edit($id): View
-    {   
+    {
         $permisos = Permiso::all();
         $empleado = Empleado::find($id);
 
-        return view('empleado.edit', compact('empleado','permisos'));
+        return view('empleado.edit', compact('empleado', 'permisos'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de un empleado en la base de datos.
+     *
+     * @param EmpleadoRequest $request Petición validada con los datos actualizados.
+     * @param Empleado $empleado Instancia del empleado a modificar.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function update(EmpleadoRequest $request, Empleado $empleado): RedirectResponse
     {
@@ -101,6 +123,12 @@ class EmpleadoController extends Controller
             ->with('success', 'Empleado Modificado');
     }
 
+    /**
+     * Elimina un empleado de la base de datos.
+     *
+     * @param int $id Identificador del empleado.
+     * @return RedirectResponse Redirección con mensaje de éxito.
+     */
     public function destroy($id): RedirectResponse
     {
         Empleado::find($id)->delete();

@@ -12,7 +12,10 @@ use Illuminate\View\View;
 class PermisoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista paginada de permisos.
+     *
+     * @param Request $request Petición HTTP con parámetros de paginación.
+     * @return View Vista con la lista de permisos.
      */
     public function index(Request $request): View
     {
@@ -23,7 +26,9 @@ class PermisoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo permiso.
+     *
+     * @return View Vista con el formulario de creación.
      */
     public function create(): View
     {
@@ -33,7 +38,10 @@ class PermisoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo permiso en la base de datos.
+     *
+     * @param PermisoRequest $request Petición validada con los datos del permiso.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function store(PermisoRequest $request): RedirectResponse
     {
@@ -44,7 +52,10 @@ class PermisoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra los detalles de un permiso específico.
+     *
+     * @param int $id Identificador del permiso.
+     * @return View Vista con los datos del permiso.
      */
     public function show($id): View
     {
@@ -54,7 +65,10 @@ class PermisoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un permiso existente.
+     *
+     * @param int $id Identificador del permiso.
+     * @return View Vista con el formulario de edición.
      */
     public function edit($id): View
     {
@@ -64,7 +78,11 @@ class PermisoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de un permiso en la base de datos.
+     *
+     * @param PermisoRequest $request Petición validada con los datos actualizados.
+     * @param Permiso $permiso Instancia del permiso a modificar.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function update(PermisoRequest $request, Permiso $permiso): RedirectResponse
     {
@@ -74,6 +92,12 @@ class PermisoController extends Controller
             ->with('success', 'Permiso Modificado');
     }
 
+    /**
+     * Elimina un permiso de la base de datos.
+     *
+     * @param int $id Identificador del permiso.
+     * @return RedirectResponse Redirección con mensaje de éxito.
+     */
     public function destroy($id): RedirectResponse
     {
         Permiso::find($id)->delete();
