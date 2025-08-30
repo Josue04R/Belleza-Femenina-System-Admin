@@ -75,7 +75,12 @@ class EmpleadoController extends Controller
      */
     public function store(EmpleadoRequest $request): RedirectResponse
     {
-        Empleado::create($request->validated());
+        $data = $request->validated();
+
+        // Encriptar la contraseña antes de guardar
+        $data['contrasenia'] = Hash::make($data['contrasenia']);
+
+        Empleado::create($data);
 
         return Redirect::route('empleados.index')
             ->with('success', 'Empleado Creado');
@@ -117,7 +122,16 @@ class EmpleadoController extends Controller
      */
     public function update(EmpleadoRequest $request, Empleado $empleado): RedirectResponse
     {
-        $empleado->update($request->validated());
+        $data = $request->validated();
+
+        // Solo encriptar si viene nueva contraseña
+        if (!empty($data['contrasenia'])) {
+            $data['contrasenia'] = Hash::make($data['contrasenia']);
+        } else {
+            unset($data['contrasenia']); // para no sobreescribir la existente
+        }
+
+        $empleado->update($data);
 
         return Redirect::route('empleados.index')
             ->with('success', 'Empleado Modificado');
@@ -136,4 +150,12 @@ class EmpleadoController extends Controller
         return Redirect::route('empleados.index')
             ->with('success', 'Empleado Eliminado');
     }
+
+    public function logout()
+    {
+        session()->flush(); // Limpia todas las variables de sesión
+        return redirect()->route('login.login')->with('success', 'Has cerrado sesión correctamente.');
+    }
+
+
 }
