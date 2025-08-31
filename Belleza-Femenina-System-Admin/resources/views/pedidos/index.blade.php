@@ -67,10 +67,10 @@
                                 <td class="text-center px-4 py-3">{{ ucfirst($pedido->estado) }}</td>
                                 <td class="text-center px-4 py-3">${{ number_format($pedido->total, 2) }}</td>
                                 <td class="text-center px-4 py-3">
-                                    <form action="{{ route('pedidos.anular', $pedido) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('pedidos.anular', $pedido->idPedido) }}" method="POST" class="d-inline">
                                         <div class="btn-group custom-btn-group">
-                                            <a class="btn btn-sm btn-success mx-1" href="{{ route('pedidos.show', $pedido) }}"><i class="fa fa-fw fa-eye"></i> Detalle</a>
-                                            <a class="btn btn-sm btn-success mx-1" href="{{ route('pedidos.edit', $pedido) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                            <a class="btn btn-sm btn-success mx-1" href="{{ route('pedidos.show', $pedido->idPedido) }}"><i class="fa fa-fw fa-eye"></i> Detalle</a>
+                                            <a class="btn btn-sm btn-success mx-1" href="{{ route('pedidos.edit', $pedido->idPedido) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                             @if($pedido->estado !== 'cancelado')
                                                 @csrf
                                                 @method('PUT')

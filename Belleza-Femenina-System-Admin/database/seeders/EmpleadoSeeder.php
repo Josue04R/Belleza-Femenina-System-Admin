@@ -5,11 +5,25 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Empleado;
+use App\Models\Permiso;
 
 class EmpleadoSeeder extends Seeder
 {
     public function run(): void
     {
+        Permiso::create([
+            'nombrePermiso' => 'Gerente',
+			'gestionProductos' => 1,
+			'empleados' => 1,
+			'permisos' => 1,
+			'registroVentas' => 1,
+			'ventas' => 1,
+			'compras' => 1,
+			'pedidos' => 1,
+			'gastosOperativos' => 1,
+			'inventario' => 1,
+			'clientes' => 1,
+        ]);
         Empleado::create([
             'nombre'      => 'Cristian',
             'apellido'    => 'Rubio',

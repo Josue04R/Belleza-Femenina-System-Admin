@@ -85,7 +85,7 @@
             </div>
 
             <div class="mt-3 text-center">
-                <a href="{{ route('pedidos.edit', $pedido) }}" class="btn btn-warning">Editar Pedido</a>
+                <a href="{{ route('pedidos.edit', $pedido->idPedido) }}" class="btn btn-warning">Editar Pedido</a>
                 <a href="{{ route('pedidos.index') }}" class="btn btn-secondary">Volver</a>
             </div>
         </div>
