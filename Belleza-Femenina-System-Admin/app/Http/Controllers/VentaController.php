@@ -16,12 +16,24 @@ class VentaController extends Controller
      *
      * @return \Illuminate\View\View Vista con el listado de ventas.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ventas = Venta::orderBy('fecha', 'desc')->get();
+        $query = Venta::with(['cliente', 'empleado']);
 
-        return view('ventas.index', compact('ventas'));
+        if ($request->filled('fecha_inicio') && $request->filled('fecha_fin')) {
+            $fechaInicio = Carbon::parse($request->fecha_inicio)->startOfDay();
+            $fechaFin = Carbon::parse($request->fecha_fin)->endOfDay();
+
+            $query->whereBetween('fecha', [$fechaInicio, $fechaFin]);
+        }
+
+        $ventas = $query->orderBy('fecha', 'desc')->paginate(10);
+
+        return view('ventas.index', compact('ventas'))
+            ->with('fecha_inicio', $request->fecha_inicio)
+            ->with('fecha_fin', $request->fecha_fin);
     }
+
 
     /**
      * Muestra el formulario para registrar una nueva venta.
@@ -77,7 +89,7 @@ class VentaController extends Controller
                 'idProducto' => $detalle['idProducto'],
                 'idVariante' => $detalle['idVarianteProducto'],
                 'cantidad' => $detalle['cantidad'],
-                'precio_unitario' => $detalle['precio_unitario'],
+                'precioUnitario' => $detalle['precioUnitario'],
                 'subTotal' => $detalle['subtotal'],
             ]);
 

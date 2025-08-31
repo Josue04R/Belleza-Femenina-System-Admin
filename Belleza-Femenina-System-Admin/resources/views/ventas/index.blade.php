@@ -34,6 +34,24 @@
                     @endif
 
                     <div class="card-body bg-white px-4 py-3">
+                        <form method="GET" action="{{ route('ventas.index') }}" class="mb-3 d-flex gap-2">
+                            <div>
+                                <label for="fecha_inicio">Desde:</label>
+                                <input type="date" id="fecha_inicio" name="fecha_inicio" 
+                                    value="{{ request('fecha_inicio') }}" class="form-control">
+                            </div>
+
+                            <div>
+                                <label for="fecha_fin">Hasta:</label>
+                                <input type="date" id="fecha_fin" name="fecha_fin" 
+                                    value="{{ request('fecha_fin') }}" class="form-control">
+                            </div>
+
+                            <div class="align-self-end">
+                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                                <a href="{{ route('ventas.index') }}" class="btn btn-secondary">Limpiar</a>
+                            </div>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-hover custom-table mb-0">
                                 <thead class="thead">

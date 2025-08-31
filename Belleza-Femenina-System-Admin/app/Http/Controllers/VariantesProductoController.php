@@ -21,7 +21,7 @@ class VariantesProductoController extends Controller
      */
     public function index(Request $request): View
     {
-        $variantesProductos = VariantesProducto::with(['producto', 'talla'])->paginate();
+        $variantesProductos = VariantesProducto::with(['producto', 'talla'])->orderBy('idVariante', 'asc')->paginate();
 
         return view('variantes-producto.index', compact('variantesProductos'))
             ->with('i', ($request->input('page', 1) - 1) * $variantesProductos->perPage());
@@ -118,9 +118,9 @@ class VariantesProductoController extends Controller
      * @param int $id_producto Identificador del producto.
      * @return \Illuminate\Http\JsonResponse JSON con color, precio y stock o error.
      */
-    public function getDatosProducto($id_producto)
+    public function getDatosProducto($idProdcuto)
     {
-        $variante = VariantesProducto::where('idProducto', $id_producto)->first();
+        $variante = VariantesProducto::where('idProducto', $idProdcuto)->first();
 
         if (!$variante) {
             return response()->json(['error' => 'Variante no encontrada'], 404);
