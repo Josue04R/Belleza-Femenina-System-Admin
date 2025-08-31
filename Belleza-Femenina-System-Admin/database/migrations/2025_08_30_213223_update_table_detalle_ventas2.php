@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->foreign('idVariante')
                 ->references('idVariante')
-                ->on('variantes_productos')
+                ->on('variantesProducto')
                 ->onDelete('restrict');
         });
     }

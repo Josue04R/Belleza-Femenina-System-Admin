@@ -6,27 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+        /**
+         * Run the migrations.
+         */
     public function up(): void
     {
-        // Renombrar la tabla
-        Schema::rename('variantes_productos', 'variantesProducto');
-
-        // Renombrar columnas
-        Schema::table('variantesProducto', function (Blueprint $table) {
-            // Primero quitamos las foreign keys viejas
+        // 1. Quitar foreign keys en la tabla con el nombre viejo
+        Schema::table('variantes_productos', function (Blueprint $table) {
             $table->dropForeign(['id_producto']);
             $table->dropForeign(['id_talla']);
+        });
 
-            // Renombrar columnas
+        // 2. Renombrar la tabla
+        Schema::rename('variantes_productos', 'variantesProducto');
+
+        // 3. Renombrar columnas
+        Schema::table('variantesProducto', function (Blueprint $table) {
             $table->renameColumn('id_variantes', 'idVariante');
             $table->renameColumn('id_producto', 'idProducto');
             $table->renameColumn('id_talla', 'idTalla');
         });
 
-        // Volvemos a crear las foreign keys con los nuevos nombres
+        // 4. Crear foreign keys con los nombres nuevos
         Schema::table('variantesProducto', function (Blueprint $table) {
             $table->foreign('idProducto')
                 ->references('idProducto')
