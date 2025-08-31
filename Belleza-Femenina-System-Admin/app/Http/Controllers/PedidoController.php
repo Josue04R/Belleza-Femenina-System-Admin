@@ -8,25 +8,46 @@ use Illuminate\Http\Request;
 class PedidoController extends Controller
 {
     /**
-     * Muestra una lista paginada de pedidos, priorizando los pendientes.
+     * Muestra una lista paginada de pedidos, con filtro por estado y búsqueda por cliente.
      *
-     * @return \Illuminate\View\View Vista con la lista de pedidos.
+     * @param Request $request
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pedidos = Pedido::with('cliente')
+        $query = Pedido::with('cliente');
+
+        // Filtro por estado
+        if ($request->filled('estado')) {
+            $query->where('estado', $request->estado);
+        }
+
+        // Buscador por cliente insensible a mayúsculas
+        if ($request->filled('cliente')) {
+            $cliente = strtolower($request->cliente);
+            $query->whereHas('cliente', function($q) use ($cliente) {
+                $q->whereRaw('LOWER(nombre) LIKE ?', ["%{$cliente}%"]);
+            });
+        }
+
+        // Filtro por fecha
+        if ($request->filled('fecha')) {
+            $query->whereDate('fecha', $request->fecha);
+        }
+
+        // Ordenar primero pendientes, luego por fecha
+        $pedidos = $query
             ->orderByRaw("CASE WHEN estado = 'pendiente' THEN 0 ELSE 1 END")
             ->orderBy('fecha', 'desc')
-            ->paginate(10);
+            ->paginate(10)
+            ->appends($request->all()); // Mantener filtros al paginar
 
         return view('pedidos.index', compact('pedidos'));
     }
 
+
     /**
      * Muestra los detalles de un pedido específico.
-     *
-     * @param int $id Identificador del pedido.
-     * @return \Illuminate\View\View Vista con los datos del pedido.
      */
     public function show($id)
     {
@@ -37,10 +58,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Muestra el formulario para editar el estado y observaciones de un pedido.
-     *
-     * @param int $id Identificador del pedido.
-     * @return \Illuminate\View\View Vista con el formulario de edición.
+     * Muestra el formulario para editar un pedido.
      */
     public function edit($id)
     {
@@ -49,11 +67,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Actualiza el estado y observaciones de un pedido.
-     *
-     * @param Request $request Petición HTTP con los datos actualizados.
-     * @param int $id Identificador del pedido.
-     * @return \Illuminate\Http\RedirectResponse Redirección con mensaje de éxito.
+     * Actualiza estado y observaciones de un pedido.
      */
     public function update(Request $request, $id)
     {
@@ -66,10 +80,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Anula un pedido, cambia su estado a "cancelado" y restaura el stock.
-     *
-     * @param int $id Identificador del pedido.
-     * @return \Illuminate\Http\RedirectResponse Redirección con mensaje de éxito.
+     * Anula un pedido y restaura el stock.
      */
     public function anular($id)
     {
