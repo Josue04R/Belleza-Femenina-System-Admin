@@ -35,13 +35,13 @@
 
         
         <div class="form-group mb-2 mb20">
-            <label for="metodo_pago" class="form-label">{{ __('Metodo Pago') }}</label>
-            <input type="text" name="metodo_pago" 
-                   class="form-control @error('metodo_pago') is-invalid @enderror" 
-                   value="{{ old('metodo_pago', $gastosOperativo?->metodo_pago) }}" 
-                   id="metodo_pago" placeholder="Metodo Pago" 
+            <label for="metodoPago" class="form-label">{{ __('Metodo Pago') }}</label>
+            <input type="text" name="metodoPago" 
+                   class="form-control @error('metodoPago') is-invalid @enderror" 
+                   value="{{ old('metodoPago', $gastosOperativo?->metodoPago) }}" 
+                   id="metodoPago" placeholder="Metodo Pago" 
                    pattern="[A-Za-z\s]+" title="Solo letras">
-            {!! $errors->first('metodo_pago', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            {!! $errors->first('metodoPago', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         

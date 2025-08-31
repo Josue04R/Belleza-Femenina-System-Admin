@@ -22,7 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GastosOperativo extends Model
 {
-    
+    protected $table = 'gastosOperativos';
+    protected $primaryKey = 'idGasto';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    public $timestamps = false;
     protected $perPage = 20;
 
     /**
@@ -30,7 +34,7 @@ class GastosOperativo extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['idGasto', 'fecha', 'categoria', 'descripcion', 'monto', 'metodo_pago', 'idEmpleado', 'observaciones'];
+    protected $fillable = ['idGasto', 'fecha', 'categoria', 'descripcion', 'monto', 'metodoPago', 'idEmpleado', 'observaciones'];
 
 
     /**

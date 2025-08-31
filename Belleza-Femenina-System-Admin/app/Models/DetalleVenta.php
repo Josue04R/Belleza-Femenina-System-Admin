@@ -16,7 +16,7 @@ class DetalleVenta extends Model
         'idProducto',
         'idVariante',
         'cantidad',
-        'precio_unitario',
+        'precioUnitario',
         'subTotal',
     ];
 
@@ -29,13 +29,13 @@ class DetalleVenta extends Model
     // Relación con Producto
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'idProducto', 'id_producto');
+        return $this->belongsTo(Producto::class, 'idProducto', 'idProducto');
     }
 
     // Relación con Variante
    public function variante()
     {
         // Tu tabla se llama variantes_productos y su PK es id_variantes
-        return $this->belongsTo(VariantesProducto::class, 'idVariante', 'id_variantes');
+        return $this->belongsTo(VariantesProducto::class, 'idVariante', 'idVariante');
     }
 }

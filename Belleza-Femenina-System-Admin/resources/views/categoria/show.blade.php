@@ -26,7 +26,7 @@
                         
                                 <div class="form-group mb-2 mb20">
                                     <strong>Id Cate:</strong>
-                                    {{ $categoria->id_cate }}
+                                    {{ $categoria->idCategoria }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Categoria:</strong>

@@ -6,25 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class VariantesProducto extends Model
 {
-     protected $primaryKey = 'id_variantes';
+    protected $table = 'variantesProducto';
+    protected $primaryKey = 'idVariante';
     public $incrementing = true;
     protected $keyType = 'int';
     public $timestamps = false;
 
-    protected $fillable = ['id_producto', 'id_talla', 'color', 'stock', 'precio'];
+    protected $fillable = ['idProducto', 'idTalla', 'color', 'stock', 'precio'];
 
     public function getRouteKeyName()
     {
-        return 'id_variantes';
+        return 'idVariante';
     }
 
     public function producto()
     {
-        return $this->belongsTo(\App\Models\Producto::class, 'id_producto', 'id_producto');
+        return $this->belongsTo(\App\Models\Producto::class, 'idProducto', 'idProducto');
     }
 
     public function talla()
     {
-        return $this->belongsTo(\App\Models\Talla::class, 'id_talla', 'id_talla');
+        return $this->belongsTo(\App\Models\Talla::class, 'idTalla', 'idTalla');
     }
 }

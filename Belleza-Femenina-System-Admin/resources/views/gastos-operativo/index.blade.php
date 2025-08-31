@@ -57,7 +57,7 @@
                                             <td class="text-center px-4 py-3">{{ $gastosOperativo->categoria }}</td>
                                             <td class="text-center px-4 py-3">{{ $gastosOperativo->descripcion }}</td>
                                             <td class="text-center px-4 py-3">{{ $gastosOperativo->monto }}</td>
-                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->metodo_pago }}</td>
+                                            <td class="text-center px-4 py-3">{{ $gastosOperativo->metodoPago }}</td>
                                             <td class="text-center px-4 py-3">{{ $gastosOperativo->idEmpleado }}</td>
                                             <td class="text-center px-4 py-3">{{ $gastosOperativo->observaciones }}</td>
                                             <td class="text-center px-4 py-3">

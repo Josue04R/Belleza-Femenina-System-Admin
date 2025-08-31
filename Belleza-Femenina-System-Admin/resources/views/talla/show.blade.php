@@ -25,7 +25,7 @@
                     <div class="card-body bg-white custom-card-body">
                         <div class="form-group mb-2 mb20">
                             <strong>Id Talla:</strong>
-                            {{ $talla->id_talla }}
+                            {{ $talla->idTalla }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Talla:</strong>

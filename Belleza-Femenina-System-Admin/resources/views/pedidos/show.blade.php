@@ -71,7 +71,7 @@
                         <tbody>
                             @foreach($pedido->detalles as $detalle)
                                 <tr>
-                                    <td>{{ $detalle->variante->producto->nombre_p ?? 'N/A' }}</td>
+                                    <td>{{ $detalle->variante->producto->nombreProducto ?? 'N/A' }}</td>
                                     <td>{{ $detalle->variante->color ?? 'N/A' }}</td>
                                     <td>{{ $detalle->variante->talla->talla ?? 'N/A' }}</td>
                                     <td>${{ number_format($detalle->variante->precio ?? 0, 2) }}</td>

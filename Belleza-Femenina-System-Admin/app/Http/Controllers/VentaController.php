@@ -44,7 +44,7 @@ class VentaController extends Controller
        
         // Crear la venta
         $venta = Venta::create([
-            'empleado_id' => $empleadoId,
+            'idEmpleado' => $empleadoId,
             'idCliente' => $idCliente,
             'total' => $request->total,
             'fecha' => Carbon::now(),
@@ -61,7 +61,7 @@ class VentaController extends Controller
 
             if ($variante->stock < $detalle['cantidad']) {
                 
-                return redirect()->back()->with('error', "No hay suficiente stock para {$variante->producto->nombre_p} ({$variante->color} / {$variante->talla->talla}). Disponible: {$variante->stock}");
+                return redirect()->back()->with('error', "No hay suficiente stock para {$variante->producto->nombreProducto} ({$variante->color} / {$variante->talla->talla}). Disponible: {$variante->stock}");
             }
 
             // Crear detalle

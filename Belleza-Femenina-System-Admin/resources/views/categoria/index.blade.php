@@ -49,10 +49,10 @@
                                             <td class="text-center px-4 py-3">{{ $categoria->categoria }}</td>
                                             <td class="text-center px-4 py-3">{{ $categoria->descripcion }}</td>
                                             <td class="text-center px-4 py-3">
-                                                <form action="{{ route('categorias.destroy', $categoria->id_cate) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('categorias.destroy', $categoria->idCategoria) }}" method="POST" class="d-inline">
                                                     <div class="btn-group custom-btn-group">
-                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('categorias.show', $categoria->id_cate) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('categorias.edit', $categoria->id_cate) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('categorias.show', $categoria->idCategoria) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('categorias.edit', $categoria->idCategoria) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger mx-1" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>

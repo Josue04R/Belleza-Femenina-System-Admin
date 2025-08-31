@@ -51,7 +51,7 @@ class CompraController extends Controller
         }
 
         foreach ($detalles as $detalle){
-            $variante = VariantesProducto::where('id_variantes', $detalle['idVarianteProducto'])->first();
+            $variante = VariantesProducto::where('idVariante', $detalle['idVarianteProducto'])->first();
             if ($variante) {
                 $variante->stock += $detalle['cantidad'];
                 $variante->save();

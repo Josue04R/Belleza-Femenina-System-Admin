@@ -2,31 +2,31 @@
     <div class="col-md-12">
         
         <div class="form-group mb-2 mb20">
-            <label for="id_producto" class="form-label">{{ __('Nombre Producto') }}</label>
-            <select name="id_producto" id="id_producto" class="form-control @error('id_producto') is-invalid @enderror">
+            <label for="idProducto" class="form-label">{{ __('Nombre Producto') }}</label>
+            <select name="idProducto" id="idProducto" class="form-control @error('idProducto') is-invalid @enderror">
                 <option value="">-- Selecciona un producto --</option>
                 @foreach($productos as $producto)
-                    <option value="{{ $producto->id_producto }}"
-                        {{ old('id_producto', $variantesProducto?->id_producto) == $producto->id_producto ? 'selected' : '' }}>
-                        {{ $producto->nombre_p }} 
+                    <option value="{{ $producto->idProducto }}"
+                        {{ old('idProducto', $variantesProducto?->idProducto) == $producto->idProducto ? 'selected' : '' }}>
+                        {{ $producto->nombreProducto }} 
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('id_producto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            {!! $errors->first('idProducto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="id_talla" class="form-label">{{ __('Talla') }}</label>
-            <select name="id_talla" id="id_talla" class="form-control @error('id_talla') is-invalid @enderror">
+            <label for="idTalla" class="form-label">{{ __('Talla') }}</label>
+            <select name="idTalla" id="idTalla" class="form-control @error('idTalla') is-invalid @enderror">
                 <option value="">-- Selecciona una talla --</option>
                 @foreach($tallas as $talla)
-                    <option value="{{ $talla->id_talla }}"
-                        {{ old('id_talla', $variantesProducto?->id_talla) == $talla->id_talla ? 'selected' : '' }}>
+                    <option value="{{ $talla->idTalla }}"
+                        {{ old('idTalla', $variantesProducto?->idTalla) == $talla->idTalla ? 'selected' : '' }}>
                         {{ $talla->talla }} 
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('id_talla', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            {!! $errors->first('idTalla', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">

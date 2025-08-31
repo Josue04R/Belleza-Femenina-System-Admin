@@ -39,10 +39,10 @@
                                     <select id="producto" class="form-control">
                                         <option value="">Seleccione</option>
                                         @foreach($productos as $producto)
-                                            <option value="{{ $producto->id_producto }}"
+                                            <option value="{{ $producto->idProducto }}"
                                                 {{-- Nota: la propiedad del dataset debe llamarse "variantesproductos" --}}
                                                 data-variantesproductos='@json($producto->variantesProductos)'>
-                                                {{ $producto->nombre_p }}
+                                                {{ $producto->nombreProducto }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -119,7 +119,7 @@
                 const tallaNombre = (v.talla && v.talla.talla) ? v.talla.talla : '';
                 const texto = `Color: ${color} | Talla: ${tallaNombre}`;
                 // v.id_variantes es la PK de variantes_productos según tu migración
-                varianteSelect.innerHTML += `<option value="${v.id_variantes}">${texto}</option>`;
+                varianteSelect.innerHTML += `<option value="${v.idVariante}">${texto}</option>`;
             });
         });
 

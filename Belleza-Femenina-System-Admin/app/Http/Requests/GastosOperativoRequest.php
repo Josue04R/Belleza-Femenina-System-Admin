@@ -26,7 +26,7 @@ class GastosOperativoRequest extends FormRequest
 			'categoria' => 'required|string',
 			'descripcion' => 'required|string',
 			'monto' => 'required',
-			'metodo_pago' => 'required|string',
+			'metodoPago' => 'required|string',
 			'idEmpleado' => 'required',
 			'observaciones' => 'string',
         ];

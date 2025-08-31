@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Categoria extends Model
 {
-    protected $primaryKey = 'id_cate';
+    protected $primaryKey = 'idCategoria';
     public $incrementing = true;
     protected $keyType = 'int';
     public $timestamps = false; 
@@ -28,7 +28,7 @@ class Categoria extends Model
 
     public function productos()
     {
-        return $this->hasMany(\App\Models\Producto::class, 'id_cate', 'id_cate');
+        return $this->hasMany(\App\Models\Producto::class, 'idCategoria', 'idCategoria');
     }
 }
 

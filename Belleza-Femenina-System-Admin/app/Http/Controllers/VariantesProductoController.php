@@ -90,7 +90,7 @@ class VariantesProductoController extends Controller
 
     public function getDatosProducto($id_producto)
     {
-        $variante = VariantesProducto::where('id_producto', $id_producto)->first();
+        $variante = VariantesProducto::where('idProducto', $id_producto)->first();
 
         if (!$variante) {
             return response()->json(['error' => 'Variante no encontrada'], 404);

@@ -40,7 +40,7 @@
                             <tbody>
                                 @foreach($venta->detalles as $detalle)
                                     <tr>
-                                        <td>{{ $detalle->producto->nombre_p ?? 'N/A' }}</td>
+                                        <td>{{ $detalle->producto->nombreProducto ?? 'N/A' }}</td>
                                         <td>
                                             {{ $detalle->variante->color ?? '' }} - 
                                             {{ $detalle->variante->talla->talla ?? '' }}

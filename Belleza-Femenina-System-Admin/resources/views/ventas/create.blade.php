@@ -47,10 +47,10 @@
                                 <select id="producto" class="form-control">
                                     <option value="">Seleccione</option>
                                     @foreach($productos as $producto)
-                                        <option value="{{ $producto->id_producto }}"
+                                        <option value="{{ $producto->idProducto }}"
                                             data-variantesproductos='@json($producto->variantesProductos)'
                                             data-precio="{{ $producto->precio }}">
-                                            {{ $producto->nombre_p }}
+                                            {{ $producto->nombreProducto }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -148,7 +148,7 @@
             const tallaNombre = (v.talla && v.talla.talla) ? v.talla.talla : '';
             const texto = `Color: ${color} | Talla: ${tallaNombre}`;
             const precio = parseFloat(this.selectedOptions[0]?.dataset?.precio || 0);
-            varianteSelect.innerHTML += `<option value="${v.id_variantes}" data-stock="${v.stock}" data-precio="${precio}">${texto}</option>`;
+            varianteSelect.innerHTML += `<option value="${v.idVariante}" data-stock="${v.stock}" data-precio="${precio}">${texto}</option>`;
         });
     });
 
@@ -173,7 +173,7 @@
             idProducto: parseInt(productoSelect.value),
             idVarianteProducto: parseInt(varianteSelect.value),
             cantidad: cantidad,
-            precio_unitario: precio, 
+            precioUnitario: precio, 
             subtotal: subtotal,
             _productoNombre: productoNombre,
             _varianteNombre: varianteNombre

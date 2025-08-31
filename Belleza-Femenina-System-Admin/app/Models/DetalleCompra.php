@@ -26,12 +26,12 @@ class DetalleCompra extends Model{
     // 🔹 Relación con producto
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'idProducto', 'id_producto');
+        return $this->belongsTo(Producto::class, 'idProducto', 'idProducto');
     }
 
     // 🔹 Relación con variante de producto
     public function variante()
     {
-       return $this->belongsTo(VariantesProducto::class, 'idVarianteProducto', 'id_variantes');
+       return $this->belongsTo(VariantesProducto::class, 'idVarianteProducto', 'idVariante');
     }
 }

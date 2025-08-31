@@ -25,15 +25,15 @@
                     <div class="card-body bg-white">
                         <div class="form-group mb-2 mb20">
                             <strong>Id Producto:</strong>
-                            <span>{{ $producto->id_producto }}</span>
+                            <span>{{ $producto->idProducto }}</span>
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Nombre P:</strong>
-                            <span>{{ $producto->nombre_p }}</span>
+                            <span>{{ $producto->nombreProducto }}</span>
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Marca P:</strong>
-                            <span>{{ $producto->marca_p }}</span>
+                            <span>{{ $producto->marcaProducto }}</span>
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Nombre Categoria:</strong>

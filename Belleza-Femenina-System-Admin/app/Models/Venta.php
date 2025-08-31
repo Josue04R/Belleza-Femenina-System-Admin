@@ -13,7 +13,7 @@ class Venta extends Model
 
     protected $fillable = [
         'idCliente',
-        'empleado_id',
+        'idEmpleado',
         'fecha',
         'total',
     ];
@@ -27,7 +27,7 @@ class Venta extends Model
     // Relación con Empleado
     public function empleado()
     {
-        return $this->belongsTo(Empleado::class, 'empleado_id', 'idEmpleado');
+        return $this->belongsTo(Empleado::class, 'idEmpleado', 'idEmpleado');
     }
 
     // Relación con Detalles de la venta

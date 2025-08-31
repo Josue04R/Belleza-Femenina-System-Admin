@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Metodo Pago:</strong>
-                            {{ $gastosOperativo->metodo_pago }}
+                            {{ $gastosOperativo->metodoPago }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Idempleado:</strong>

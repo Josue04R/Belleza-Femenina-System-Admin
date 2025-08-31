@@ -25,15 +25,15 @@
                     <div class="card-body bg-white custom-card-body">
                         <div class="form-group mb-2 mb20">
                             <strong>Id Variantes:</strong>
-                            {{ $variantesProducto->id_variantes }}
+                            {{ $variantesProducto->idVariante }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Id Producto:</strong>
-                            {{ $variantesProducto->id_producto }}
+                            {{ $variantesProducto->idProducto }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Id Talla:</strong>
-                            {{ $variantesProducto->id_talla }}
+                            {{ $variantesProducto->idTalla }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Color:</strong>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Talla extends Model
 {
-    protected $primaryKey = 'id_talla';
+    protected $primaryKey = 'idTalla';
     public $incrementing = true;
     protected $keyType = 'int';
     public $timestamps = false;  
@@ -17,6 +17,6 @@ class Talla extends Model
 
     public function variantesProductos()
     {
-        return $this->hasMany(\App\Models\VariantesProducto::class, 'id_talla', 'id_talla');
+        return $this->hasMany(\App\Models\VariantesProducto::class, 'idTalla', 'idTalla');
     }
 }

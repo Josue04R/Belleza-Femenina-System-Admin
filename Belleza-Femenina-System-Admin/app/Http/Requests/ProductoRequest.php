@@ -14,9 +14,9 @@ class ProductoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre_p' => 'required|string|max:255',
-            'marca_p' => 'required|string|max:255',
-            'id_cate' => 'required|exists:categorias,id_cate',
+            'nombreProducto' => 'required|string|max:255',
+            'marcaProducto' => 'required|string|max:255',
+            'idCategoria' => 'required|exists:categorias,idCategoria',
             'material' => 'nullable|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric',

@@ -2,31 +2,31 @@
     <div class="col-md-12">
         
         <div class="form-group mb-2 mb20">
-            <label for="nombre_p" class="form-label">{{ __('Nombre del producto') }}</label>
-            <input type="text" name="nombre_p" class="form-control @error('nombre_p') is-invalid @enderror" 
-                   value="{{ old('nombre_p', $producto?->nombre_p) }}" id="nombre_p" placeholder="producto">
-            {!! $errors->first('nombre_p', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="nombreProducto" class="form-label">{{ __('Nombre del producto') }}</label>
+            <input type="text" name="nombreProducto" class="form-control @error('nombreProducto') is-invalid @enderror" 
+                   value="{{ old('nombreProducto', $producto?->nombreProducto) }}" id="nombreProducto" placeholder="producto">
+            {!! $errors->first('nombreProducto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="marca_p" class="form-label">{{ __('Marca ') }}</label>
-            <input type="text" name="marca_p" class="form-control @error('marca_p') is-invalid @enderror" 
-                   value="{{ old('marca_p', $producto?->marca_p) }}" id="marca_p" placeholder="Marca ">
-            {!! $errors->first('marca_p', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="marcaProducto" class="form-label">{{ __('Marca ') }}</label>
+            <input type="text" name="marcaProducto" class="form-control @error('marcaProducto') is-invalid @enderror" 
+                   value="{{ old('marcaProducto', $producto?->marcaProducto) }}" id="marcaProducto" placeholder="Marca ">
+            {!! $errors->first('marcaProducto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="id_cate" class="form-label">{{ __('Categoría') }}</label>
-            <select name="id_cate" id="id_cate" class="form-control @error('id_cate') is-invalid @enderror">
+            <label for="idCategoria" class="form-label">{{ __('Categoría') }}</label>
+            <select name="idCategoria" id="idCategoria" class="form-control @error('idCategoria') is-invalid @enderror">
                 <option value="">-- Selecciona una categoría --</option>
                 @foreach($categorias as $categoria)
-                    <option value="{{ $categoria->id_cate }}" 
-                        {{ old('id_cate', $producto?->id_cate) == $categoria->id_cate ? 'selected' : '' }}>
+                    <option value="{{ $categoria->idCategoria }}" 
+                        {{ old('idCategoria', $producto?->idCategoria) == $categoria->idCategoria ? 'selected' : '' }}>
                         {{ $categoria->categoria }}
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('id_cate', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            {!! $errors->first('idCategoria', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">

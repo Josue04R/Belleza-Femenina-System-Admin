@@ -49,16 +49,16 @@
                                 <tbody>
                                     @foreach ($variantesProductos as $variantesProducto)
                                         <tr class="custom-table-row">
-                                            <td class="text-center px-4 py-3">{{ $variantesProducto->producto?->nombre_p }}</td>
+                                            <td class="text-center px-4 py-3">{{ $variantesProducto->producto?->nombreProducto }}</td>
                                             <td class="text-center px-4 py-3">{{ $variantesProducto->talla?->talla }}</td>
                                             <td class="text-center px-4 py-3">{{ $variantesProducto->color }}</td>
                                             <td class="text-center px-4 py-3">{{ $variantesProducto->stock }}</td>
                                             <td class="text-center px-4 py-3">{{ $variantesProducto->precio }}</td>
                                             <td class="text-center px-4 py-3">
-                                                <form action="{{ route('variantes-productos.destroy', $variantesProducto->id_variantes) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('variantes-productos.destroy', $variantesProducto->idVariante) }}" method="POST" class="d-inline">
                                                     <div class="btn-group custom-btn-group">
-                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('variantes-productos.show', $variantesProducto->id_variantes) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('variantes-productos.edit', $variantesProducto->id_variantes) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('variantes-productos.show', $variantesProducto->idVariante) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('variantes-productos.edit', $variantesProducto->idVariante) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger mx-1" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>

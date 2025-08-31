@@ -24,25 +24,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Producto extends Model
 {
-    protected $primaryKey = 'id_producto';
+    protected $primaryKey = 'idProducto';
     public $incrementing = true;
     protected $keyType = 'int';
     public $timestamps = false; 
     protected $perPage = 20;
 
     protected $fillable = [
-        'id_producto', 'nombre_p', 'marca_p', 'id_cate',
+        'nombreProducto', 'marcaProducto', 'idCategoria',
         'material', 'descripcion', 'precio', 'imagen', 'estado'
     ];
 
     public function categoria()
     {
-        return $this->belongsTo(\App\Models\Categoria::class, 'id_cate', 'id_cate');
+        return $this->belongsTo(\App\Models\Categoria::class, 'idCategoria', 'idCategoria');
     }
 
     public function variantesProductos()
     {
-        return $this->hasMany(\App\Models\VariantesProducto::class, 'id_producto', 'id_producto');
+        return $this->hasMany(\App\Models\VariantesProducto::class, 'idProducto', 'idProducto');
     }
 }
 
