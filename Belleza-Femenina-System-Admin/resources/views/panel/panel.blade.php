@@ -1,212 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="stylesheet" href="{{ asset('css/panel.css') }}">
-  @stack('styles')
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="{{ asset('css/panel.css') }}">
+    @stack('styles')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-@php
-    $empleado = null;
-    if(session('empleado_id')) {
-        $empleado = \App\Models\Empleado::with('permiso')->find(session('empleado_id'));
-    }
-@endphp
-
-<nav class="siteNavbar">
-    <button class="toggleSiderbar">
-      <span class="material-symbols-rounded">Menu</span>
-    </button>
-</nav>
-
-<div class="containerMain">
-    <aside class="mainSidebar">
-      <div class="mainSidebarHeader">
-        <img src="logo.png" alt="Mujeres Lucete" class="logoHeader" />
+    <nav class="siteNavbar">
         <button class="toggleSiderbar">
-          <span class="material-symbols-rounded">chevron_left</span>
+            <span class="material-symbols-rounded">Menu</span>
         </button>
-      </div>
-      
-      <div style="margin-left:auto; padding-right:20px; color:#fff;">
-        Bienvenido, {{ session('empleado_nombre') ?? 'Invitado' }}
-      </div>
+    </nav>
 
-      <div class="sidebarcontentMain">
-        <ul class="listMenu">
+    <div class="containerMain">
+        <aside class="mainSidebar">
+            <div class="mainSidebarHeader">
+                <img src="logo.png" alt="Mujeres Lucete" class="logoHeader" />
+                <button class="toggleSiderbar">
+                    <span class="material-symbols-rounded">chevron_left</span>
+                </button>
+            </div>
 
-          {{-- Productos --}}
-          @if($empleado && $empleado->permiso && (
-              $empleado->permiso->categoriaProductos ||
-              $empleado->permiso->productos ||
-              $empleado->permiso->tallas ||
-              $empleado->permiso->variantesProducto
-          ))
-          <li class="itemMenu">
-            <a href="#" class="linkMenu" id="productosDropdown">
-              <span class="material-symbols-rounded menuIcon">inventory_2</span>
-              <span class="labelMenu">Productos</span>
-              <span class="material-symbols-rounded dropdownIcon" style="margin-left: auto;">chevron_right</span>
-            </a>
+            <div style="margin-left:auto; padding-right:20px; color:#fff;">
+                Bienvenido, {{ session('empleado_nombre') ?? 'Invitado' }}
+            </div>
 
-            <ul class="menuDropdown" id="productosMenu">
-              @if($empleado->permiso->categoriaProductos)
-              <li>
-                <a href="{{ url('/categorias') }}" class="linkDropdown">
-                  <span class="material-symbols-rounded menuIcon">category</span>
-                  <span class="labelMenu">Categoría Productos</span>
-                </a>
-              </li>
-              @endif
+            <div class="sidebarcontentMain">
+                <ul class="listMenu">
+                    <li class="itemMenu">
+                        <a href="#" class="linkMenu" id="productosDropdown">
+                            <span class="material-symbols-rounded menuIcon">inventory_2</span>
+                            <span class="labelMenu">Productos</span>
+                            <span class="material-symbols-rounded dropdownIcon" style="margin-left: auto;">chevron_right</span>
+                        </a>
+                        <ul class="menuDropdown" id="productosMenu">
+                            <li><a href="{{ url('/categorias') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Categoría Productos</span></a></li>
+                            <li><a href="{{ url('/productos') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Productos</span></a></li>
+                            <li><a href="{{ url('/tallas') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Tallas</span></a></li>
+                            <li><a href="{{ url('/variantes-productos') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Variantes Productos</span></a></li>
+                        </ul>
+                    </li>
 
-              @if($empleado->permiso->productos)
-              <li>
-                <a href="{{ url('/productos') }}" class="linkDropdown">
-                  <span class="material-symbols-rounded menuIcon">category</span>
-                  <span class="labelMenu">Productos</span>
-                </a>
-              </li>
-              @endif
+                    <li class="itemMenu">
+                        <a href="#" class="linkMenu" id="empleadosDropdown">
+                            <span class="material-symbols-rounded menuIcon">badge</span>
+                            <span class="labelMenu">Empleados</span>
+                            <span class="material-symbols-rounded dropdownIcon" style="margin-left: auto;">chevron_right</span>
+                        </a>
+                        <ul class="menuDropdown" id="empleadosMenu">
+                            <li><a href="{{ url('permisos') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">lock</span><span class="labelMenu">Permisos</span></a></li>
+                            <li><a href="{{ url('empleados') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">groups</span><span class="labelMenu">Empleados</span></a></li>
+                        </ul>
+                    </li>
 
-              @if($empleado->permiso->tallas)
-              <li>
-                <a href="{{ url('/tallas') }}" class="linkDropdown">
-                  <span class="material-symbols-rounded menuIcon">category</span>
-                  <span class="labelMenu">Tallas</span>
-                </a>
-              </li>
-              @endif
+                    <li class="itemMenu"><a href="#" class="linkMenu"><span class="material-symbols-rounded menuIcon">inventory</span><span class="labelMenu">Inventario</span></a></li>
+                    <li class="itemMenu"><a href="{{ url('/gastos-operativos') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">receipt</span><span class="labelMenu">Gastos operativos</span></a></li>
+                    <li class="itemMenu"><a href="{{ url('compras') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">shopping_cart</span><span class="labelMenu">Compras</span></a></li>
+                    <li class="itemMenu"><a href="{{ route('ventas.index') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">point_of_sale</span><span class="labelMenu">Ventas</span></a></li>
+                    <li class="itemMenu"><a href="{{ route('pedidos.index') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">list_alt</span><span class="labelMenu">Pedidos</span></a></li>
+                    <li class="itemMenu"><a href="{{ url('clientes') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">people</span><span class="labelMenu">Clientes</span></a></li>
+                </ul>
+            </div>
 
-              @if($empleado->permiso->variantesProducto)
-              <li>
-                <a href="{{ url('/variantes-productos') }}" class="linkDropdown">
-                  <span class="material-symbols-rounded menuIcon">category</span>
-                  <span class="labelMenu">Variantes Productos</span>
-                </a>
-              </li>
-              @endif
-            </ul>
-          </li>
-          @endif
+            <div class="mainSidebarFooter">
+                <form method="POST" action="{{ route('empleado.logout') }}">
+                    @csrf
+                    <button type="submit" class="btnLogout">
+                        <span class="material-symbols-rounded menuIcon">logout</span>
+                        <span class="labelMenu">Logout</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
 
-          {{-- Empleados y permisos --}}
-          @if($empleado && $empleado->permiso && ($empleado->permiso->permisos || $empleado->permiso->empleados))
-          <li class="itemMenu">
-            <a href="#" class="linkMenu" id="empleadosDropdown">
-              <span class="material-symbols-rounded menuIcon">badge</span>
-              <span class="labelMenu">Empleados</span>
-              <span class="material-symbols-rounded dropdownIcon" style="margin-left: auto;">chevron_right</span>
-            </a>
-
-            <ul class="menuDropdown" id="empleadosMenu">
-              @if($empleado->permiso->permisos)
-              <li>
-                <a href="{{ url('permisos') }}" class="linkDropdown">
-                  <span class="material-symbols-rounded menuIcon">lock</span>
-                  <span class="labelMenu">Permisos</span>
-                </a>
-              </li>
-              @endif
-
-              @if($empleado->permiso->empleados)
-              <li>
-                <a href="{{ url('empleados') }}" class="linkDropdown">
-                  <span class="material-symbols-rounded menuIcon">groups</span>
-                  <span class="labelMenu">Empleados</span>
-                </a>
-              </li>
-              @endif
-            </ul>
-          </li>
-          @endif
-
-          {{-- Inventario --}}
-          @if($empleado && $empleado->permiso && $empleado->permiso->inventario)
-          <li class="itemMenu">
-            <a href="#" class="linkMenu">
-              <span class="material-symbols-rounded menuIcon">inventory</span>
-              <span class="labelMenu">Inventario</span>
-            </a>
-          </li>
-          @endif
-
-          {{-- Gastos operativos --}}
-          @if($empleado && $empleado->permiso && $empleado->permiso->gastosOperativos)
-          <li class="itemMenu">
-            <a href="{{ url('/gastos-operativos') }}" class="linkMenu">
-              <span class="material-symbols-rounded menuIcon">receipt</span>
-              <span class="labelMenu">Gastos operativos</span>
-            </a>
-          </li>
-          @endif
-
-          {{-- Compras --}}
-          @if($empleado && $empleado->permiso && $empleado->permiso->compras)
-          <li class="itemMenu">
-            <a href="{{ url('compras') }}" class="linkMenu">
-              <span class="material-symbols-rounded menuIcon">shopping_cart</span>
-              <span class="labelMenu">Compras</span>
-            </a>
-          </li>
-          @endif
-
-          {{-- Ventas --}}
-          @if($empleado && $empleado->permiso && $empleado->permiso->ventas)
-          <li class="itemMenu">
-            <a href="{{ route('ventas.index') }}" class="linkMenu">
-              <span class="material-symbols-rounded menuIcon">point_of_sale</span>
-              <span class="labelMenu">Ventas</span>
-            </a>
-          </li>
-          @endif
-
-          {{-- Pedidos --}}
-          @if($empleado && $empleado->permiso && $empleado->permiso->pedidos)
-          <li class="itemMenu">
-            <a href="{{ route('pedidos.index') }}" class="linkMenu">
-              <span class="material-symbols-rounded menuIcon">list_alt</span>
-              <span class="labelMenu">Pedidos</span>
-            </a>
-          </li>
-          @endif
-
-          {{-- Clientes --}}
-          @if($empleado && $empleado->permiso && $empleado->permiso->clientes)
-          <li class="itemMenu">
-            <a href="{{ url('clientes') }}" class="linkMenu">
-              <span class="material-symbols-rounded menuIcon">people</span>
-              <span class="labelMenu">Clientes</span>
-            </a>
-          </li>
-          @endif
-
-        </ul>
-      </div>
-      
-      <div class="mainSidebarFooter">
-        <form method="POST" action="{{ route('empleado.logout') }}">
-            @csrf
-            <button type="submit" class="btnLogout">
-                <span class="material-symbols-rounded menuIcon">logout</span>
-                <span class="labelMenu">Logout</span>
-            </button>
-        </form>
-      </div>
-
-    </aside>
-    
-    <div class="mainContent">
-      @yield('content')
+        <div class="mainContent">
+            @yield('content')
+        </div>
     </div>
 
-</div>
-
-<script src="{{ asset('js/panel.js') }}"></script>
+    <script src="{{ asset('js/panel.js') }}"></script>
 </body>
 </html>

@@ -19,6 +19,7 @@ class CheckPermission
         if ($empleadoId) {
             // Buscamos el empleado con su permiso
             $empleado = Empleado::with('permiso')->find($empleadoId);
+            //dd($empleado);
 
             if ($empleado && $empleado->permiso && isset($empleado->permiso->$permiso) && $empleado->permiso->$permiso) {
                 return $next($request);

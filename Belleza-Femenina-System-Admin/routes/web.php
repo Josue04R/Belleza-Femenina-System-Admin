@@ -16,7 +16,7 @@ use App\Http\Controllers\VariantesProductoController;
 use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Middleware\CheckPermission; // Importamos el middleware
+use App\Http\Middleware\CheckPermission;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,23 +38,23 @@ Route::get('/inicio', function () {
 // Rutas protegidas con permisos
 // -----------------------------
 
-// Categorías
-Route::middleware([CheckPermission::class.':categoriaProductos'])->group(function () {
+// Categorías (usa gestionProductos en la tabla permisos)
+Route::middleware([CheckPermission::class.':gestionProductos'])->group(function () {
     Route::resource('categorias', CategoriaController::class);
 });
 
 // Productos
-Route::middleware([CheckPermission::class.':productos'])->group(function () {
+Route::middleware([CheckPermission::class.':gestionProductos'])->group(function () {
     Route::resource('productos', ProductoController::class);
 });
 
-// Tallas
-Route::middleware([CheckPermission::class.':tallas'])->group(function () {
+// Tallas (agregar este campo a la tabla permisos si lo necesitas)
+Route::middleware([CheckPermission::class.':gestionProductos'])->group(function () {
     Route::resource('tallas', TallaController::class);
 });
 
-// Variantes de productos
-Route::middleware([CheckPermission::class.':variantesProducto'])->group(function () {
+// Variantes de productos (igual, depende de tu BD)
+Route::middleware([CheckPermission::class.':gestionProductos'])->group(function () {
     Route::resource('variantes-productos', VariantesProductoController::class);
     Route::get('/producto-datos/{id_producto}', [VariantesProductoController::class, 'getDatosProducto']);
 });
@@ -69,7 +69,7 @@ Route::middleware([CheckPermission::class.':empleados'])->group(function () {
     Route::resource('empleados', EmpleadoController::class);
 });
 
-// Logs
+// Logs (sin middleware)
 Route::resource('logs', LogController::class);
 
 // Gastos operativos
