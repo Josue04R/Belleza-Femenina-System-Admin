@@ -154,7 +154,7 @@ class EmpleadoController extends Controller
     public function logout()
     {
         session()->flush(); // Limpia todas las variables de sesión
-        return redirect()->route('login.login')->with('success', 'Has cerrado sesión correctamente.');
+        return redirect()->route('login')->with('success', 'Has cerrado sesión correctamente.');
     }
 
 

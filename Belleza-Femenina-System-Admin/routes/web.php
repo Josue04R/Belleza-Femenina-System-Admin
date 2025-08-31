@@ -27,7 +27,7 @@ use App\Http\Middleware\CheckPermission;
 // Página de login
 Route::get('/', function () {
     return view('login.login');
-})->name('panel');
+})->name('login');
 
 // Página principal después de loguearse
 Route::get('/inicio', function () {
