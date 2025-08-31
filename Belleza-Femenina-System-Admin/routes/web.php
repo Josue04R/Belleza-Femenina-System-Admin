@@ -16,37 +16,92 @@ use App\Http\Controllers\VariantesProductoController;
 use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Middleware\CheckPermission; // Importamos el middleware
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+// Página de login
 Route::get('/', function () {
     return view('login.login');
 })->name('panel');
 
+// Página principal después de loguearse
 Route::get('/inicio', function () {
     return view('panel.panel');
 })->name('panel');
 
-Route::resource('categorias', CategoriaController::class);
-Route::resource('productos', ProductoController::class);
-Route::resource('tallas', TallaController::class);
-Route::resource('variantes-productos', VariantesProductoController::class);
-Route::resource('permisos', PermisoController::class);
-Route::resource('empleados', EmpleadoController::class);
+// -----------------------------
+// Rutas protegidas con permisos
+// -----------------------------
+
+// Categorías
+Route::middleware([CheckPermission::class.':categoriaProductos'])->group(function () {
+    Route::resource('categorias', CategoriaController::class);
+});
+
+// Productos
+Route::middleware([CheckPermission::class.':productos'])->group(function () {
+    Route::resource('productos', ProductoController::class);
+});
+
+// Tallas
+Route::middleware([CheckPermission::class.':tallas'])->group(function () {
+    Route::resource('tallas', TallaController::class);
+});
+
+// Variantes de productos
+Route::middleware([CheckPermission::class.':variantesProducto'])->group(function () {
+    Route::resource('variantes-productos', VariantesProductoController::class);
+    Route::get('/producto-datos/{id_producto}', [VariantesProductoController::class, 'getDatosProducto']);
+});
+
+// Permisos
+Route::middleware([CheckPermission::class.':permisos'])->group(function () {
+    Route::resource('permisos', PermisoController::class);
+});
+
+// Empleados
+Route::middleware([CheckPermission::class.':empleados'])->group(function () {
+    Route::resource('empleados', EmpleadoController::class);
+});
+
+// Logs
 Route::resource('logs', LogController::class);
-Route::get('/producto-datos/{id_producto}', [VariantesProductoController::class, 'getDatosProducto']);
-Route::resource('gastos-operativos', GastosOperativoController::class);
 
-Route::resource('ventas', VentaController::class);
-Route::get('/detalleVenta/{idVenta}',[DetalleVentaController::class, 'show']);
-Route::resource('compras',CompraController::class);
-Route::get('/detalleCompra/{idCompra}',[DetalleCompraController::class, 'show']);
+// Gastos operativos
+Route::middleware([CheckPermission::class.':gastosOperativos'])->group(function () {
+    Route::resource('gastos-operativos', GastosOperativoController::class);
+});
 
+// Ventas
+Route::middleware([CheckPermission::class.':ventas'])->group(function () {
+    Route::resource('ventas', VentaController::class);
+    Route::get('/detalleVenta/{idVenta}', [DetalleVentaController::class, 'show']);
+});
 
+// Compras
+Route::middleware([CheckPermission::class.':compras'])->group(function () {
+    Route::resource('compras', CompraController::class);
+    Route::get('/detalleCompra/{idCompra}', [DetalleCompraController::class, 'show']);
+});
+
+// Clientes
+Route::middleware([CheckPermission::class.':clientes'])->group(function () {
+    Route::resource('clientes', ClienteController::class);
+});
+
+// Pedidos
+Route::middleware([CheckPermission::class.':pedidos'])->group(function () {
+    Route::resource('pedidos', PedidoController::class);
+    Route::put('pedidos/{pedido}/anular', [PedidoController::class, 'anular'])->name('pedidos.anular');
+});
+
+// -----------------------------
+// Login empleados
+// -----------------------------
 Route::post('/empleado/login', [EmpleadoController::class, 'login'])->name('empleado.login');
-
-
-Route::resource('clientes', ClienteController::class);
-
-
-Route::resource('pedidos', PedidoController::class);
-Route::put('pedidos/{pedido}/anular', [PedidoController::class, 'anular'])->name('pedidos.anular');
-
-
+Route::post('/empleado/logout', [EmpleadoController::class, 'logout'])->name('empleado.logout');

@@ -11,22 +11,37 @@ use Illuminate\Support\Facades\DB;
 
 class CompraController extends Controller
 {
-   
+    /**
+     * Muestra una lista de todas las compras registradas.
+     *
+     * @return \Illuminate\View\View Vista con el listado de compras.
+     */
     public function index()
     {
         $compras = Compra::all();
-        return view('compra.index',compact('compras'));
+        return view('compra.index', compact('compras'));
     }
 
-    
+    /**
+     * Muestra el formulario para registrar una nueva compra.
+     *
+     * @return \Illuminate\View\View Vista con los productos y variantes disponibles.
+     */
     public function create()
     {
         $productos = \App\Models\Producto::with('variantesProductos.talla')->get();
-        return view('compra.create',compact('productos'));
+        return view('compra.create', compact('productos'));
     }
 
-    
-   public function store(Request $request)
+    /**
+     * Registra una nueva compra en la base de datos, incluyendo sus detalles
+     * y actualiza el stock de las variantes de producto.
+     *
+     * @param Request $request Petición HTTP con los datos de la compra.
+     *                         Debe incluir 'total' y 'detalles' en formato JSON.
+     * @return \Illuminate\Http\RedirectResponse Redirección a la vista de compras con mensaje de éxito.
+     */
+    public function store(Request $request)
     {
         $empleadoId = session('empleado_id');
 
@@ -35,11 +50,11 @@ class CompraController extends Controller
             'total' => $request->total,
             'fecha' => Carbon::now(),
         ]);
-        
+
         // Decodificar detalles JSON
         $detalles = json_decode($request->detalles, true);
-        
-        // Guardar detalles y actualizar stock
+
+        // Guardar detalles de la compra
         foreach ($detalles as $detalle) {
             DetalleCompra::create([
                 'idCompra' => $compra->idCompra,
@@ -57,30 +72,7 @@ class CompraController extends Controller
                 $variante->save();
             }
         }
+
         return redirect()->route('compras.index')->with('success', 'Compra registrada exitosamente.');
-    
-    }
-
-    public function show(string $id)
-    {
-        //
-    }
-
-    
-    public function edit(string $id)
-    {
-        //
-    }
-
-    
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    
-    public function destroy(string $id)
-    {
-        //
     }
 }

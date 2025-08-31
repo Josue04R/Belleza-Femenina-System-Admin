@@ -12,17 +12,20 @@
 </head>
 <body>
 
-  <nav class="siteNavbar">
+@php
+    $empleado = null;
+    if(session('empleado_id')) {
+        $empleado = \App\Models\Empleado::with('permiso')->find(session('empleado_id'));
+    }
+@endphp
+
+<nav class="siteNavbar">
     <button class="toggleSiderbar">
       <span class="material-symbols-rounded">Menu</span>
     </button>
-    
-  </nav>
-  
-  <div class="containerMain">
+</nav>
 
-  
-
+<div class="containerMain">
     <aside class="mainSidebar">
       <div class="mainSidebarHeader">
         <img src="logo.png" alt="Mujeres Lucete" class="logoHeader" />
@@ -31,14 +34,20 @@
         </button>
       </div>
       
-
       <div style="margin-left:auto; padding-right:20px; color:#fff;">
         Bienvenido, {{ session('empleado_nombre') ?? 'Invitado' }}
-    </div>
+      </div>
 
-    
       <div class="sidebarcontentMain">
         <ul class="listMenu">
+
+          {{-- Productos --}}
+          @if($empleado && $empleado->permiso && (
+              $empleado->permiso->categoriaProductos ||
+              $empleado->permiso->productos ||
+              $empleado->permiso->tallas ||
+              $empleado->permiso->variantesProducto
+          ))
           <li class="itemMenu">
             <a href="#" class="linkMenu" id="productosDropdown">
               <span class="material-symbols-rounded menuIcon">inventory_2</span>
@@ -47,37 +56,47 @@
             </a>
 
             <ul class="menuDropdown" id="productosMenu">
+              @if($empleado->permiso->categoriaProductos)
               <li>
-                <a href="{{ url ('/categorias') }}" class="linkDropdown">
+                <a href="{{ url('/categorias') }}" class="linkDropdown">
                   <span class="material-symbols-rounded menuIcon">category</span>
                   <span class="labelMenu">Categoría Productos</span>
                 </a>
               </li>
+              @endif
 
+              @if($empleado->permiso->productos)
               <li>
-                <a href="{{ url ('/productos') }}" class="linkDropdown">
+                <a href="{{ url('/productos') }}" class="linkDropdown">
                   <span class="material-symbols-rounded menuIcon">category</span>
                   <span class="labelMenu">Productos</span>
                 </a>
               </li>
+              @endif
 
+              @if($empleado->permiso->tallas)
               <li>
-                <a href="{{ url ('/tallas') }}" class="linkDropdown">
+                <a href="{{ url('/tallas') }}" class="linkDropdown">
                   <span class="material-symbols-rounded menuIcon">category</span>
                   <span class="labelMenu">Tallas</span>
                 </a>
               </li>
+              @endif
 
+              @if($empleado->permiso->variantesProducto)
               <li>
-                <a href="{{ url ('/variantes-productos') }}" class="linkDropdown">
+                <a href="{{ url('/variantes-productos') }}" class="linkDropdown">
                   <span class="material-symbols-rounded menuIcon">category</span>
                   <span class="labelMenu">Variantes Productos</span>
                 </a>
               </li>
-
+              @endif
             </ul>
           </li>
-          
+          @endif
+
+          {{-- Empleados y permisos --}}
+          @if($empleado && $empleado->permiso && ($empleado->permiso->permisos || $empleado->permiso->empleados))
           <li class="itemMenu">
             <a href="#" class="linkMenu" id="empleadosDropdown">
               <span class="material-symbols-rounded menuIcon">badge</span>
@@ -86,73 +105,98 @@
             </a>
 
             <ul class="menuDropdown" id="empleadosMenu">
+              @if($empleado->permiso->permisos)
               <li>
-                <a href="{{url('permisos')}}" class="linkDropdown">
+                <a href="{{ url('permisos') }}" class="linkDropdown">
                   <span class="material-symbols-rounded menuIcon">lock</span>
                   <span class="labelMenu">Permisos</span>
                 </a>
               </li>
+              @endif
 
+              @if($empleado->permiso->empleados)
               <li>
-                <a href="{{url('empleados')}}" class="linkDropdown">
+                <a href="{{ url('empleados') }}" class="linkDropdown">
                   <span class="material-symbols-rounded menuIcon">groups</span>
                   <span class="labelMenu">Empleados</span>
                 </a>
               </li>
-
+              @endif
             </ul>
           </li>
-          
+          @endif
+
+          {{-- Inventario --}}
+          @if($empleado && $empleado->permiso && $empleado->permiso->inventario)
           <li class="itemMenu">
             <a href="#" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">inventory</span>
               <span class="labelMenu">Inventario</span>
             </a>
           </li>
-          
+          @endif
+
+          {{-- Gastos operativos --}}
+          @if($empleado && $empleado->permiso && $empleado->permiso->gastosOperativos)
           <li class="itemMenu">
-            <a href="{{ url ('/gastos-operativos') }}" class="linkMenu">
+            <a href="{{ url('/gastos-operativos') }}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">receipt</span>
               <span class="labelMenu">Gastos operativos</span>
             </a>
           </li>
-          
+          @endif
+
+          {{-- Compras --}}
+          @if($empleado && $empleado->permiso && $empleado->permiso->compras)
           <li class="itemMenu">
-            <a href="{{url ('compras')}}" class="linkMenu">
+            <a href="{{ url('compras') }}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">shopping_cart</span>
               <span class="labelMenu">Compras</span>
             </a>
           </li>
-          
-         <li class="itemMenu">
+          @endif
+
+          {{-- Ventas --}}
+          @if($empleado && $empleado->permiso && $empleado->permiso->ventas)
+          <li class="itemMenu">
             <a href="{{ route('ventas.index') }}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">point_of_sale</span>
               <span class="labelMenu">Ventas</span>
             </a>
           </li>
+          @endif
 
-          
+          {{-- Pedidos --}}
+          @if($empleado && $empleado->permiso && $empleado->permiso->pedidos)
           <li class="itemMenu">
             <a href="{{ route('pedidos.index') }}" class="linkMenu">
-                <span class="material-symbols-rounded menuIcon">list_alt</span>
-                <span class="labelMenu">Pedidos</span>
+              <span class="material-symbols-rounded menuIcon">list_alt</span>
+              <span class="labelMenu">Pedidos</span>
             </a>
           </li>
+          @endif
+
+          {{-- Clientes --}}
+          @if($empleado && $empleado->permiso && $empleado->permiso->clientes)
           <li class="itemMenu">
-            <a href="{{url ('clientes')}}" class="linkMenu">
+            <a href="{{ url('clientes') }}" class="linkMenu">
               <span class="material-symbols-rounded menuIcon">people</span>
               <span class="labelMenu">Clientes</span>
             </a>
           </li>
+          @endif
 
         </ul>
       </div>
       
       <div class="mainSidebarFooter">
-        <button class="btnLogout">
-          <span class="material-symbols-rounded menuIcon">logout</span>
-          <span class="labelMenu">Logout</span>
-        </button>
+        <form method="POST" action="{{ route('empleado.logout') }}">
+            @csrf
+            <button type="submit" class="btnLogout">
+                <span class="material-symbols-rounded menuIcon">logout</span>
+                <span class="labelMenu">Logout</span>
+            </button>
+        </form>
       </div>
 
     </aside>
@@ -161,7 +205,8 @@
       @yield('content')
     </div>
 
-  </div>
-  <script src="{{ asset('js/panel.js') }}"></script>
+</div>
+
+<script src="{{ asset('js/panel.js') }}"></script>
 </body>
 </html>

@@ -12,7 +12,10 @@ use Illuminate\View\View;
 class TallaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista paginada de tallas.
+     *
+     * @param Request $request Petición HTTP con parámetros de paginación.
+     * @return View Vista con la lista de tallas.
      */
     public function index(Request $request): View
     {
@@ -23,7 +26,9 @@ class TallaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear una nueva talla.
+     *
+     * @return View Vista con el formulario de creación.
      */
     public function create(): View
     {
@@ -33,7 +38,10 @@ class TallaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena una nueva talla en la base de datos.
+     *
+     * @param TallaRequest $request Petición validada con los datos de la talla.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function store(TallaRequest $request): RedirectResponse
     {
@@ -44,7 +52,10 @@ class TallaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra los detalles de una talla específica.
+     *
+     * @param int $id Identificador de la talla.
+     * @return View Vista con los datos de la talla.
      */
     public function show($id): View
     {
@@ -54,7 +65,10 @@ class TallaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar una talla existente.
+     *
+     * @param int $id Identificador de la talla.
+     * @return View Vista con el formulario de edición.
      */
     public function edit($id): View
     {
@@ -64,7 +78,11 @@ class TallaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de una talla en la base de datos.
+     *
+     * @param TallaRequest $request Petición validada con los datos actualizados.
+     * @param Talla $talla Instancia de la talla a modificar.
+     * @return RedirectResponse Redirección con mensaje de éxito.
      */
     public function update(TallaRequest $request, Talla $talla): RedirectResponse
     {
@@ -74,6 +92,12 @@ class TallaController extends Controller
             ->with('success', 'Talla actualizada correctamente.');
     }
 
+    /**
+     * Elimina una talla de la base de datos.
+     *
+     * @param int $id Identificador de la talla.
+     * @return RedirectResponse Redirección con mensaje de éxito.
+     */
     public function destroy($id): RedirectResponse
     {
         Talla::find($id)->delete();
