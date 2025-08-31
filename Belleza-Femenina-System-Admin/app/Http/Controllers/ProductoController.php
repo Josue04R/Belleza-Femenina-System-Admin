@@ -26,7 +26,7 @@ class ProductoController extends Controller
         $productos = Producto::query()
             ->when($search, function($query, $search) {
                 $search = strtolower($search);
-                $query->whereRaw('LOWER(nombre_p) LIKE ?', ["%{$search}%"]);
+                $query->whereRaw('LOWER(nombreProducto) LIKE ?', ["%{$search}%"]);
             })
             ->paginate(10);
 

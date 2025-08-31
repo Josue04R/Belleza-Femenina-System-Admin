@@ -17,7 +17,7 @@
                         <span class="card-title">{{ __('Update') }} Talla</span>
                     </div>
                     <div class="card-body bg-white custom-card-body">
-                        <form method="POST" action="{{ route('tallas.update', $talla->id_talla) }}" role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('tallas.update', $talla->idTalla) }}" role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
                             @include('talla.form')

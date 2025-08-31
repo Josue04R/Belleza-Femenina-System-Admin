@@ -61,10 +61,10 @@
                                             <td class="text-center px-4 py-3">{{ $gastosOperativo->idEmpleado }}</td>
                                             <td class="text-center px-4 py-3">{{ $gastosOperativo->observaciones }}</td>
                                             <td class="text-center px-4 py-3">
-                                                <form action="{{ route('gastos-operativos.destroy', $gastosOperativo->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('gastos-operativos.destroy', $gastosOperativo->idGasto) }}" method="POST" class="d-inline">
                                                     <div class="btn-group custom-btn-group">
-                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('gastos-operativos.show', $gastosOperativo->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('gastos-operativos.edit', $gastosOperativo->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('gastos-operativos.show', $gastosOperativo->idGasto) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                        <a class="btn btn-sm btn-success mx-1" href="{{ route('gastos-operativos.edit', $gastosOperativo->idGasto) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger mx-1" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>

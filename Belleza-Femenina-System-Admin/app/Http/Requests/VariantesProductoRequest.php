@@ -22,6 +22,7 @@ class VariantesProductoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'idProducto' =>'required',
 			'color' => 'required|string',
 			'stock' => 'required',
 			'precio' => 'required',

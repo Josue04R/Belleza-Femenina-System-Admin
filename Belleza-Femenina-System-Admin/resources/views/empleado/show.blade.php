@@ -25,7 +25,7 @@
                     <div class="card-body bg-white">
                         
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Idempleado:</strong>
+                                    <strong>ID:</strong>
                                     {{ $empleado->idEmpleado }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
@@ -44,13 +44,10 @@
                                     <strong>Usuario:</strong>
                                     {{ $empleado->usuario }}
                                 </div>
+                               
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Contrasenia:</strong>
-                                    {{ $empleado->contrasenia }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Idpermiso:</strong>
-                                    {{ $empleado->idPermiso }}
+                                    <strong>Nivel Acceso:</strong>
+                                    {{ $empleado->permiso->nombrePermiso }}
                                 </div>
 
                     </div>

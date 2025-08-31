@@ -52,10 +52,6 @@
                             <span>{{ $producto->precio }}</span>
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Imagen:</strong>
-                            <span>{{ $producto->imagen }}</span>
-                        </div>
-                        <div class="form-group mb-2 mb20">
                             <strong>Estado:</strong>
                             <span>{{ $producto->estado }}</span>
                         </div>

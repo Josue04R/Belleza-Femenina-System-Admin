@@ -20,7 +20,7 @@
                         <span class="card-title">{{ __('Update') }} Variantes Producto</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('variantes-productos.update', $variantesProducto->id_variantes) }}" class="form-edit" role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('variantes-productos.update', $variantesProducto->idVariante) }}" class="form-edit" role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
