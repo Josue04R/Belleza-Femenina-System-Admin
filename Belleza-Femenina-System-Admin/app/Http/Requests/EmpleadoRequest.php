@@ -26,7 +26,7 @@ class EmpleadoRequest extends FormRequest
 			'apellido' => 'required|string',
 			'telefono' => 'required|string',
 			'usuario' => 'required|string',
-			'contrasenia' => 'required|string',
+			'contrasenia' => 'nullable|string',
 			'idPermiso' => 'required',
         ];
     }
