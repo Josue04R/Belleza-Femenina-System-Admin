@@ -28,13 +28,17 @@
         </div>
         <div class="form-group mb-2 mb20">
             <label for="idPermiso" class="form-label">{{ __('Nivel Acceso') }}</label>
-            <select name="idPermiso" id="idPermiso"  class="form-select @error('idPermiso') is-invalid @enderror">
-                    @foreach($permisos as $permiso)
-                        <option value="{{ $permiso->idPermiso }}" {{ old('idPermiso', $permiso?->idPermiso) == $permiso->idPermiso ? 'selected' : '' }}>
-                            {{ $permiso->nombrePermiso }}
-                        </option>
-                    @endforeach
+            <select name="idPermiso" id="idPermiso" class="form-select @error('idPermiso') is-invalid @enderror">
+                @foreach($permisos as $permiso)
+                    <option value="{{ $permiso->idPermiso }}"
+                        {{ old('idPermiso', $empleado?->idPermiso) == $permiso->idPermiso ? 'selected' : '' }}>
+                        {{ $permiso->nombrePermiso }}
+                    </option>
+                @endforeach
             </select>
+            @error('idPermiso')
+                <div class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></div>
+            @enderror
         </div>
 
     </div>
