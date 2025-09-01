@@ -23,6 +23,7 @@ class VariantesProductoRequest extends FormRequest
     {
         return [
             'idProducto' =>'required',
+            'idTalla' => 'required',
 			'color' => 'required|string',
 			'stock' => 'required',
 			'precio' => 'required',

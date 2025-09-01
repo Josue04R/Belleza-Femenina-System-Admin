@@ -21,15 +21,10 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        
 
-        $productos = Producto::query()
-            ->when($search, function($query, $search) {
-                $search = strtolower($search);
-                $query->whereRaw('LOWER(nombreProducto) LIKE ?', ["%{$search}%"]);
-            })
-            ->paginate(10);
-
+        $productos = Producto::query()->paginate(10);
+            
         if ($request->ajax()) {
             return view('producto._tabla', compact('productos'))->render();
         }

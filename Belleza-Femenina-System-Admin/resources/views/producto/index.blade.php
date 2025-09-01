@@ -16,10 +16,7 @@
             <div class="col-12 px-2">
                 <div class="card shadow-sm border-0 custom-card mb-4">
                     <div class="card-header custom-card-header py-3 px-4">
-                        <form action="{{ route('productos.index') }}" method="GET" class="d-flex">
-                            <input type="text" id="search" class="form-control mb-3" placeholder="Buscar productos...">
-                        </form>
-
+            
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span id="card_title">
                                 {{ __('Productos') }}
@@ -92,5 +89,7 @@
                 });
             }, 300);
         });
+
+        
     </script>
 @endsection

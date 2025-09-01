@@ -20,7 +20,7 @@
                         <span class="card-title">{{ __('Update') }} Gastos Operativo</span>
                     </div>
                     <div class="card-body bg-white px-4 py-3">
-                        <form method="POST" action="{{ route('gastos-operativos.update', $gastosOperativo->id) }}" class="form-edit" role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('gastos-operativos.update', $gastosOperativo->idGasto) }}" class="form-edit" role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 

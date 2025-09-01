@@ -21,9 +21,9 @@
             <input type="text" name="usuario" class="form-control @error('usuario') is-invalid @enderror" value="{{ old('usuario', $empleado?->usuario) }}" id="usuario" placeholder="Usuario">
             {!! $errors->first('usuario', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        <div class="form-group mb-2 mb20">
+       <div class="form-group mb-2 mb20">
             <label for="contrasenia" class="form-label">{{ __('Contraseña') }}</label>
-            <input type="password" name="contrasenia" class="form-control @error('contrasenia') is-invalid @enderror" value="{{ old('contrasenia', $empleado?->contrasenia) }}" id="contrasenia">
+            <input type="password" name="contrasenia" class="form-control @error('contrasenia') is-invalid @enderror" id="contrasenia">
             {!! $errors->first('contrasenia', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
