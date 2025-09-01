@@ -24,19 +24,19 @@
 
                     <div class="card-body bg-white">
                         <div class="form-group mb-2 mb20">
-                            <strong>Id Producto:</strong>
+                            <strong>Id:</strong>
                             <span>{{ $producto->idProducto }}</span>
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Nombre P:</strong>
+                            <strong>Nombre:</strong>
                             <span>{{ $producto->nombreProducto }}</span>
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Marca P:</strong>
+                            <strong>Marca:</strong>
                             <span>{{ $producto->marcaProducto }}</span>
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Nombre Categoria:</strong>
+                            <strong>Categoria:</strong>
                             <span>{{ $producto->categoria->categoria ?? 'N/A' }}</span>
                         </div>
                         <div class="form-group mb-2 mb20">

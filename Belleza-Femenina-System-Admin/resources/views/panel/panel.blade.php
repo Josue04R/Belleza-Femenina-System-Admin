@@ -11,6 +11,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    @php
+        $empleado = null;
+        if(session('empleado_id')) {
+            $empleado = \App\Models\Empleado::with('permiso')->find(session('empleado_id'));
+        }
+    @endphp
     <nav class="siteNavbar">
         <button class="toggleSiderbar">
             <span class="material-symbols-rounded">Menu</span>
@@ -32,37 +38,95 @@
 
             <div class="sidebarcontentMain">
                 <ul class="listMenu">
-                    <li class="itemMenu">
-                        <a href="#" class="linkMenu" id="productosDropdown">
-                            <span class="material-symbols-rounded menuIcon">inventory_2</span>
-                            <span class="labelMenu">Productos</span>
-                            <span class="material-symbols-rounded dropdownIcon" style="margin-left: auto;">chevron_right</span>
-                        </a>
-                        <ul class="menuDropdown" id="productosMenu">
-                            <li><a href="{{ url('/categorias') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Categoría Productos</span></a></li>
-                            <li><a href="{{ url('/productos') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Productos</span></a></li>
-                            <li><a href="{{ url('/tallas') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Tallas</span></a></li>
-                            <li><a href="{{ url('/variantes-productos') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Variantes Productos</span></a></li>
-                        </ul>
-                    </li>
+                    @if($empleado && $empleado->permiso && $empleado->permiso->gestionProductos)
+                        <li class="itemMenu">
+                            <a href="#" class="linkMenu" id="productosDropdown">
+                                <span class="material-symbols-rounded menuIcon">inventory_2</span>
+                                <span class="labelMenu">Productos</span>
+                                <span class="material-symbols-rounded dropdownIcon" style="margin-left: auto;">chevron_right</span>
+                            </a>
+                            <ul class="menuDropdown" id="productosMenu">
+                                <li><a href="{{ url('/categorias') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Categoría Productos</span></a></li>
+                                <li><a href="{{ url('/productos') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Productos</span></a></li>
+                                <li><a href="{{ url('/tallas') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Tallas</span></a></li>
+                                <li><a href="{{ url('/variantes-productos') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">category</span><span class="labelMenu">Variantes Productos</span></a></li>
+                            </ul>
+                        </li>
+                    @endif
 
-                    <li class="itemMenu">
-                        <a href="#" class="linkMenu" id="empleadosDropdown">
-                            <span class="material-symbols-rounded menuIcon">badge</span>
-                            <span class="labelMenu">Empleados</span>
-                            <span class="material-symbols-rounded dropdownIcon" style="margin-left: auto;">chevron_right</span>
-                        </a>
-                        <ul class="menuDropdown" id="empleadosMenu">
-                            <li><a href="{{ url('permisos') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">lock</span><span class="labelMenu">Permisos</span></a></li>
-                            <li><a href="{{ url('empleados') }}" class="linkDropdown"><span class="material-symbols-rounded menuIcon">groups</span><span class="labelMenu">Empleados</span></a></li>
-                        </ul>
-                    </li>
+                    @if($empleado && $empleado->permiso && ($empleado->permiso->permisos || $empleado->permiso->empleados))
+                        <li class="itemMenu">
+                            <a href="#" class="linkMenu" id="empleadosDropdown">
+                                <span class="material-symbols-rounded menuIcon">badge</span>
+                                <span class="labelMenu">Empleados</span>
+                                <span class="material-symbols-rounded dropdownIcon" style="margin-left: auto;">chevron_right</span>
+                            </a>
 
-                    <li class="itemMenu"><a href="{{ url('/gastos-operativos') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">receipt</span><span class="labelMenu">Gastos operativos</span></a></li>
-                    <li class="itemMenu"><a href="{{ url('compras') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">shopping_cart</span><span class="labelMenu">Compras</span></a></li>
-                    <li class="itemMenu"><a href="{{ route('ventas.index') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">point_of_sale</span><span class="labelMenu">Ventas</span></a></li>
-                    <li class="itemMenu"><a href="{{ route('pedidos.index') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">list_alt</span><span class="labelMenu">Pedidos</span></a></li>
-                    <li class="itemMenu"><a href="{{ url('clientes') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">people</span><span class="labelMenu">Clientes</span></a></li>
+                            <ul class="menuDropdown" id="empleadosMenu">
+                                @if($empleado->permiso->permisos)
+                                    <li>
+                                        <a href="{{ url('permisos') }}" class="linkDropdown">
+                                        <span class="material-symbols-rounded menuIcon">lock</span>
+                                        <span class="labelMenu">Permisos</span>
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if($empleado->permiso->empleados)
+                                    <li>
+                                        <a href="{{ url('empleados') }}" class="linkDropdown">
+                                        <span class="material-symbols-rounded menuIcon">groups</span>
+                                        <span class="labelMenu">Empleados</span>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+
+                     @if($empleado && $empleado->permiso && $empleado->permiso->gastosOperativos)
+                        <li class="itemMenu">
+                            <a href="{{ url('/gastos-operativos') }}" class="linkMenu">
+                            <span class="material-symbols-rounded menuIcon">receipt</span>
+                            <span class="labelMenu">Gastos operativos</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if($empleado && $empleado->permiso && $empleado->permiso->compras)
+                        <li class="itemMenu">
+                            <a href="{{ url('compras') }}" class="linkMenu">
+                            <span class="material-symbols-rounded menuIcon">shopping_cart</span>
+                            <span class="labelMenu">Compras</span>
+                            </a>
+                        </li>
+                    @endif
+                   @if($empleado && $empleado->permiso && $empleado->permiso->ventas)
+                        <li class="itemMenu">
+                            <a href="{{ route('ventas.index') }}" class="linkMenu">
+                            <span class="material-symbols-rounded menuIcon">point_of_sale</span>
+                            <span class="labelMenu">Ventas</span>
+                            </a>
+                        </li>
+                    @endif
+                   @if($empleado && $empleado->permiso && $empleado->permiso->pedidos)
+                        <li class="itemMenu">
+                            <a href="{{ route('pedidos.index') }}" class="linkMenu">
+                            <span class="material-symbols-rounded menuIcon">list_alt</span>
+                            <span class="labelMenu">Pedidos</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    {{-- Clientes --}}
+                    @if($empleado && $empleado->permiso && $empleado->permiso->clientes)
+                        <li class="itemMenu">
+                            <a href="{{ url('clientes') }}" class="linkMenu">
+                            <span class="material-symbols-rounded menuIcon">people</span>
+                            <span class="labelMenu">Clientes</span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
 

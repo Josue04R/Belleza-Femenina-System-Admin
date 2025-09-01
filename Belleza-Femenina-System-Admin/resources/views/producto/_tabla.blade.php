@@ -2,14 +2,13 @@
     <table class="table table-hover custom-table mb-0">
         <thead class="thead">
             <tr>
-                <th class="text-center px-4">Id Producto</th>
-                <th class="text-center px-4">Nombre P</th>
-                <th class="text-center px-4">Marca P</th>
-                <th class="text-center px-4">Nombre Categoria</th>
+                <th class="text-center px-4">Producto</th>
+                <th class="text-center px-4">Nombre</th>
+                <th class="text-center px-4">Marca</th>
+                <th class="text-center px-4">Categoria</th>
                 <th class="text-center px-4">Material</th>
                 <th class="text-center px-4">Descripcion</th>
                 <th class="text-center px-4">Precio</th>
-                <th class="text-center px-4">Imagen</th>
                 <th class="text-center px-4">Estado</th>
                 <th class="text-center px-4">Acciones</th>
             </tr>
@@ -24,7 +23,6 @@
                     <td class="text-center px-4 py-3">{{ $producto->material }}</td>
                     <td class="text-center px-4 py-3">{{ $producto->descripcion }}</td>
                     <td class="text-center px-4 py-3">{{ $producto->precio }}</td>
-                    <td class="text-center px-4 py-3">{{ $producto->imagen }}</td>
                     <td class="text-center px-4 py-3">{{ $producto->estado }}</td>
                     <td class="text-center px-4 py-3">
                         <form action="{{ route('productos.destroy', $producto->idProducto) }}" method="POST" class="d-inline">
