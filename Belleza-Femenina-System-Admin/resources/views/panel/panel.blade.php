@@ -20,7 +20,7 @@
     <div class="containerMain">
         <aside class="mainSidebar">
             <div class="mainSidebarHeader">
-                <img src="logo.png" alt="Mujeres Lucete" class="logoHeader" />
+                
                 <button class="toggleSiderbar">
                     <span class="material-symbols-rounded">chevron_left</span>
                 </button>
