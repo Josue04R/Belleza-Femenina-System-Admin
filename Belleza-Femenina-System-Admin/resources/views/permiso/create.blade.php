@@ -5,7 +5,7 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="{{ url('/css/categorias/crearCategoria.css') }}">
+<link rel="stylesheet" href="{{ asset('/css/categorias/crearCategoria.css') }}">
 @endpush
 
 @section('content')

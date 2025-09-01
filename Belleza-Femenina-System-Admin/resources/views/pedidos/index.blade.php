@@ -5,9 +5,9 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/tablas/tablas.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/pagination/pagination.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/categorias/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/tablas/tablas.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/pagination/pagination.css') }}">
 @endpush
 
 @section('content')

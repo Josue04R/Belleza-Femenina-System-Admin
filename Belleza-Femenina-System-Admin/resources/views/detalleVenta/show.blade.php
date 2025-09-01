@@ -1,8 +1,8 @@
 @extends('panel.panel') 
 
 @push('styles')
-<link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
-<link rel="stylesheet" href="{{ url('/css/compras/compra.css') }}">
+<link rel="stylesheet" href="{{ asset('/css/categorias/index.css') }}">
+<link rel="stylesheet" href="{{ asset('/css/compras/compra.css') }}">
 @endpush
 
 @section('template_title')

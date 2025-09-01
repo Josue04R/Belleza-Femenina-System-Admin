@@ -5,8 +5,8 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="{{ url('/css/categorias/index.css') }}">
-<link rel="stylesheet" href="{{ url('/css/permiso/permiso.css') }}">
+<link rel="stylesheet" href="{{ asset('/css/categorias/index.css') }}">
+<link rel="stylesheet" href="{{ asset('/css/permiso/permiso.css') }}">
 @endpush
 
 @push('styles')
