@@ -58,7 +58,6 @@
                         </ul>
                     </li>
 
-                    <li class="itemMenu"><a href="#" class="linkMenu"><span class="material-symbols-rounded menuIcon">inventory</span><span class="labelMenu">Inventario</span></a></li>
                     <li class="itemMenu"><a href="{{ url('/gastos-operativos') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">receipt</span><span class="labelMenu">Gastos operativos</span></a></li>
                     <li class="itemMenu"><a href="{{ url('compras') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">shopping_cart</span><span class="labelMenu">Compras</span></a></li>
                     <li class="itemMenu"><a href="{{ route('ventas.index') }}" class="linkMenu"><span class="material-symbols-rounded menuIcon">point_of_sale</span><span class="labelMenu">Ventas</span></a></li>
